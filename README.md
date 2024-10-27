@@ -1,1 +1,1 @@
-# Idle Slayer
+# Idle Slayer Mods
