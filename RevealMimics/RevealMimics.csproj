@@ -40,6 +40,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="2.1.0" />
     <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IdleSlayerMods.Common\IdleSlayerMods.Common.csproj" />
   </ItemGroup>
 </Project>

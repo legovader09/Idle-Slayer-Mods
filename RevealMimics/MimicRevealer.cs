@@ -6,6 +6,7 @@ namespace RevealMimics;
 public class MimicRevealer : MonoBehaviour
 {
     private ChestHuntManager _chestHuntManager;
+    private bool _chestUpdateCompleted;
 
     private void Awake()
     {
@@ -14,14 +15,31 @@ public class MimicRevealer : MonoBehaviour
 
     private void Update()
     {
-        if (!_chestHuntManager.IsVisible() || _chestHuntManager.chests.Count == 0) return;
-        
-        foreach (var chest in _chestHuntManager.chests)
+        if (!GameState.IsChestHunt())
         {
-            if (chest.type == ChestType.Mimic && chest.chestObject)
+            _chestUpdateCompleted = false;
+        }
+        else if (!_chestUpdateCompleted)
+        {
+            if (!_chestHuntManager.IsVisible() || _chestHuntManager.chests.Count == 0) return;
+            Plugin.Log.LogInfo("Iterating through chests");
+            
+            foreach (var chest in _chestHuntManager.chests)
             {
-                chest.chestObject.GetComponent<Image>().color = new (255, 0, 0);
+                if (!chest.chestObject) continue;
+                if (chest.type == ChestType.Mimic)
+                {
+                    chest.chestObject.GetComponent<Image>().color = new (255, 0, 0);
+                }
+
+                if (chest.type == ChestType.Multiplier && Plugin.Settings.ShouldRevealMultipliers.Value)
+                {
+                    chest.chestObject.GetComponent<Image>().color = new Color(255, 255, 0);
+                }
             }
+
+            _chestUpdateCompleted = true;
+            Plugin.Log.LogInfo("Chests reveal complete");
         }
     }
 }

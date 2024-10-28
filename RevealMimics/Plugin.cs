@@ -8,18 +8,20 @@ using UnityEngine.Events;
 
 namespace RevealMimics;
 
-[BepInPlugin(PluginData.PLUGIN_GUID, PluginData.PLUGIN_NAME, PluginData.PLUGIN_VERSION)]
+[BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 public class Plugin : BasePlugin
 {
     internal new static ManualLogSource Log;
+    internal static Settings Settings;
 
     public override void Load()
     {
         Log = base.Log;
+        Settings = new(Config);
         ClassInjector.RegisterTypeInIl2Cpp<MimicRevealer>();
         
         SceneManager.sceneLoaded += (UnityAction<Scene, LoadSceneMode>)OnSceneLoaded;
-        Log.LogInfo($"Plugin {PluginData.PLUGIN_GUID} is loaded!");
+        Log.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
     }
 
     private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
