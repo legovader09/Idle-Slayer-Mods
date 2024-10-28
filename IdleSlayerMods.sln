@@ -5,6 +5,10 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RevealMimics", "RevealMimics\RevealMimics.csproj", "{DCCED4AF-B363-46E7-BD4A-7628C572420C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoBoost", "AutoBoost\AutoBoost.csproj", "{2F44C69A-C934-41A5-B717-1898C9FD12F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdleSlayerMods.Common", "IdleSlayerMods.Common\IdleSlayerMods.Common.csproj", "{97EABF55-F3EC-4C1B-853B-D873C0A1B7AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{DCCED4AF-B363-46E7-BD4A-7628C572420C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCCED4AF-B363-46E7-BD4A-7628C572420C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCCED4AF-B363-46E7-BD4A-7628C572420C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F44C69A-C934-41A5-B717-1898C9FD12F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F44C69A-C934-41A5-B717-1898C9FD12F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F44C69A-C934-41A5-B717-1898C9FD12F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F44C69A-C934-41A5-B717-1898C9FD12F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97EABF55-F3EC-4C1B-853B-D873C0A1B7AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97EABF55-F3EC-4C1B-853B-D873C0A1B7AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97EABF55-F3EC-4C1B-853B-D873C0A1B7AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97EABF55-F3EC-4C1B-853B-D873C0A1B7AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
