@@ -26,7 +26,7 @@ public class Plugin : BasePlugin
     {
         if (scene.name != "Game") return;
 
-        var boost = GameObject.Find("Boost Button");
+        var boost = GameObject.Find("Boost");
         if (boost) boost.AddComponent<AutoBoost>();
 
         SceneManager.sceneLoaded -= (UnityAction<Scene, LoadSceneMode>)OnSceneLoaded;
