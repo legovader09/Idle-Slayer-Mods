@@ -14,7 +14,17 @@ public abstract class BaseConfig
             key: key,
             defaultValue: defaultValue,
             configDescription: new(
-                description, typeof(T) != typeof(bool) ? new AcceptableValueRange<int>(0, 100) : null
+                description
+            )
+        );
+    
+    protected virtual ConfigEntry<int>? Bind(string section, string key, int defaultValue, string description = "", int minValue = 0, int maxValue = 100) =>
+        _cfg?.Bind(
+            section: section,
+            key: key,
+            defaultValue: defaultValue,
+            configDescription: new(
+                description, new AcceptableValueRange<int>(minValue, maxValue)
             )
         );
 }

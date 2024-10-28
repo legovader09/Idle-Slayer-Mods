@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>RevealMimics</AssemblyName>
     <Product>Mimic Revealer</Product>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <RestoreAdditionalProjectSources>
@@ -19,6 +19,10 @@
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\Libraries\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="IdleSlayerMods.Common">
+      <HintPath>..\IdleSlayerMods.Common\bin\Release\net6.0\IdleSlayerMods.Common.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Il2Cppmscorlib">
@@ -42,9 +46,5 @@
   <ItemGroup>
     <PackageReference Include="BepInEx.PluginInfoProps" Version="2.1.0" />
     <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\IdleSlayerMods.Common\IdleSlayerMods.Common.csproj" />
   </ItemGroup>
 </Project>

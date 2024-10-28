@@ -34,7 +34,7 @@ public class MimicRevealer : MonoBehaviour
 
                 if (chest.type == ChestType.Multiplier && Plugin.Settings.ShouldRevealMultipliers.Value)
                 {
-                    chest.chestObject.GetComponent<Image>().color = new Color(255, 255, 0);
+                    chest.chestObject.GetComponent<Image>().color = new (255, 255, 0);
                 }
             }
 

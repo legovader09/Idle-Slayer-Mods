@@ -14,9 +14,21 @@ public class AutoBoost : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.B)) ToggleBoost();
-        if (!_isEnabled || !_boost) return;
-        if (!_boost.Unlocked() || _boost.currentCd != 0) return;
+        if (Input.GetKeyDown(Plugin.Settings.ToggleKey.Value)) ToggleBoost();
+        if (CanActivateBoost()) ActivateBoost();
+    }
+
+    private bool CanActivateBoost() 
+    {
+        return _isEnabled
+               && _boost
+               && _boost.Unlocked()
+               && GameState.IsRunner()
+               && _boost.currentCd.Equals(0);
+    }
+
+    private void ActivateBoost() 
+    {
         Plugin.Log.LogDebug("Boost activated");
         _boost.Activate();
         _boost.currentCd = _boost.cd;

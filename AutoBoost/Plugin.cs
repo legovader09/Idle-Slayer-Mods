@@ -12,10 +12,12 @@ namespace AutoBoost;
 public class Plugin : BasePlugin
 {
     internal new static ManualLogSource Log;
+    internal static Settings Settings;
 
     public override void Load()
     {
         Log = base.Log;
+        Settings = new(Config);
         ClassInjector.RegisterTypeInIl2Cpp<AutoBoost>();
         
         SceneManager.sceneLoaded += (UnityAction<Scene, LoadSceneMode>)OnSceneLoaded;
