@@ -1,0 +1,63 @@
+# Core library for my idle slayer mods
+
+## Current features:
+
+| class ModHelper : MonoBehaviour | Instantiated Mod Helper that gets injected into the Game scene                     |
+|---------------------------------|------------------------------------------------------------------------------------|
+| event ModHelperMounted          | Event that gets fired when the class has successfully been added to the Game scene |
+| void ShowNotification()         | Display a message in the center of the screen, similar to an event message         |
+| void ShowDialog()               | Show a customisable dialog popup message                                           |
+| void ShowAchievement()          | Show a customisable achievement style popup                                        | 
+
+| class AchievementHelper             | Achievement helper class to manage achievements                           |
+|-------------------------------------|---------------------------------------------------------------------------|
+| static Achievement AddAchievement() | Instantiates a new Achievement scriptable object, and returns this object |
+
+## Planned:
+- Modded Achievement section in options
+- Global list of modded achievements that can be appended to
+- Simple UI button creation
+- Custom random box events
+
+## Usage
+
+The ModHelper class is **currently only accessible in the `Game` scene** of Idle Slayer.
+
+In order to make use of the `ModHelper` behaviour object, you can either:
+1. Make use of the `ModHelperMounted` event.
+2. Find the `BepInEx` injected `GameObject` and use `GetComponent<ModHelper>()`.
+
+### Using the ModHelperMounted event (Method 2)
+
+In your `Plugin.cs`, you'll need to add a `static ModHelper` variable. This is so that your `MonoBehaviour` classes will have access to the helper, via the `Plugin` class.
+
+You then need to create a event delegate for the event handler which will return the ModHelper instance that exists in the game.
+
+#### See example:
+```csharp
+using IdleSlayerMods.Common;
+public class Plugin : BasePlugin
+{
+    internal static ModHelper ModHelperInstance;
+    
+    public override void Load()
+    {
+        Log = base.Log;
+        ..
+        ModHelper.ModHelperMounted += SetModHelperInstance;
+    }
+    
+    private static void SetModHelperInstance(ModHelper instance) => ModHelperInstance = instance;
+}
+```
+To access within a MonoBehaviour script will then be as simple as:
+```csharp
+using UnityEngine;
+public class CustomBehaviour : MonoBehaviour
+{
+    void Awake()
+    {
+        Plugin.ModHelper.ShowNotification("Custom message!");
+    }
+}
+```

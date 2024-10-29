@@ -34,10 +34,12 @@ public class AutoBoost : MonoBehaviour
         _boost.currentCd = _boost.cd;
     }
     
-    // ReSharper disable Unity.PerformanceAnalysis
     private void ToggleBoost()
     {
         _isEnabled = !_isEnabled;
         Plugin.Log.LogInfo($"AutoBoost is: {(_isEnabled ? "ON" : "OFF")}");
+        
+        if (Plugin.Settings.ShowPopup.Value)
+            Plugin.ModHelperInstance.ShowNotification(_isEnabled ? "Auto Boost activated!" : "Auto Boost deactivated!", _isEnabled);
     }
 }

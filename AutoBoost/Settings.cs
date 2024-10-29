@@ -7,6 +7,7 @@ namespace AutoBoost;
 public class Settings : BaseConfig
 {
     internal ConfigEntry<KeyCode> ToggleKey;
+    internal ConfigEntry<bool> ShowPopup;
     
     public Settings(ConfigFile cfg) => SetBindings(cfg);
 
@@ -15,5 +16,7 @@ public class Settings : BaseConfig
         base.SetBindings(cfg);
         ToggleKey = Bind("General", "ToggleKey", KeyCode.B,
             "The key bind for toggling auto boosting");
+        ShowPopup = Bind("General", "ShowPopup", true,
+            "Show a message popup to indicate whether auto boost has been toggled.");
     }
 }

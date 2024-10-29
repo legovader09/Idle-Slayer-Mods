@@ -9,6 +9,7 @@ using UnityEngine.Events;
 namespace RevealMimics;
 
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
+[BepInDependency("IdleSlayerMods.Common")]
 public class Plugin : BasePlugin
 {
     internal new static ManualLogSource Log;
