@@ -72,7 +72,7 @@ public class CustomBehaviour : MonoBehaviour
 {
     void Awake()
     {
-        Plugin.ModHelper.ShowNotification("Custom message!");
+        Plugin.ModHelperInstance.ShowNotification("Custom message!");
     }
 }
 ```
