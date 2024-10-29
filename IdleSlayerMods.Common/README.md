@@ -1,6 +1,12 @@
 # Core library for my idle slayer mods
 
+## Getting started
+
+In order to get started, simply download the mod from [Nexus](https://www.nexusmods.com/idleslayer/mods/3) or clone and compile it here, then include it as an assembly reference in your plugin project.
+
 ## Current features:
+
+### Mod Helper
 
 | class ModHelper : MonoBehaviour | Instantiated Mod Helper that gets injected into the Game scene                     |
 |---------------------------------|------------------------------------------------------------------------------------|
@@ -9,9 +15,18 @@
 | void ShowDialog()               | Show a customisable dialog popup message                                           |
 | void ShowAchievement()          | Show a customisable achievement style popup                                        | 
 
+### Achievement Helper
+
 | class AchievementHelper             | Achievement helper class to manage achievements                           |
 |-------------------------------------|---------------------------------------------------------------------------|
 | static Achievement AddAchievement() | Instantiates a new Achievement scriptable object, and returns this object |
+
+### BaseConfig:
+
+| abstract class BaseConfig   | Base configuration class which can be inherited from       |
+|-----------------------------|------------------------------------------------------------|
+| abstract void SetBindings   | Takes in a ConfigFile and assigns it to the class instance |
+| virtual ConfigEntry<T> Bind | Creates and assigns a new setting of type T                |
 
 ## Planned:
 - Modded Achievement section in options
@@ -61,3 +76,9 @@ public class CustomBehaviour : MonoBehaviour
     }
 }
 ```
+
+### Using BaseConfig
+
+Using the base config simplifies mod settings creation.
+
+See [Using BaseConfig](./Config/README.md)

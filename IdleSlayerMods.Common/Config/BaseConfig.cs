@@ -4,12 +4,18 @@ namespace IdleSlayerMods.Common.Config;
 
 public abstract class BaseConfig
 {
-    private ConfigFile? _cfg;
+    private readonly ConfigFile _cfg;
 
-    protected virtual void SetBindings(ConfigFile? cfg) => _cfg = cfg;
+    protected BaseConfig(ConfigFile cfg)
+    {
+        _cfg = cfg;
+        SetBindings();
+    }
+    
+    protected abstract void SetBindings();
 
     protected virtual ConfigEntry<T>? Bind<T>(string section, string key, T defaultValue, string description = "") =>
-        _cfg?.Bind(
+        _cfg.Bind(
             section: section,
             key: key,
             defaultValue: defaultValue,
@@ -19,7 +25,7 @@ public abstract class BaseConfig
         );
     
     protected virtual ConfigEntry<int>? Bind(string section, string key, int defaultValue, string description = "", int minValue = 0, int maxValue = 100) =>
-        _cfg?.Bind(
+        _cfg.Bind(
             section: section,
             key: key,
             defaultValue: defaultValue,

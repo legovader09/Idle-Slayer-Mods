@@ -3,15 +3,12 @@ using IdleSlayerMods.Common.Config;
 
 namespace RevealMimics;
 
-public class Settings : BaseConfig
+public sealed class Settings(ConfigFile cfg) : BaseConfig(cfg)
 {
     internal ConfigEntry<bool> ShouldRevealMultipliers;
-    
-    public Settings(ConfigFile cfg) => SetBindings(cfg);
 
-    protected sealed override void SetBindings(ConfigFile cfg)
+    protected override void SetBindings()
     {
-        base.SetBindings(cfg);
         ShouldRevealMultipliers = Bind("General", "ShouldRevealMultipliers", false,
             "Should reveal multipliers in chest hunt");
     }
