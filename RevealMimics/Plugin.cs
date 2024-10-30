@@ -4,12 +4,14 @@ using BepInEx;
 using BepInEx.Logging;
 using BepInEx.Unity.IL2CPP;
 using Il2CppInterop.Runtime.Injection;
+using JetBrains.Annotations;
 using UnityEngine.Events;
 
 namespace RevealMimics;
 
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 [BepInDependency("IdleSlayerMods.Common")]
+// ReSharper disable once ClassNeverInstantiated.Global
 public class Plugin : BasePlugin
 {
     internal new static ManualLogSource Log;
