@@ -33,6 +33,7 @@ In order to get started, simply download the mod from [Nexus](https://www.nexusm
 - Global list of modded achievements that can be appended to
 - Simple UI button creation
 - Custom random box events
+- Custom plugin wrapper to make class injection and scene based component adding simpler
 
 ## Usage
 
@@ -72,7 +73,7 @@ public class CustomBehaviour : MonoBehaviour
 {
     void Awake()
     {
-        Plugin.ModHelper.ShowNotification("Custom message!");
+        Plugin.ModHelperInstance.ShowNotification("Custom message!");
     }
 }
 ```
