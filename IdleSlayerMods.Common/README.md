@@ -2,7 +2,7 @@
 
 ## Getting started
 
-In order to get started, simply download the mod from [Nexus](https://www.nexusmods.com/idleslayer/mods/3) or clone and compile it here, then include it as an assembly reference in your plugin project.
+In order to get started, simply download the mod from [Nexus](https://www.nexusmods.com/idleslayer/mods/3) or from [Nuget](https://www.nuget.org/packages/IdleSlayerMods.Common), then include it as a reference in your plugin project.
 
 ## Current features:
 
@@ -13,7 +13,8 @@ In order to get started, simply download the mod from [Nexus](https://www.nexusm
 | event ModHelperMounted          | Event that gets fired when the class has successfully been added to the Game scene |
 | void ShowNotification()         | Display a message in the center of the screen, similar to an event message         |
 | void ShowDialog()               | Show a customisable dialog popup message                                           |
-| void ShowAchievement()          | Show a customisable achievement style popup                                        | 
+| void ShowAchievement()          | Show a customisable achievement style popup                                        |
+| void AddPanelButton()           | Adds a button to the info panel. The same place as Achievements, Options, etc.     |
 
 ### Achievement Helper
 

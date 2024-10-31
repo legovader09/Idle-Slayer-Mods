@@ -7,8 +7,14 @@
         <Nullable>enable</Nullable>
         <AssemblyName>IdleSlayerMods.Common</AssemblyName>
         <Product>Idle Slayer Mods Core</Product>
-        <Version>1.0.2</Version>
+        <Version>1.1.0</Version>
         <Company>Doomnik</Company>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>Idle Slayer Mods Core</Title>
+        <Description>Core library for some useful </Description>
+        <Copyright>Doomnik</Copyright>
+        <PackageProjectUrl>https://github.com/legovader09/Idle-Slayer-Mods/tree/master/IdleSlayerMods.Common</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/legovader09/Idle-Slayer-Mods/tree/master/IdleSlayerMods.Common</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>

@@ -3,7 +3,7 @@
 In order to utilise `BaseConfig`, we must first create a class that inherits from `BaseConfig`.
 
 Note that `BaseConfig` requires a `ConfigFile` to be passed down into it, so we will do exactly that directly from the constructor:
-`public sealed class Settings(ConfigFile cfg) : BaseConfig(cfg)`
+`public sealed class Settings(ConfigFile cfg) : BaseConfig(cfg)`.
 
 Since `SetBindings()` is **abstract**, it means we must now implement it ourselves **in the derived class**. This is where you will create the settings for your mod. See the example below:
 
