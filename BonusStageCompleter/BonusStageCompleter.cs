@@ -30,9 +30,9 @@ public class BonusStageCompleter : MonoBehaviour
         // only do logic in bonus stages
         if (!_isInBonusGame || !_bonusController.showCurrentTime) return;
         
-        // determine whether the collected spheres variable has already been set so we don't overwrite it.
+        // determine whether the collected spheres variable has already been set, so we don't overwrite it.
         var pickedUp = _bonusController.bonusSpheresPickedUp;
-        var total = (int)_bonusController.currentSection.requiredSpheres;
+        var total = (int)_bonusController.currentSection.GetRequiredSpheres();
         
         if (pickedUp == total - 1 || pickedUp == total) return;
         _bonusController.bonusSpheresPickedUp = total - 1;
