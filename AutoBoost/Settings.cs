@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace AutoBoost;
 
-public sealed class Settings(ConfigFile cfg) : BaseConfig(cfg)
+internal sealed class Settings(ConfigFile cfg) : BaseConfig(cfg)
 {
     internal ConfigEntry<KeyCode> ToggleKey;
     internal ConfigEntry<bool> ShowPopup;

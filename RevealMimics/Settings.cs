@@ -3,7 +3,7 @@ using IdleSlayerMods.Common.Config;
 
 namespace RevealMimics;
 
-public sealed class Settings(ConfigFile cfg) : BaseConfig(cfg)
+internal sealed class Settings(ConfigFile cfg) : BaseConfig(cfg)
 {
     internal ConfigEntry<bool> ShouldRevealMultipliers;
 
