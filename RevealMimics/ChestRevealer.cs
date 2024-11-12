@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace RevealMimics;
 
-public class MimicRevealer : MonoBehaviour
+public class ChestRevealer : MonoBehaviour
 {
     private ChestHuntManager _chestHuntManager;
     private bool _chestUpdateCompleted;
@@ -15,6 +15,13 @@ public class MimicRevealer : MonoBehaviour
 
     private void Update()
     {
+#if DEBUG
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            _chestHuntManager.StartEvent();
+        }
+#endif
+        
         if (!GameState.IsChestHunt())
         {
             _chestUpdateCompleted = false;
@@ -26,16 +33,16 @@ public class MimicRevealer : MonoBehaviour
             
             foreach (var chest in _chestHuntManager.chests)
             {
-                if (!chest.chestObject) continue;
-                if (chest.type == ChestType.Mimic)
+                var @object = chest.chestObject;
+                if (!@object) continue;
+                
+                @object.GetComponent<Image>().color = chest.type switch
                 {
-                    chest.chestObject.GetComponent<Image>().color = new (255, 0, 0);
-                }
-
-                if (chest.type == ChestType.Multiplier && Plugin.Settings.ShouldRevealMultipliers.Value)
-                {
-                    chest.chestObject.GetComponent<Image>().color = new (255, 255, 0);
-                }
+                    ChestType.Mimic => new(255, 0, 0),
+                    ChestType.Multiplier when Plugin.Settings.ShouldRevealMultipliers.Value => new(255, 255, 0),
+                    ChestType.DuplicateNextPick when Plugin.Settings.ShouldRevealDuplicator.Value => new(0, 255, 0),
+                    _ => @object.GetComponent<Image>().color
+                };
             }
 
             _chestUpdateCompleted = true;

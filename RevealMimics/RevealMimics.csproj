@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>RevealMimics</AssemblyName>
-    <Product>Mimic Revealer</Product>
-    <Version>1.0.3</Version>
+    <Product>Chest Hunt Revealer</Product>
+    <Version>1.1.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <RestoreAdditionalProjectSources>

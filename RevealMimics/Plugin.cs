@@ -4,7 +4,6 @@ using BepInEx;
 using BepInEx.Logging;
 using BepInEx.Unity.IL2CPP;
 using Il2CppInterop.Runtime.Injection;
-using JetBrains.Annotations;
 using UnityEngine.Events;
 
 namespace RevealMimics;
@@ -21,7 +20,7 @@ public class Plugin : BasePlugin
     {
         Log = base.Log;
         Settings = new(Config);
-        ClassInjector.RegisterTypeInIl2Cpp<MimicRevealer>();
+        ClassInjector.RegisterTypeInIl2Cpp<ChestRevealer>();
         
         SceneManager.sceneLoaded += (UnityAction<Scene, LoadSceneMode>)OnSceneLoaded;
         Log.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
@@ -31,7 +30,7 @@ public class Plugin : BasePlugin
     {
         if (scene.name != "Game") return;
         var chestHunt = GameObject.Find("Chest Hunt");
-        if (chestHunt) chestHunt.AddComponent<MimicRevealer>();
+        if (chestHunt) chestHunt.AddComponent<ChestRevealer>();
         SceneManager.sceneLoaded -= (UnityAction<Scene, LoadSceneMode>)OnSceneLoaded;
     }
 }
