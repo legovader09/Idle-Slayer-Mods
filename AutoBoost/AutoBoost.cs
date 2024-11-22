@@ -5,41 +5,50 @@ namespace AutoBoost;
 public class AutoBoost : MonoBehaviour
 {
     private Boost _boost;
-    private bool _isEnabled;
+    private WindDash _windDash;
+    private bool _autoBoostEnabled;
+    private bool _windDashEnabled;
     
     private void Awake()
     {
-        _boost = GetComponentInChildren<Boost>();
+        var boost = GameObject.Find("Abilities Manager/Boost");
+        var windDash = GameObject.Find("Abilities Manager/Wind Dash");
+        _boost = boost.GetComponentInChildren<Boost>();
+        _windDash = windDash.GetComponentInChildren<WindDash>();
     }
 
     private void LateUpdate()
     {
-        if (Input.GetKeyDown(Plugin.Settings.ToggleKey.Value)) ToggleBoost();
-        if (CanActivateBoost()) ActivateBoost();
+        if (Input.GetKeyDown(Plugin.Settings.ToggleKey.Value))
+            ToggleBoost("Auto Boost", ref _autoBoostEnabled, Plugin.Settings.ShowPopup.Value);
+        if (Plugin.Settings.EnableWindDash.Value && Input.GetKeyDown(Plugin.Settings.ToggleKeyWindDash.Value))
+            ToggleBoost("Auto Wind Dash", ref _windDashEnabled, Plugin.Settings.ShowPopupWindDash.Value);
+        if (CanActivateAbility(_boost, _autoBoostEnabled)) ActivateAbility(_boost, "Auto Boost");
+        if (CanActivateAbility(_windDash, _windDashEnabled)) ActivateAbility(_windDash, "Auto Wind Dash");
     }
 
-    private bool CanActivateBoost() 
+    private static bool CanActivateAbility(Ability ability, bool state) 
     {
-        return _isEnabled
-               && _boost
-               && _boost.Unlocked()
-               && GameState.IsRunner()
-               && _boost.currentCd.Equals(0);
+        return state
+           && ability
+           && ability.Unlocked()
+           && ability.currentCd.Equals(0)
+           && GameState.IsRunner();
     }
 
-    private void ActivateBoost() 
+    private static void ActivateAbility(Ability ability, string type) 
     {
-        Plugin.Log.LogDebug("Boost activated");
-        _boost.Activate();
-        _boost.currentCd = _boost.cd;
+        Plugin.Log.LogDebug($"{type} activated");
+        ability.Activate();
+        ability.currentCd = ability.cd;
     }
     
-    private void ToggleBoost()
+    private static void ToggleBoost(string type, ref bool state, bool showPopup)
     {
-        _isEnabled = !_isEnabled;
-        Plugin.Log.LogInfo($"AutoBoost is: {(_isEnabled ? "ON" : "OFF")}");
+        state = !state;
+        Plugin.Log.LogInfo($"{type} is: {(state ? "ON" : "OFF")}");
         
-        if (Plugin.Settings.ShowPopup.Value)
-            Plugin.ModHelperInstance.ShowNotification(_isEnabled ? "Auto Boost activated!" : "Auto Boost deactivated!", _isEnabled);
+        if (showPopup)
+            Plugin.ModHelperInstance.ShowNotification(state ? $"{type} activated!" : $"{type} deactivated!", state);
     }
 }

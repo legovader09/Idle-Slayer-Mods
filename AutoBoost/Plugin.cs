@@ -31,13 +31,10 @@ public class Plugin : BasePlugin
 
     private static void SetModHelperInstance(ModHelper instance) => ModHelperInstance = instance;
 
-    private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name != "Game") return;
-
-        var boost = GameObject.Find("Boost");
-        if (boost) boost.AddComponent<AutoBoost>();
-
+        AddComponent<AutoBoost>();
         SceneManager.sceneLoaded -= (UnityAction<Scene, LoadSceneMode>)OnSceneLoaded;
     }
 }
