@@ -7,6 +7,7 @@ internal sealed class Settings(ConfigFile cfg) : BaseConfig(cfg)
 {
     internal ConfigEntry<bool> ShouldRevealMultipliers;
     internal ConfigEntry<bool> ShouldRevealDuplicator;
+    internal ConfigEntry<bool> ShouldRevealArmoryChest;
 
     protected override void SetBindings()
     {
@@ -14,5 +15,7 @@ internal sealed class Settings(ConfigFile cfg) : BaseConfig(cfg)
             "Should reveal multipliers in chest hunt");
         ShouldRevealDuplicator = Bind("General", "ShouldRevealDuplicator", false,
             "Should reveal duplicator item in chest hunt");
+        ShouldRevealArmoryChest = Bind("General", "ShouldRevealArmoryChest", false,
+            "Should reveal armory chest in chest hunt");
     }
 }

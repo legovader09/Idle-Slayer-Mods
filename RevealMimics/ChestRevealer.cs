@@ -15,8 +15,8 @@ public class ChestRevealer : MonoBehaviour
 
     private void Update()
     {
-#if DEBUG
-        if (Input.GetKeyDown(KeyCode.P))
+#if RELEASE
+        if (Input.GetKeyDown(KeyCode.O))
         {
             _chestHuntManager.StartEvent();
         }
@@ -41,6 +41,7 @@ public class ChestRevealer : MonoBehaviour
                     ChestType.Mimic => new(255, 0, 0),
                     ChestType.Multiplier when Plugin.Settings.ShouldRevealMultipliers.Value => new(255, 255, 0),
                     ChestType.DuplicateNextPick when Plugin.Settings.ShouldRevealDuplicator.Value => new(0, 255, 0),
+                    ChestType.ArmoryChest when Plugin.Settings.ShouldRevealArmoryChest.Value => new(0, 136, 255),
                     _ => @object.GetComponent<Image>().color
                 };
             }
