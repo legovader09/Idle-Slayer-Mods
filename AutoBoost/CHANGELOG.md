@@ -4,7 +4,7 @@
 - Auto wind dash is disabled by default and can be toggled in the config file
 - Auto wind dash is toggled by pressing "N" on the keyboard.
 
-### Version 1.0.3
+### Version 1.0.2
 
 - Updated for new config format in core library
 
