@@ -44,7 +44,7 @@ In order to make use of the `ModHelper` behaviour object, you can either:
 1. Make use of the `ModHelperMounted` event.
 2. Find the `BepInEx` injected `GameObject` and use `GetComponent<ModHelper>()`.
 
-### Using the ModHelperMounted event (Method 2)
+### Using the ModHelperMounted event (Method 1)
 
 In your `Plugin.cs`, you'll need to add a `static ModHelper` variable. This is so that your `MonoBehaviour` classes will have access to the helper, via the `Plugin` class.
 
