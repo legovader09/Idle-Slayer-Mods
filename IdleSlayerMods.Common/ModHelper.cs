@@ -1,6 +1,8 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using File = Il2CppSystem.IO.File;
+using Path = Il2CppSystem.IO.Path;
 
 namespace IdleSlayerMods.Common;
 
@@ -38,8 +40,8 @@ public sealed class ModHelper : MonoBehaviour
     /// </summary>
     /// <param name="text">Text to display on the button, internally also sets the object name.</param>
     /// <param name="clickAction">Action delegate that occurs on button click.</param>
-    /// <param name="icon">Icon to display on the button.</param>
-    public void AddPanelButton(string text, Action? clickAction = null, Sprite? icon = null)
+    /// <param name="icon">Texture2D icon to display on the button. (Aspect Ratio of 2:1 canvas size recommended to avoid stretching)</param>
+    public void AddPanelButton(string text, Action? clickAction = null, Texture2D? icon = null)
     {
         Plugin.Log.LogInfo($"Registering panel button: {text}");
         var button = Instantiate(_templateButton, _infoPanelButtonsContainer?.transform);
@@ -50,9 +52,26 @@ public sealed class ModHelper : MonoBehaviour
         }
         
         button.name = text;
-        button.transform.GetChild(0).GetComponent<Image>().sprite = icon;
-        button.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = text;
+
+        // Prevents StartingText from overwriting TMP text
+        var startingText = button.transform.GetChild(1).GetComponent<StartingText>();
+        if (startingText) DestroyImmediate(startingText);
+
+        // Get rid of duplicated component's image and add rawimage to allow custom texture loading
+        var buttonImage = button.transform.GetChild(0).gameObject;
+        DestroyImmediate(buttonImage.GetComponent<Image>());
+        var rawImage = buttonImage.AddComponent<RawImage>();
+        
+        // Update TMP text
+        var tmp = button.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>();
+        tmp.text = text;
+        tmp.m_text = text; 
+        
+        // Add event listener
         button.GetComponent<Button>().onClick.AddListener(clickAction);
+        icon ??= Texture2D.redTexture;
+        rawImage.texture = icon;
+        
         Plugin.Log.LogInfo($"Button {text} added successfully");
     }
 
@@ -68,11 +87,21 @@ public sealed class ModHelper : MonoBehaviour
     /// <param name="confirmAction">Action to execute on confirm button press.</param>
     /// <param name="cancelText">Cancel button text.</param>
     /// <param name="cancelAction">Action to execute on confirm button press. Closes dialog by default.</param>
-    /// <param name="image">The sprite image to show near the title. If left empty, this image won't render.</param>
+    /// <param name="content">The GameObject to display in the popup</param>
     /// <param name="overridePopup">If true, any existing popup will be overridden by this popup. If false, this will display on top of any existing popups.</param>
-    public void ShowDialog(string title = "Dialog", string subtitle = "", string descriptionText = "", Color descriptionColor = default, bool centerDescription = false, string confirmText = "", Action? confirmAction = null, string cancelText = "Close", Action? cancelAction = null, Sprite? image = null,bool overridePopup = false)
+    public void ShowDialog(string title = "Dialog", string subtitle = "", string descriptionText = "", Color descriptionColor = default, bool centerDescription = false, string confirmText = "", Action? confirmAction = null, string cancelText = "Close", Action? cancelAction = null, GameObject content = null, bool overridePopup = false)
     {
-        _popup?.Show(new()
+        if (_popup == null) return;
+        Plugin.Log.LogInfo("Popup found");
+        var panel = _popup.transform.GetChild(0).GetChild(0);
+        if (!panel) return;
+        Plugin.Log.LogInfo("Panel found");
+        panel.transform.GetChild(1).gameObject.SetActive(false);
+        
+        var container = panel.transform.GetChild(3).GetChild(0).GetChild(0);
+        content.transform.SetParent(container);
+        
+        _popup.Show(new()
         {
             title = title,
             subtitle = subtitle,
@@ -84,7 +113,6 @@ public sealed class ModHelper : MonoBehaviour
             cancelActionText = cancelText,
             cancelAction = cancelAction,
             centeredDescription = centerDescription,
-            sprite = image
         });
     }
 
@@ -106,5 +134,77 @@ public sealed class ModHelper : MonoBehaviour
     {
         Plugin.Log.LogDebug($"Attempting to show notification with message: {message}");
         _notificationText?.Show(message, shine);
+    }
+    
+    [Obsolete("IL2CPP seems to have an issue with loading asset bundles. ")]
+    public static AssetBundle? LoadBundle(string bundlePath)
+    {
+        try
+        {
+            var fullPath = Path.Combine(bundlePath);
+            var bundle = AssetBundle.LoadFromFile(fullPath);
+            if (bundle != null) return bundle;
+            Plugin.Log.LogError($"Failed to load asset bundle from {fullPath}");
+            return null;
+        }
+        catch (Exception e)
+        {
+            Plugin.Log.LogError($"Error loading asset bundle: {e.Message}");
+            return null;
+        }
+    }
+    
+    /// <summary>
+    /// Load texture image from file path.
+    /// </summary>
+    /// <param name="filePath">The path pointing to the image file.</param>
+    /// <returns>Texture2D object or null on failure.</returns>
+    public static Texture2D? LoadTextureFromFile(string filePath)
+    {
+        if (!File.Exists(filePath)) return null;
+
+        try
+        {
+            byte[] fileData = File.ReadAllBytes(filePath);
+            var texture = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+            
+            if (ImageConversion.LoadImage(texture, fileData))
+            {
+                texture.Apply(true, false);
+                return texture;
+            }
+            
+            Plugin.Log.LogError($"Failed to load texture from file: {filePath}");
+            Destroy(texture);
+            return null;
+        }
+        catch (Exception e)
+        {
+            Plugin.Log.LogError($"Error loading texture from file: {e.Message}");
+            return null;
+        }
+    }
+
+    [Obsolete("IL2CPP seems to have an issue with loading asset bundles. Use LoadTextureFromFile instead.")]
+    public static Texture2D? LoadTextureFromBundle(AssetBundle bundle, string textureName)
+    {
+        if (bundle == null)
+        {
+            Plugin.Log.LogError("Bundle is null");
+            return null;
+        }
+
+        try
+        {
+            var texture = bundle.LoadAsset(textureName).Cast<Texture2D>();
+            if (texture != null) return texture;
+            Plugin.Log.LogError($"Failed to load texture '{textureName}' from bundle");
+            return null;
+        }
+        catch (Exception e)
+        {
+            Plugin.Log.LogError($"Error loading texture from bundle: {e.Message}");
+            return null;
+        }
     }
 }
