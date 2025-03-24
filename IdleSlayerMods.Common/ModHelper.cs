@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Il2Cpp;
+using Il2CppTMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using File = Il2CppSystem.IO.File;

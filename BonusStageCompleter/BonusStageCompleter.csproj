@@ -16,11 +16,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.*" IncludeAssets="compile"/>
-        <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*"/>
-    </ItemGroup>
-
-    <ItemGroup>
       <None Include="BonusStageCompleter.csproj.user" />
     </ItemGroup>
 
@@ -37,5 +32,9 @@
       <Reference Include="UnityEngine.InputLegacyModule">
         <HintPath>..\Libraries\UnityEngine.InputLegacyModule.dll</HintPath>
       </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
     </ItemGroup>
 </Project>

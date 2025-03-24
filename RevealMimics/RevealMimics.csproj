@@ -48,7 +48,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BepInEx.PluginInfoProps" Version="2.1.0" />
-    <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.725" />
+    <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
   </ItemGroup>
 </Project>
