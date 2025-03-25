@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Il2Cpp;
+using MelonLoader;
+using UnityEngine;
 
 namespace AutoBoost;
 
@@ -38,7 +40,7 @@ public class AutoBoost : MonoBehaviour
 
     private static void ActivateAbility(Ability ability, string type) 
     {
-        Plugin.Log.LogDebug($"{type} activated");
+        Melon<Plugin>.Logger.Msg($"{type} activated");
         ability.Activate();
         ability.currentCd = ability.cd;
     }
@@ -46,7 +48,7 @@ public class AutoBoost : MonoBehaviour
     private static void ToggleBoost(string type, ref bool state, bool showPopup)
     {
         state = !state;
-        Plugin.Log.LogInfo($"{type} is: {(state ? "ON" : "OFF")}");
+        Melon<Plugin>.Logger.Msg($"{type} is: {(state ? "ON" : "OFF")}");
         
         if (showPopup)
             Plugin.ModHelperInstance.ShowNotification(state ? $"{type} activated!" : $"{type} deactivated!", state);

@@ -1,6 +1,10 @@
-﻿using TMPro;
+﻿using Il2Cpp;
+using Il2CppInterop.Runtime.InteropTypes.Arrays;
+using Il2CppTMPro;
+using MelonLoader;
 using UnityEngine;
 using UnityEngine.UI;
+using Button = UnityEngine.UIElements.Button;
 using File = Il2CppSystem.IO.File;
 using Path = Il2CppSystem.IO.Path;
 
@@ -11,17 +15,17 @@ public sealed class ModHelper : MonoBehaviour
     /// <summary>
     /// Event that occurs once the ModHelper has been added to the game scene and is ready to use.
     /// </summary>
-    public static event Action<ModHelper>? ModHelperMounted;
-    private AchievementManager? _achievementManager;
-    private NotificationText? _notificationText;
-    private Popup? _popup;
-    private Transform? _infoPanelButtonsContainer;
-    private GameObject? _templateButton;
+    public static event Action<ModHelper> ModHelperMounted;
+    private AchievementManager _achievementManager;
+    private NotificationText _notificationText;
+    private Popup _popup;
+    private Transform _infoPanelButtonsContainer;
+    private GameObject _templateButton;
     
     private void OnModHelperMounted()
     {
         ModHelperMounted?.Invoke(this);
-        Plugin.Log.LogInfo("ModHelper mounted successfully");
+        Melon<Plugin>.Logger.Msg("ModHelper mounted successfully");
     }
 
     private void Awake()
@@ -31,7 +35,7 @@ public sealed class ModHelper : MonoBehaviour
         _popup = GameObject.Find(PathConstants.PopupPath).GetComponent<Popup>();
         _achievementManager = GameObject.Find(PathConstants.AchievementManagerPath).GetComponent<AchievementManager>();
         _infoPanelButtonsContainer = GameObject.Find(PathConstants.ButtonPanelPath).transform;
-        _templateButton = ButtonHelper.CreateTemplateButton($"{PathConstants.ButtonPanelPath}/Options");
+        // _templateButton = ButtonHelper.CreateTemplateButton($"{PathConstants.ButtonPanelPath}/Options");
     }
 
     /// <summary>
@@ -41,13 +45,13 @@ public sealed class ModHelper : MonoBehaviour
     /// <param name="text">Text to display on the button, internally also sets the object name.</param>
     /// <param name="clickAction">Action delegate that occurs on button click.</param>
     /// <param name="icon">Texture2D icon to display on the button. (Aspect Ratio of 2:1 canvas size recommended to avoid stretching)</param>
-    public void AddPanelButton(string text, Action? clickAction = null, Texture2D? icon = null)
+    public void AddPanelButton(string text, Action clickAction = null, Texture2D icon = null)
     {
-        Plugin.Log.LogInfo($"Registering panel button: {text}");
+        Melon<Plugin>.Logger.Msg($"Registering panel button: {text}");
         var button = Instantiate(_templateButton, _infoPanelButtonsContainer?.transform);
         if (button is null)
         {
-            Plugin.Log.LogWarning("Unable to instantiate template panel button");
+            Melon<Plugin>.Logger.Warning("Unable to instantiate template panel button");
             return;
         }
         
@@ -68,11 +72,11 @@ public sealed class ModHelper : MonoBehaviour
         tmp.m_text = text; 
         
         // Add event listener
-        button.GetComponent<Button>().onClick.AddListener(clickAction);
+        button.GetComponent<Button>().add_onClick(clickAction);
         icon ??= Texture2D.redTexture;
         rawImage.texture = icon;
         
-        Plugin.Log.LogInfo($"Button {text} added successfully");
+        Melon<Plugin>.Logger.Msg($"Button {text} added successfully");
     }
 
     /// <summary>
@@ -89,17 +93,17 @@ public sealed class ModHelper : MonoBehaviour
     /// <param name="cancelAction">Action to execute on confirm button press. Closes dialog by default.</param>
     /// <param name="content">The GameObject to display in the popup</param>
     /// <param name="overridePopup">If true, any existing popup will be overridden by this popup. If false, this will display on top of any existing popups.</param>
-    public void ShowDialog(string title = "Dialog", string subtitle = "", string descriptionText = "", Color descriptionColor = default, bool centerDescription = false, string confirmText = "", Action? confirmAction = null, string cancelText = "Close", Action? cancelAction = null, GameObject content = null, bool overridePopup = false)
+    public void ShowDialog(string title = "Dialog", string subtitle = "", string descriptionText = "", Color descriptionColor = default, bool centerDescription = false, string confirmText = "", Action confirmAction = null, string cancelText = "Close", Action cancelAction = null, GameObject content = null, bool overridePopup = false)
     {
         if (_popup == null) return;
-        Plugin.Log.LogInfo("Popup found");
+        Melon<Plugin>.Logger.Msg("Popup found");
         var panel = _popup.transform.GetChild(0).GetChild(0);
         if (!panel) return;
-        Plugin.Log.LogInfo("Panel found");
+        Melon<Plugin>.Logger.Msg("Panel found");
         panel.transform.GetChild(1).gameObject.SetActive(false);
         
         var container = panel.transform.GetChild(3).GetChild(0).GetChild(0);
-        content.transform.SetParent(container);
+        content?.transform.SetParent(container);
         
         _popup.Show(new()
         {
@@ -132,24 +136,24 @@ public sealed class ModHelper : MonoBehaviour
     /// <param name="shine">Whether to play a sparkle/shine animation with this text.</param>
     public void ShowNotification(string message, bool shine)
     {
-        Plugin.Log.LogDebug($"Attempting to show notification with message: {message}");
+        Melon<Plugin>.Logger.Msg($"Attempting to show notification with message: {message}");
         _notificationText?.Show(message, shine);
     }
     
     [Obsolete("IL2CPP seems to have an issue with loading asset bundles. ")]
-    public static AssetBundle? LoadBundle(string bundlePath)
+    public static AssetBundle LoadBundle(string bundlePath)
     {
         try
         {
             var fullPath = Path.Combine(bundlePath);
             var bundle = AssetBundle.LoadFromFile(fullPath);
             if (bundle != null) return bundle;
-            Plugin.Log.LogError($"Failed to load asset bundle from {fullPath}");
+            Melon<Plugin>.Logger.Error($"Failed to load asset bundle from {fullPath}");
             return null;
         }
         catch (Exception e)
         {
-            Plugin.Log.LogError($"Error loading asset bundle: {e.Message}");
+            Melon<Plugin>.Logger.Error($"Error loading asset bundle: {e.Message}");
             return null;
         }
     }
@@ -159,7 +163,7 @@ public sealed class ModHelper : MonoBehaviour
     /// </summary>
     /// <param name="filePath">The path pointing to the image file.</param>
     /// <returns>Texture2D object or null on failure.</returns>
-    public static Texture2D? LoadTextureFromFile(string filePath)
+    public static Texture2D LoadTextureFromFile(string filePath)
     {
         if (!File.Exists(filePath)) return null;
 
@@ -167,30 +171,31 @@ public sealed class ModHelper : MonoBehaviour
         {
             byte[] fileData = File.ReadAllBytes(filePath);
             var texture = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+            var il2CPPData = new Il2CppStructArray<byte>(fileData);
             
-            if (ImageConversion.LoadImage(texture, fileData))
+            if (ImageConversion.LoadImage(texture, il2CPPData))
             {
                 texture.Apply(true, false);
                 return texture;
             }
             
-            Plugin.Log.LogError($"Failed to load texture from file: {filePath}");
+            Melon<Plugin>.Logger.Error($"Failed to load texture from file: {filePath}");
             Destroy(texture);
             return null;
         }
         catch (Exception e)
         {
-            Plugin.Log.LogError($"Error loading texture from file: {e.Message}");
+            Melon<Plugin>.Logger.Error($"Error loading texture from file: {e.Message}");
             return null;
         }
     }
 
     [Obsolete("IL2CPP seems to have an issue with loading asset bundles. Use LoadTextureFromFile instead.")]
-    public static Texture2D? LoadTextureFromBundle(AssetBundle bundle, string textureName)
+    public static Texture2D LoadTextureFromBundle(AssetBundle bundle, string textureName)
     {
         if (bundle == null)
         {
-            Plugin.Log.LogError("Bundle is null");
+            Melon<Plugin>.Logger.Error("Bundle is null");
             return null;
         }
 
@@ -198,12 +203,12 @@ public sealed class ModHelper : MonoBehaviour
         {
             var texture = bundle.LoadAsset(textureName).Cast<Texture2D>();
             if (texture != null) return texture;
-            Plugin.Log.LogError($"Failed to load texture '{textureName}' from bundle");
+            Melon<Plugin>.Logger.Error($"Failed to load texture '{textureName}' from bundle");
             return null;
         }
         catch (Exception e)
         {
-            Plugin.Log.LogError($"Error loading texture from bundle: {e.Message}");
+            Melon<Plugin>.Logger.Error($"Error loading texture from bundle: {e.Message}");
             return null;
         }
     }

@@ -1,21 +1,21 @@
-﻿using BepInEx.Configuration;
-using IdleSlayerMods.Common.Config;
+﻿using IdleSlayerMods.Common.Config;
+using MelonLoader;
 
 namespace RevealMimics;
 
-internal sealed class Settings(ConfigFile cfg) : BaseConfig(cfg)
+internal sealed class Settings(string configName) : BaseConfig(configName)
 {
-    internal ConfigEntry<bool> ShouldRevealMultipliers;
-    internal ConfigEntry<bool> ShouldRevealDuplicator;
-    internal ConfigEntry<bool> ShouldRevealArmoryChest;
+    internal MelonPreferences_Entry<bool> ShouldRevealMultipliers;
+    internal MelonPreferences_Entry<bool> ShouldRevealDuplicator;
+    internal MelonPreferences_Entry<bool> ShouldRevealArmoryChest;
 
     protected override void SetBindings()
     {
-        ShouldRevealMultipliers = Bind("General", "ShouldRevealMultipliers", false,
+        ShouldRevealMultipliers = Bind("ShouldRevealMultipliers", false,
             "Should reveal multipliers in chest hunt");
-        ShouldRevealDuplicator = Bind("General", "ShouldRevealDuplicator", false,
+        ShouldRevealDuplicator = Bind("ShouldRevealDuplicator", false,
             "Should reveal duplicator item in chest hunt");
-        ShouldRevealArmoryChest = Bind("General", "ShouldRevealArmoryChest", false,
+        ShouldRevealArmoryChest = Bind("ShouldRevealArmoryChest", false,
             "Should reveal armory chest in chest hunt");
     }
 }

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Il2Cpp;
+using MelonLoader;
+using UnityEngine;
 using Input = UnityEngine.Input;
 using KeyCode = UnityEngine.KeyCode;
 
@@ -36,6 +38,6 @@ public class BonusStageCompleter : MonoBehaviour
         
         if (pickedUp == total - 1 || pickedUp == total) return;
         _bonusController.bonusSpheresPickedUp = total - 1;
-        Plugin.Log.LogInfo($"Set spheres picked up to: {_bonusController.bonusSpheresPickedUp}");
+        Melon<Plugin>.Logger.Msg($"Set spheres picked up to: {_bonusController.bonusSpheresPickedUp}");
     }
 }

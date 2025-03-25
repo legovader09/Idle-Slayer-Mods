@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Il2Cpp;
+using UnityEngine;
 
 namespace IdleSlayerMods.Common;
 
@@ -14,7 +15,7 @@ public class AchievementHelper
     /// <param name="icon">Achievement icon to display.</param>
     /// <param name="grantsProgressionPoint">Whether this achievement should count towards progress and bonuses.</param>
     /// <returns>A new instance of the <see cref="Achievement"/> object.</returns>
-    public static Achievement CreateAchievement(AchievementType type, string achievementName, string description, Sprite? icon = null, bool grantsProgressionPoint = false)
+    public static Achievement CreateAchievement(AchievementType type, string achievementName, string description, Sprite icon = null, bool grantsProgressionPoint = false)
     {
         var achievement = ScriptableObject.CreateInstance<Achievement>();
         achievement.id = $"{type}_{achievementName}";

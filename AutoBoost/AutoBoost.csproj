@@ -19,18 +19,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.*" IncludeAssets="compile" />
-    <PackageReference Include="BepInEx.PluginInfoProps" Version="2.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\Libraries\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="IdleSlayerMods.Common">
-      <HintPath>..\IdleSlayerMods.Common\bin\Release\net6.0\IdleSlayerMods.Common.dll</HintPath>
+      <HintPath>..\IdleSlayerMods.Common\bin\Debug\net6.0\IdleSlayerMods.Common.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="Il2CppInterop.Runtime">
+      <HintPath>..\Libraries\Il2CppInterop.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Il2Cppmscorlib">
       <HintPath>..\Libraries\Il2Cppmscorlib.dll</HintPath>
@@ -48,5 +46,9 @@
       <HintPath>..\Libraries\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
   </ItemGroup>
 </Project>
