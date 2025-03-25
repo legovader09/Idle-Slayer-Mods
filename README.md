@@ -19,7 +19,7 @@ Once you have downloaded a mod, the steps are similar to the above, you would si
 
 ## Mod Making & Idle Slayer Core
 
-If you are a mod developer and want to make use of the idle slayer core library, feel free to check out the [core mod documentation](IdleSlayerMods.Common/README.md) or the [core mod template]().
+If you are a mod developer and want to make use of the idle slayer core library, feel free to check out the [core mod documentation](IdleSlayerMods.Common/README.md) or the [core mod template](ModTemplate/README.md).
 
 ## Contributions
 
