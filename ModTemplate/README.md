@@ -30,9 +30,9 @@ After completing these steps, the script will open the project folder automatica
 
 - PowerShell 5.0 or higher
 - An installed copy of Idle Slayer
-- Basic knowledge of C# if you plan to modify the code
 - MelonLoader installed for Idle Slayer
-- [.NET 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+- [.NET 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) (for the mod project)
+- Basic knowledge of C#
 
 ## Next Steps
 
