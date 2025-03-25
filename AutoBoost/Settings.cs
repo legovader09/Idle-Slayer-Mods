@@ -14,15 +14,15 @@ internal sealed class Settings(string configName) : BaseConfig(configName)
 
     protected override void SetBindings()
     {
-        EnableWindDash = Bind("Wind Dash", "EnableWindDash", false,
+        EnableWindDash = Bind("EnableWindDash", false,
             "Enable wind dash boosting");
-        ToggleKeyWindDash = Bind("Wind Dash", "ToggleKeyWindDash", KeyCode.N,
+        ToggleKeyWindDash = Bind("ToggleKeyWindDash", KeyCode.N,
             "The key bind for toggling wind dash boosting");
-        ShowPopupWindDash = Bind("Wind Dash", "ShowPopupWindDash", true,
+        ShowPopupWindDash = Bind("ShowPopupWindDash", true,
             "Show a message popup to indicate whether wind dash has been toggled.");
-        ToggleKey = Bind("Auto Boost", "ToggleKey", KeyCode.B,
+        ToggleKey = Bind("ToggleKey", KeyCode.B,
             "The key bind for toggling auto boosting");
-        ShowPopup = Bind("Auto Boost", "ShowPopup", true,
+        ShowPopup = Bind("ShowPopup", true,
             "Show a message popup to indicate whether auto boost has been toggled.");
     }
 }

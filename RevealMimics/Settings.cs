@@ -11,11 +11,11 @@ internal sealed class Settings(string configName) : BaseConfig(configName)
 
     protected override void SetBindings()
     {
-        ShouldRevealMultipliers = Bind("General", "ShouldRevealMultipliers", false,
+        ShouldRevealMultipliers = Bind("ShouldRevealMultipliers", false,
             "Should reveal multipliers in chest hunt");
-        ShouldRevealDuplicator = Bind("General", "ShouldRevealDuplicator", false,
+        ShouldRevealDuplicator = Bind("ShouldRevealDuplicator", false,
             "Should reveal duplicator item in chest hunt");
-        ShouldRevealArmoryChest = Bind("General", "ShouldRevealArmoryChest", false,
+        ShouldRevealArmoryChest = Bind("ShouldRevealArmoryChest", false,
             "Should reveal armory chest in chest hunt");
     }
 }

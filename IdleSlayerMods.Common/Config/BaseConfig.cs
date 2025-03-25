@@ -16,7 +16,15 @@ public abstract class BaseConfig
     
     protected abstract void SetBindings();
 
-    protected virtual MelonPreferences_Entry<T> Bind<T>(string section, string key, T defaultValue, string description = "")
+    /// <summary>
+    /// Creates and returns a MelonPreferences config entry.
+    /// </summary>
+    /// <param name="key">Name of the config item</param>
+    /// <param name="defaultValue">Default value of config item</param>
+    /// <param name="description">Friendly description of config item</param>
+    /// <typeparam name="T">Data type of config item</typeparam>
+    /// <returns>MelonPreferences_Entry of type T</returns>
+    protected virtual MelonPreferences_Entry<T> Bind<T>(string key, T defaultValue, string description = "")
     {
         var entry =  _cfg.CreateEntry(key, defaultValue, description: description);
         _cfg.SaveToFile();
