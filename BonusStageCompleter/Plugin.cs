@@ -1,27 +1,23 @@
-﻿using BepInEx;
-using BepInEx.Logging;
-using BepInEx.Unity.IL2CPP;
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
+﻿using IdleSlayerMods.Common;
+using MelonLoader;
+using MyPluginInfo = BonusStageCompleter.MyPluginInfo;
+using Plugin = BonusStageCompleter.Plugin;
+
+[assembly: MelonInfo(typeof(Plugin), MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION, MyPluginInfo.PLUGIN_AUTHOR)]
+[assembly: MelonAdditionalDependencies("IdleSlayerMods.Common")]
 
 namespace BonusStageCompleter;
 
-[BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
-public class Plugin : BasePlugin
+public class Plugin : MelonMod
 {
-    internal new static ManualLogSource Log;
-    
-    public override void Load()
+    public override void OnInitializeMelon()
     {
-        Log = base.Log;
-        
-        SceneManager.sceneLoaded += (UnityAction<Scene, LoadSceneMode>)OnSceneLoaded;
-        Log.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
+        LoggerInstance.Msg($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    public override void OnSceneWasLoaded(int buildIndex, string sceneName)
     {
-        if (scene.name != "Game") return;
-        AddComponent<BonusStageCompleter>();
+        if (sceneName != "Game") return;
+        ModUtils.RegisterComponent<BonusStageCompleter>();
     }
 }

@@ -1,16 +1,16 @@
-﻿using BepInEx.Configuration;
-using IdleSlayerMods.Common.Config;
+﻿using IdleSlayerMods.Common.Config;
+using MelonLoader;
 using UnityEngine;
 
 namespace AutoBoost;
 
-internal sealed class Settings(ConfigFile cfg) : BaseConfig(cfg)
+internal sealed class Settings(string configName) : BaseConfig(configName)
 {
-    internal ConfigEntry<KeyCode> ToggleKey;
-    internal ConfigEntry<KeyCode> ToggleKeyWindDash;
-    internal ConfigEntry<bool> ShowPopup;
-    internal ConfigEntry<bool> EnableWindDash;
-    internal ConfigEntry<bool> ShowPopupWindDash;
+    internal MelonPreferences_Entry<KeyCode> ToggleKey;
+    internal MelonPreferences_Entry<KeyCode> ToggleKeyWindDash;
+    internal MelonPreferences_Entry<bool> ShowPopup;
+    internal MelonPreferences_Entry<bool> EnableWindDash;
+    internal MelonPreferences_Entry<bool> ShowPopupWindDash;
 
     protected override void SetBindings()
     {

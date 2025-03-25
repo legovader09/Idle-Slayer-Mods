@@ -4,7 +4,6 @@
         <TargetFramework>net6.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
         <AssemblyName>IdleSlayerMods.Common</AssemblyName>
         <Product>Idle Slayer Mods Core</Product>
         <Version>1.1.0</Version>
@@ -19,12 +18,14 @@
 
     <ItemGroup>
       <None Include="IdleSlayerMods.Common.csproj.user" />
-      <Compile Include="Plugin.cs" />
     </ItemGroup>
 
     <ItemGroup>
       <Reference Include="Assembly-CSharp">
         <HintPath>..\Libraries\Assembly-CSharp.dll</HintPath>
+      </Reference>
+      <Reference Include="Il2CppInterop.Runtime">
+        <HintPath>..\Libraries\Il2CppInterop.Runtime.dll</HintPath>
       </Reference>
       <Reference Include="Il2Cppmscorlib">
         <HintPath>..\Libraries\Il2Cppmscorlib.dll</HintPath>
@@ -46,6 +47,9 @@
       </Reference>
       <Reference Include="UnityEngine.UI">
         <HintPath>bin\Release\net6.0\UnityEngine.UI.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.UIElementsModule">
+        <HintPath>..\Libraries\UnityEngine.UIElementsModule.dll</HintPath>
       </Reference>
     </ItemGroup>
 

@@ -23,6 +23,13 @@
       <Reference Include="Assembly-CSharp">
         <HintPath>..\Libraries\Assembly-CSharp.dll</HintPath>
       </Reference>
+      <Reference Include="IdleSlayerMods.Common">
+        <HintPath>..\IdleSlayerMods.Common\bin\Debug\net6.0\IdleSlayerMods.Common.dll</HintPath>
+        <Private>False</Private>
+      </Reference>
+      <Reference Include="Il2CppInterop.Runtime">
+        <HintPath>..\Libraries\Il2CppInterop.Runtime.dll</HintPath>
+      </Reference>
       <Reference Include="Il2Cppmscorlib">
         <HintPath>..\Libraries\Il2Cppmscorlib.dll</HintPath>
       </Reference>

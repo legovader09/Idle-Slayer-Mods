@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Il2Cpp;
+using MelonLoader;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace RevealMimics;
@@ -15,7 +17,7 @@ public class ChestRevealer : MonoBehaviour
 
     private void Update()
     {
-#if RELEASE
+#if DEBUG
         if (Input.GetKeyDown(KeyCode.O))
         {
             _chestHuntManager.StartEvent();
@@ -29,7 +31,7 @@ public class ChestRevealer : MonoBehaviour
         else if (!_chestUpdateCompleted)
         {
             if (!_chestHuntManager.IsVisible() || _chestHuntManager.chests.Count == 0) return;
-            Plugin.Log.LogInfo("Iterating through chests");
+            Melon<Plugin>.Logger.Msg("Iterating through chests");
             
             foreach (var chest in _chestHuntManager.chests)
             {
@@ -47,7 +49,7 @@ public class ChestRevealer : MonoBehaviour
             }
 
             _chestUpdateCompleted = true;
-            Plugin.Log.LogInfo("Chests reveal complete");
+            Melon<Plugin>.Logger.Msg("Chests reveal complete");
         }
     }
 }
