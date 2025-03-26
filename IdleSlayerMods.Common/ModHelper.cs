@@ -37,7 +37,7 @@ public sealed class ModHelper : MonoBehaviour
         _popup = GameObject.Find(PathConstants.PopupPath).GetComponent<Popup>();
         _achievementManager = GameObject.Find(PathConstants.AchievementManagerPath).GetComponent<AchievementManager>();
         _infoPanelButtonsContainer = GameObject.Find(PathConstants.ButtonPanelPath).transform;
-        // _templateButton = ButtonHelper.CreateTemplateButton($"{PathConstants.ButtonPanelPath}/Options");
+        _templateButton = ButtonHelper.CreateTemplateButton($"{PathConstants.ButtonPanelPath}/Settings");
     }
 
     /// <summary>
