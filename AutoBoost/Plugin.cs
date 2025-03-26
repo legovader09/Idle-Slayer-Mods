@@ -16,10 +16,9 @@ public class Plugin : MelonMod
     
     public override void OnInitializeMelon()
     {
-        ClassInjector.RegisterTypeInIl2Cpp<ModHelper>();
+        ModHelper.ModHelperMounted += SetModHelperInstance;
         Settings = new(MyPluginInfo.PLUGIN_GUID);
         LoggerInstance.Msg($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
-        ModHelper.ModHelperMounted += SetModHelperInstance;
     }
 
     private static void SetModHelperInstance(ModHelper instance) => ModHelperInstance = instance;

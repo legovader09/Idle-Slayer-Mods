@@ -26,6 +26,7 @@ public abstract class BaseConfig
     /// <returns>MelonPreferences_Entry of type T</returns>
     protected virtual MelonPreferences_Entry<T> Bind<T>(string key, T defaultValue, string description = "")
     {
+        if (_cfg.HasEntry(key)) return _cfg.GetEntry<T>(key);
         var entry =  _cfg.CreateEntry(key, defaultValue, description: description);
         _cfg.SaveToFile();
         return entry;

@@ -6,6 +6,39 @@ In order to get started, simply download the mod from [Nexus](https://www.nexusm
 
 ## Current features:
 
+### Mod Utils
+| static class ModUtils                                  | Mod utility class, used for registering custom components                        |
+|--------------------------------------------------------|----------------------------------------------------------------------------------|
+| GameObject RegisterComponent<T> : where T is Component | Registers a unity component into the mod loader so that it is usable in the code |
+
+**Your unity components must be registered via this method before they are usable in your code.**
+`RegisterComponent()` can be called at any point, but must be called at any point before accessing your component.
+
+For example:
+
+```csharp
+var obj = new GameObject();
+obj.AddComponent<MyCustomBehaviour>();
+```
+
+This code will break. The code below will also break, as the component is registered **AFTER** the call to add it to a `GameObject`
+
+```csharp
+var obj = new GameObject();
+obj.AddComponent<MyCustomBehaviour>();
+
+ModUtils.RegisterComponent<MyCustomBehaviour>();
+```
+
+So that leaves, of course, registering your component **BEFORE** adding it to a `GameObject`
+
+```csharp
+ModUtils.RegisterComponent<MyCustomBehaviour>();
+
+var obj = new GameObject();
+obj.AddComponent<MyCustomBehaviour>();
+```
+
 ### Mod Helper
 
 | class ModHelper : MonoBehaviour | Instantiated Mod Helper that gets injected into the Game scene                     |
@@ -24,10 +57,10 @@ In order to get started, simply download the mod from [Nexus](https://www.nexusm
 
 ### BaseConfig:
 
-| abstract class BaseConfig   | Base configuration class which can be inherited from       |
-|-----------------------------|------------------------------------------------------------|
-| abstract void SetBindings   | Takes in a ConfigFile and assigns it to the class instance |
-| virtual ConfigEntry<T> Bind | Creates and assigns a new setting of type T                |
+| abstract class BaseConfig              | Base configuration class which can be inherited from       |
+|----------------------------------------|------------------------------------------------------------|
+| abstract void SetBindings              | Takes in a ConfigFile and assigns it to the class instance |
+| virtual MelonPreferences_Entry<T> Bind | Creates and assigns a new setting of type T                |
 
 ## Planned:
 - Modded Achievement section in options
@@ -42,7 +75,7 @@ The ModHelper class is **currently only accessible in the `Game` scene** of Idle
 
 In order to make use of the `ModHelper` behaviour object, you can either:
 1. Make use of the `ModHelperMounted` event.
-2. Find the `BepInEx` injected `GameObject` and use `GetComponent<ModHelper>()`.
+2. Find the injected `GameObject` and use `GetComponent<ModHelper>()`.
 
 ### Using the ModHelperMounted event (Method 1)
 
@@ -53,17 +86,15 @@ You then need to create a event delegate for the event handler which will return
 #### See example:
 ```csharp
 using IdleSlayerMods.Common;
-public class Plugin : BasePlugin
+public class Plugin : MelonMod
 {
     internal static ModHelper ModHelperInstance;
     
-    public override void Load()
+    public override void OnInitializeMelon()
     {
-        Log = base.Log;
-        ..
         ModHelper.ModHelperMounted += SetModHelperInstance;
     }
-    
+
     private static void SetModHelperInstance(ModHelper instance) => ModHelperInstance = instance;
 }
 ```

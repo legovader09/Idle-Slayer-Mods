@@ -40,7 +40,6 @@ public class AutoBoost : MonoBehaviour
 
     private static void ActivateAbility(Ability ability, string type) 
     {
-        Melon<Plugin>.Logger.Msg($"{type} activated");
         ability.Activate();
         ability.currentCd = ability.cd;
     }

@@ -1,3 +1,7 @@
+### Version 1.1.1
+
+- Updated to make MelonLoader compatible
+
 ### Version 1.1.0
 
 - Added config option to reveal duplicator item
