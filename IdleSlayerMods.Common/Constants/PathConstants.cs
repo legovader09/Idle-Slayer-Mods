@@ -1,4 +1,4 @@
-﻿namespace IdleSlayerMods.Common;
+﻿namespace IdleSlayerMods.Common.Constants;
 
 internal static class PathConstants
 {

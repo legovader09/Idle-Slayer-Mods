@@ -1,7 +1,7 @@
 ﻿using Il2Cpp;
 using UnityEngine;
 
-namespace IdleSlayerMods.Common;
+namespace IdleSlayerMods.Common.Helpers;
 
 public class AchievementHelper
 {

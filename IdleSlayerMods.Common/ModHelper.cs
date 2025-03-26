@@ -1,4 +1,6 @@
-﻿using Il2Cpp;
+﻿using IdleSlayerMods.Common.Constants;
+using IdleSlayerMods.Common.Helpers;
+using Il2Cpp;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using Il2CppTMPro;
 using MelonLoader;
@@ -202,7 +204,7 @@ public sealed class ModHelper : MonoBehaviour
         try
         {
             var texture = bundle.LoadAsset(textureName).Cast<Texture2D>();
-            if (texture != null) return texture;
+            if (texture) return texture;
             Melon<Plugin>.Logger.Error($"Failed to load texture '{textureName}' from bundle");
             return null;
         }
