@@ -2,21 +2,21 @@
 
 In order to utilise `BaseConfig`, we must first create a class that inherits from `BaseConfig`.
 
-Note that `BaseConfig` requires a `ConfigFile` to be passed down into it, so we will do exactly that directly from the constructor:
-`public sealed class Settings(ConfigFile cfg) : BaseConfig(cfg)`.
+Note that `BaseConfig` requires a `string` to be passed down into it, this is used as an identifier - so we will do exactly that directly from the constructor:
+`public sealed class Settings(string configName) : BaseConfig(configName)`.
 
 Since `SetBindings()` is **abstract**, it means we must now implement it ourselves **in the derived class**. This is where you will create the settings for your mod. See the example below:
 
 ```csharp
 using IdleSlayerMods.Common.Config;
 
-public sealed class Settings(ConfigFile cfg) : BaseConfig(cfg)
+public sealed class Settings(string configName) : BaseConfig(configName)
 {
-    internal ConfigEntry<KeyCode> ExampleInputKey;
+    internal MelonPreferences_Entry<KeyCode> ExampleInputKey;
 
     protected override void SetBindings()
     {
-        ExampleInputKey = Bind("General", "ExampleInputKey", KeyCode.B,
+        ExampleInputKey = Bind("ExampleInputKey", KeyCode.B,
             "The key bind for my mod");
     }
 }
@@ -25,23 +25,17 @@ public sealed class Settings(ConfigFile cfg) : BaseConfig(cfg)
 Finally, to be able to use the settings in your mod, you will need to add the following in your `Plugin.cs Load()` method:
 
 ```csharp
-
-public class Plugin : BasePlugin
+public class Plugin : MelonMod
 {
-    internal new static ManualLogSource Log;
-    ..
     internal static Settings Settings;
-    ..
-
-    public override void Load()
+    
+    public override void OnInitializeMelon()
     {
-        Log = base.Log;
-        ..
-        Settings = new(Config)
+        Settings = new(MyPluginInfo.PLUGIN_GUID);
     }
 }
 ```
-`Config` comes from `BasePlugin`. 
+`MyPluginInfo` here is a static class containing the plugin name, but this could be anything really. 
 
 In this example, I also make the Settings variable static, this is so that any `MonoBehaviour` scripts can easily access the settings, just like how the log is accessible.
 

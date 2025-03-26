@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Product>Auto Boost and Wind Dash</Product>
-    <Version>1.1.2</Version>
+    <Product>Door Puzzle Skip</Product>
+    <Version>1.0.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <RestoreAdditionalProjectSources>
@@ -11,11 +11,11 @@
       https://nuget.bepinex.dev/v3/index.json;
       https://nuget.samboy.dev/v3/index.json
     </RestoreAdditionalProjectSources>
-    <PackageId>AutoBoost</PackageId>
+    <Company>Doomnik</Company>
   </PropertyGroup>
-  
+
   <ItemGroup>
-    <None Include="AutoBoost.csproj.user" />
+    <None Include="DoorPuzzleSkip.csproj.user" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,7 +25,6 @@
     </Reference>
     <Reference Include="IdleSlayerMods.Common">
       <HintPath>..\IdleSlayerMods.Common\bin\Debug\net6.0\IdleSlayerMods.Common.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Il2CppInterop.Runtime">
       <HintPath>..\Libraries\Il2CppInterop.Runtime.dll</HintPath>
@@ -38,13 +37,8 @@
       <HintPath>..\Libraries\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEngine.InputLegacyModule">
-      <HintPath>..\Libraries\UnityEngine.InputLegacyModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>..\Libraries\UnityEngine.UI.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="UnityEngine.Physics2DModule">
+      <HintPath>..\Libraries\UnityEngine.Physics2DModule.dll</HintPath>
     </Reference>
   </ItemGroup>
 

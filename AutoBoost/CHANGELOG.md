@@ -1,3 +1,8 @@
+### Version 1.1.1 & 1.1.2
+
+- Updated to make MelonLoader compatible
+- Fixed small bug where the mod would try to register a core mod component
+
 ### Version 1.1.0
 
 - Added auto wind dash option

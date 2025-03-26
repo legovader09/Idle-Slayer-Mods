@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
-namespace IdleSlayerMods.Common;
+namespace IdleSlayerMods.Common.Helpers;
 
 public static class ButtonHelper
 {
