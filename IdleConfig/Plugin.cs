@@ -1,32 +1,25 @@
-﻿using System.IO;
-using BepInEx;
-using BepInEx.Logging;
-using BepInEx.Unity.IL2CPP;
-using IdleSlayerMods.Common;
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
+﻿using IdleSlayerMods.Common;
+using MelonLoader;
+
+[assembly: MelonInfo(typeof(Plugin), MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION, MyPluginInfo.PLUGIN_AUTHOR)]
+[assembly: MelonAdditionalDependencies("IdleSlayerMods.Common")]
 
 namespace IdleConfig;
 
-[BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
-public class Plugin : BasePlugin
+public class Plugin : MelonMod
 {
-    internal static new ManualLogSource Log;
     internal static ModHelper ModHelper;
+    internal static readonly MelonLogger.Instance Logger = Melon<Plugin>.Logger;
 
-    public override void Load()
+    public override void OnInitializeMelon()
     {
-        Log = base.Log;
-
         ModHelper.ModHelperMounted += helper => ModHelper = helper; 
-        SceneManager.sceneLoaded += (UnityAction<Scene, LoadSceneMode>)OnSceneLoaded;
-        Log.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
+        Logger.Msg($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    public override void OnSceneWasLoaded(int buildIndex, string sceneName)
     {
-        if (scene.name != "Game") return;
-        AddComponent<IdleConfig>();
-        SceneManager.sceneLoaded -= (UnityAction<Scene, LoadSceneMode>)OnSceneLoaded;
+        if (sceneName != "Game") return;
+        ModUtils.RegisterComponent<IdleConfig>();
     }
 }

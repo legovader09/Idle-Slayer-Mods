@@ -8,10 +8,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <None Include="ModTemplate.csproj.user" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="IdleSlayerMods.Common" Version="1.1.1-ML" />
       <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
     </ItemGroup>

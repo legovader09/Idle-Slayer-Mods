@@ -12,7 +12,7 @@ using Path = Il2CppSystem.IO.Path;
 
 namespace IdleSlayerMods.Common;
 
-public sealed class ModHelper : MonoBehaviour
+public class ModHelper : MonoBehaviour
 {
     /// <summary>
     /// Event that occurs once the ModHelper has been added to the game scene and is ready to use.
