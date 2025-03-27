@@ -1,3 +1,11 @@
+### Version 1.1.4
+
+- Fixed lack of load priority causing modhelper to break
+
+### Version 1.1.3
+
+- Base config structure update
+
 ### Version 1.1.2
 
 - Fixed issue where config file would get overwritten on launch

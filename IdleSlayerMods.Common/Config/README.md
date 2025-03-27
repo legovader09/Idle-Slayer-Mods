@@ -16,7 +16,7 @@ public sealed class Settings(string configName) : BaseConfig(configName)
 
     protected override void SetBindings()
     {
-        ExampleInputKey = Bind("ExampleInputKey", KeyCode.B,
+        ExampleInputKey = Bind("Example Category (Optional)", "ExampleInputKey", KeyCode.B,
             "The key bind for my mod");
     }
 }

@@ -6,7 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <AssemblyName>IdleSlayerMods.Common</AssemblyName>
         <Product>Idle Slayer Mods Core</Product>
-        <Version>1.1.3-ML</Version>
+        <Version>1.1.4-ML</Version>
         <Company>Doomnik</Company>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Title>Idle Slayer Mods Core</Title>

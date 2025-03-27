@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneHitBossFights", "OneHitB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoorPuzzleSkip", "DoorPuzzleSkip\DoorPuzzleSkip.csproj", "{02DBCFDA-8886-4B27-8F87-35B89B70D0BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdleConfig", "IdleConfig\IdleConfig.csproj", "{619460F4-75EA-4DE2-8959-1B2B84F5EC13}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{02DBCFDA-8886-4B27-8F87-35B89B70D0BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02DBCFDA-8886-4B27-8F87-35B89B70D0BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02DBCFDA-8886-4B27-8F87-35B89B70D0BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{619460F4-75EA-4DE2-8959-1B2B84F5EC13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{619460F4-75EA-4DE2-8959-1B2B84F5EC13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{619460F4-75EA-4DE2-8959-1B2B84F5EC13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{619460F4-75EA-4DE2-8959-1B2B84F5EC13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

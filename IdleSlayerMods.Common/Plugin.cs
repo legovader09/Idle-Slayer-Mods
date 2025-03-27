@@ -1,8 +1,8 @@
 ﻿using IdleSlayerMods.Common;
-using IdleSlayerMods.Common.Helpers;
 using MelonLoader;
 
 [assembly: MelonInfo(typeof(Plugin), MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION, MyPluginInfo.PLUGIN_AUTHOR)]
+[assembly: MelonPriority(100)]
 
 namespace IdleSlayerMods.Common;
 
