@@ -1,5 +1,7 @@
 ﻿using IdleSlayerMods.Common;
 using MelonLoader;
+using MyPluginInfo = IdleConfig.MyPluginInfo;
+using Plugin = IdleConfig.Plugin;
 
 [assembly: MelonInfo(typeof(Plugin), MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION, MyPluginInfo.PLUGIN_AUTHOR)]
 [assembly: MelonAdditionalDependencies("IdleSlayerMods.Common")]
