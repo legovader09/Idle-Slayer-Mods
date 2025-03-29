@@ -25,8 +25,8 @@ public class AutoBoost : MonoBehaviour
             ToggleBoost("Auto Boost", ref _autoBoostEnabled, Plugin.Settings.ShowPopup.Value);
         if (Plugin.Settings.EnableWindDash.Value && Input.GetKeyDown(Plugin.Settings.ToggleKeyWindDash.Value))
             ToggleBoost("Auto Wind Dash", ref _windDashEnabled, Plugin.Settings.ShowPopupWindDash.Value);
-        if (CanActivateAbility(_boost, _autoBoostEnabled)) ActivateAbility(_boost, "Auto Boost");
-        if (CanActivateAbility(_windDash, _windDashEnabled)) ActivateAbility(_windDash, "Auto Wind Dash");
+        if (CanActivateAbility(_boost, _autoBoostEnabled)) ActivateAbility(_boost);
+        if (CanActivateAbility(_windDash, _windDashEnabled)) ActivateAbility(_windDash);
     }
 
     private static bool CanActivateAbility(Ability ability, bool state) 
@@ -34,14 +34,14 @@ public class AutoBoost : MonoBehaviour
         return state
            && ability
            && ability.Unlocked()
-           && ability.currentCd.Equals(0)
+           && ability.GetCurrentCooldown().Equals(0)
            && GameState.IsRunner();
     }
 
-    private static void ActivateAbility(Ability ability, string type) 
+    private static void ActivateAbility(Ability ability) 
     {
         ability.Activate();
-        ability.currentCd = ability.cd;
+        ability.currentCd = ability.GetCooldown();
     }
     
     private static void ToggleBoost(string type, ref bool state, bool showPopup)
