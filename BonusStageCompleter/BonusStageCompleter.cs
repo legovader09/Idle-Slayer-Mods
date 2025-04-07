@@ -11,7 +11,7 @@ public class BonusStageCompleter : MonoBehaviour
     private MapController _mapController;
     private BonusMapController _bonusController;
     private bool _isInBonusGame;
-    private bool _notSkipEnabled;
+    private bool _skipAtSpiritBoostEnabled;
 
     private void Awake()
     {
@@ -29,15 +29,16 @@ public class BonusStageCompleter : MonoBehaviour
         }
         #endif
 
-        if (Plugin.Settings.EnableNotSkipAtSpiritBoost.Value && Input.GetKeyDown(Plugin.Settings.ToggleKey.Value))
-            ToggleSkip("Not Skip At Spirit Boost", ref _notSkipEnabled, Plugin.Settings.ShowPopUpNotSkipAtSpiritBoost.Value);
+        if (Plugin.Settings.EnableSkipAtSpiritBoost.Value && Input.GetKeyDown(Plugin.Settings.ToggleKey.Value))
+            ToggleSkip("Skip At Spirit Boost", ref _skipAtSpiritBoostEnabled, Plugin.Settings.ShowPopUpSkipAtSpiritBoost.Value);
 
         _isInBonusGame = _mapController.selectedMap.name.Contains("bonus");
 
         // only do logic in bonus stages
         if (!_isInBonusGame || !_bonusController.showCurrentTime) return;
 
-        if (_notSkipEnabled && _bonusController.spiritBoostEnabled) return;
+        // only do logic if stop at spirit boost disabled 
+        if (!_skipAtSpiritBoostEnabled && _bonusController.spiritBoostEnabled) return;
 
         // determine whether the collected spheres variable has already been set, so we don't overwrite it.
         var pickedUp = _bonusController.bonusSpheresPickedUp;

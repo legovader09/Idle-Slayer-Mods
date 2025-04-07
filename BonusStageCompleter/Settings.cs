@@ -7,16 +7,16 @@ namespace BonusStageCompleter;
 internal sealed class Settings(string configName) : BaseConfig(configName)
 {
     internal MelonPreferences_Entry<KeyCode> ToggleKey;
-    internal MelonPreferences_Entry<bool> EnableNotSkipAtSpiritBoost;
-    internal MelonPreferences_Entry<bool> ShowPopUpNotSkipAtSpiritBoost;
+    internal MelonPreferences_Entry<bool> EnableSkipAtSpiritBoost;
+    internal MelonPreferences_Entry<bool> ShowPopUpSkipAtSpiritBoost;
 
     protected override void SetBindings()
     {
-        EnableNotSkipAtSpiritBoost = Bind("Not Skip At Spirit Boost", "EnableNotSkipAtSpiritBoost", false,
-            "Enable not skip at spirit boost appeared bonus stage");
-        ToggleKey = Bind("Not Skip At Spirit Boost", "ToggleKey", KeyCode.J,
-            "The key bind for toggling 'not skip at spirit boost appeared boosting'");
-        ShowPopUpNotSkipAtSpiritBoost = Bind("Not Skip At Spirit Boost", "ShowPopUpNotSkipAtSpiritBoost", true,
-            "Show a message popup to indicate whether 'not skip at spirit boost has been toggled'.");
+        EnableSkipAtSpiritBoost = Bind("Skip At Spirit Boost", "EnableSkipAtSpiritBoost", true,
+            "Enable skip at spirit boost appeared bonus stage");
+        ToggleKey = Bind("Skip At Spirit Boost", "ToggleKey", KeyCode.J,
+            "The key bind for toggling 'skip at spirit boost appeared boosting'");
+        ShowPopUpSkipAtSpiritBoost = Bind("Skip At Spirit Boost", "ShowPopUpSkipAtSpiritBoost", true,
+            "Show a message popup to indicate whether 'skip at spirit boost has been toggled'.");
     }
 }
