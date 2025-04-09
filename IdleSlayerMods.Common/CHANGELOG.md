@@ -1,3 +1,7 @@
+### Version 1.1.5
+
+- Added Debug extension method for melonloader logger
+
 ### Version 1.1.4
 
 - Fixed lack of load priority causing modhelper to break
