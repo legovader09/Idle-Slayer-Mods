@@ -1,5 +1,4 @@
 ﻿using IdleSlayerMods.Common;
-using Il2CppInterop.Runtime.Injection;
 using MelonLoader;
 using MyPluginInfo = AutoBoost.MyPluginInfo;
 using Plugin = AutoBoost.Plugin;
