@@ -1,5 +1,11 @@
-### Version 1.1.5
+### Version 1.1.6
 
+- Added static DebugMode property to ModUtils
+- Improved Debug logging to only log if DebugMode is true.
+
+### Version 1.1.5(.1)
+
+- HOTFIX #1 Fix syntactical error
 - Added Debug extension method for melonloader logger
 
 ### Version 1.1.4

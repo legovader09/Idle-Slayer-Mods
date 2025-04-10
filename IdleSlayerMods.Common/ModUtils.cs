@@ -7,6 +7,8 @@ namespace IdleSlayerMods.Common;
 
 public static class ModUtils
 {
+    public static bool DebugMode => Plugin.Settings.DebugMode.Value;
+    
     public static GameObject RegisterComponent<T>() where T : Component
     {
         ClassInjector.RegisterTypeInIl2Cpp<T>();

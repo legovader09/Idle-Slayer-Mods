@@ -10,6 +10,7 @@ In order to get started, simply download the mod from [Nexus](https://www.nexusm
 | static class ModUtils                                  | Mod utility class, used for registering custom components                        |
 |--------------------------------------------------------|----------------------------------------------------------------------------------|
 | GameObject RegisterComponent<T> : where T is Component | Registers a unity component into the mod loader so that it is usable in the code |
+| static bool DebugMode                                  | Returns the config entry value for DebugMode.                                    |
 
 **Your unity components must be registered via this method before they are usable in your code.**
 `RegisterComponent()` can be called at any point, but must be called at any point before accessing your component.
@@ -39,6 +40,13 @@ var obj = new GameObject();
 obj.AddComponent<MyCustomBehaviour>();
 ```
 
+### Logger Extension
+
+| static class LoggerExtension      | MelonLoader logging extension class                                                                   |
+|-----------------------------------|-------------------------------------------------------------------------------------------------------|
+| static void Debug(string message) | Can be accessed by calling it from a logging instance. Only logs if DebugMode is true in config file. |
+
+
 ### Mod Helper
 
 | class ModHelper : MonoBehaviour | Instantiated Mod Helper that gets injected into the Game scene                     |
@@ -67,7 +75,6 @@ obj.AddComponent<MyCustomBehaviour>();
 - Global list of modded achievements that can be appended to
 - Simple UI button creation
 - Custom random box events
-- Custom plugin wrapper to make class injection and scene based component adding simpler
 
 ## Usage
 
