@@ -1,4 +1,4 @@
-# Core library for my idle slayer mods
+# Core library for idle slayer mods
 
 ## Getting started
 
