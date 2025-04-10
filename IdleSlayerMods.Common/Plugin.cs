@@ -14,7 +14,6 @@ public class Plugin : MelonMod
     public override void OnInitializeMelon()
     {
         LoggerInstance.Msg($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
-        LoggerInstance.Debug("Debug message");
     }
 
     public override void OnSceneWasLoaded(int buildIndex, string sceneName)
