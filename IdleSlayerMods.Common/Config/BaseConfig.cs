@@ -5,26 +5,56 @@ namespace IdleSlayerMods.Common.Config;
 
 public abstract class BaseConfig
 {
-    private readonly MelonPreferences_Category _cfg;
-    private readonly string _configPath;
-    private readonly bool _showLoadLog;
-    private readonly bool _showSaveLog;
+    private MelonPreferences_Category _cfg;
+    private string _configPath;
+    private bool _showLoadLog;
+    private bool _showSaveLog;
 
+    /// <summary>
+    /// Abstract base class for defining configuration settings and managing preferences.
+    /// Provides methods for initialization, logging, and binding configuration values.
+    /// Must be inherited and extended to define specific configuration bindings.
+    /// </summary>
+    /// <param name="cfgName">The name of the configuration category.</param>
+    /// <param name="showLoadLog">Flag indicating whether logs should be shown when loading configuration. Default is false.</param>
+    /// <param name="showSaveLog">Flag indicating whether logs should be shown when saving configuration. Default is false.</param>
     protected BaseConfig(string cfgName, bool showLoadLog = false, bool showSaveLog = false)
     {
-        _showLoadLog = showLoadLog;
-        _showSaveLog = showSaveLog;
-        _cfg = MelonPreferences.CreateCategory(cfgName);
-        _configPath = Path.Combine(MelonEnvironment.UserDataDirectory, $"{cfgName}.cfg");
-        _cfg.SetFilePath(_configPath, true, _showLoadLog);
-        // ReSharper disable once VirtualMemberCallInConstructor
-        SetBindings();
+        Init(cfgName, showLoadLog, showSaveLog);
+    }
+
+    /// <summary>
+    /// Abstract base class for defining configuration settings and managing preferences.
+    /// Provides methods for initialization, logging, and binding configuration values.
+    /// Must be inherited and extended to define specific configuration bindings.
+    /// </summary>
+    /// <param name="cfgName">The name of the configuration category.</param>
+    protected BaseConfig(string cfgName)
+    {
+        Init(cfgName);
     }
     
     /// <summary>
     /// Method that gets called after the config file has been initialized. Use this to bind your config values.
     /// </summary>
     protected abstract void SetBindings();
+
+    /// <summary>
+    /// Initializes the configuration settings, including setting the file path, managing logging preferences,
+    /// creating the configuration category, and binding configuration values through the SetBindings method.
+    /// </summary>
+    /// <param name="cfgName">The name of the configuration category.</param>
+    /// <param name="showLoadLog">Flag indicating whether logs should be shown when loading configuration. Default is false.</param>
+    /// <param name="showSaveLog">Flag indicating whether logs should be shown when saving configuration. Default is false.</param>
+    private void Init(string cfgName, bool showLoadLog = false, bool showSaveLog = false)
+    {
+        _showLoadLog = showLoadLog;
+        _showSaveLog = showSaveLog;
+        _cfg = MelonPreferences.CreateCategory(cfgName);
+        _configPath = Path.Combine(MelonEnvironment.UserDataDirectory, $"{cfgName}.cfg");
+        _cfg.SetFilePath(_configPath, true, _showLoadLog);
+        SetBindings();
+    }
 
     /// <summary>
     /// Creates and returns a MelonPreferences config entry.
