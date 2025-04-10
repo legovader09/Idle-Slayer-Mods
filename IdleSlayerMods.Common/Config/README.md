@@ -5,12 +5,14 @@ In order to utilise `BaseConfig`, we must first create a class that inherits fro
 Note that `BaseConfig` requires a `string` to be passed down into it, this is used as an identifier - so we will do exactly that directly from the constructor:
 `public sealed class Settings(string configName) : BaseConfig(configName)`.
 
+The BaseConfig constructor accepts 2 additional arguments, `showSaveLog` and `showLoadLog`, both are `false` by default, but when enabled will show the logs for saving and loading (useful for sanity checks)
+
 Since `SetBindings()` is **abstract**, it means we must now implement it ourselves **in the derived class**. This is where you will create the settings for your mod. See the example below:
 
 ```csharp
 using IdleSlayerMods.Common.Config;
 
-public sealed class Settings(string configName) : BaseConfig(configName)
+public sealed class Settings(string configName) : BaseConfig(configName, [optional] bool showSaveLog, [optional] bool showLoadLog)
 {
     internal MelonPreferences_Entry<KeyCode> ExampleInputKey;
 
@@ -21,6 +23,7 @@ public sealed class Settings(string configName) : BaseConfig(configName)
     }
 }
 ```
+Including the category in the binding will place your config entry under a separate heading within your config file, otherwise it will use the default heading (`configName`).
 
 Finally, to be able to use the settings in your mod, you will need to add the following in your `Plugin.cs Load()` method:
 

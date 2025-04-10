@@ -9,6 +9,7 @@ public static class ModUtils
 {
     public static bool DebugMode => Plugin.Settings.DebugMode.Value;
     
+    // ReSharper disable once UnusedMethodReturnValue.Global
     public static GameObject RegisterComponent<T>() where T : Component
     {
         ClassInjector.RegisterTypeInIl2Cpp<T>();

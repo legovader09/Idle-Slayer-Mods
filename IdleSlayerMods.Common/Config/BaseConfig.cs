@@ -7,12 +7,17 @@ public abstract class BaseConfig
 {
     private readonly MelonPreferences_Category _cfg;
     private readonly string _configPath;
+    private readonly bool _showLoadLog;
+    private readonly bool _showSaveLog;
 
-    protected BaseConfig(string cfgName)
+    protected BaseConfig(string cfgName, bool showLoadLog = false, bool showSaveLog = false)
     {
+        _showLoadLog = showLoadLog;
+        _showSaveLog = showSaveLog;
         _cfg = MelonPreferences.CreateCategory(cfgName);
         _configPath = Path.Combine(MelonEnvironment.UserDataDirectory, $"{cfgName}.cfg");
-        _cfg.SetFilePath(_configPath);
+        _cfg.SetFilePath(_configPath, true, _showLoadLog);
+        // ReSharper disable once VirtualMemberCallInConstructor
         SetBindings();
     }
     
@@ -33,10 +38,10 @@ public abstract class BaseConfig
     protected virtual MelonPreferences_Entry<T> Bind<T>(string section, string key, T defaultValue, string description = "")
     {
         var cat = MelonPreferences.CreateCategory(section);
-        cat.SetFilePath(_configPath);
+        cat.SetFilePath(_configPath, true, _showLoadLog);
         if (cat.HasEntry(key)) return cat.GetEntry<T>(key);
         var entry =  cat.CreateEntry(key, defaultValue, description: description);
-        cat.SaveToFile();
+        cat.SaveToFile(_showSaveLog);
         return entry;
     }
     
@@ -52,7 +57,7 @@ public abstract class BaseConfig
     {
         if (_cfg.HasEntry(key)) return _cfg.GetEntry<T>(key);
         var entry =  _cfg.CreateEntry(key, defaultValue, description: description);
-        _cfg.SaveToFile();
+        _cfg.SaveToFile(_showSaveLog);
         return entry;
     }
 }

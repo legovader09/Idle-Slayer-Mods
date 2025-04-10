@@ -1,3 +1,7 @@
+### Version 1.1.7
+
+- Hide save/load config logging by default (can be enabled by passing parameters into BaseConfig constructor)
+
 ### Version 1.1.6
 
 - Added static DebugMode property to ModUtils
