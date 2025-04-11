@@ -7,12 +7,8 @@
         <Version>1.0.0</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>
-        <RestoreAdditionalProjectSources>
-            https://api.nuget.org/v3/index.json;
-            https://nuget.bepinex.dev/v3/index.json;
-            https://nuget.samboy.dev/v3/index.json
-        </RestoreAdditionalProjectSources>
         <RootNamespace>IdleConfig</RootNamespace>
+        <PublishDir>$(SolutionDir)Publish\</PublishDir>
     </PropertyGroup>
 
     <ItemGroup>
@@ -60,4 +56,29 @@
     <ItemGroup>
         <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
     </ItemGroup>
+
+    <Target Name="BuildReleaseAlongWithDebug" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug'">
+        <MSBuild Projects="$(MSBuildProjectFile)" Targets="Build" Properties="Configuration=Release" />
+        <ItemGroup>
+            <ReleaseOutputFiles Include="$(OutputPath.Replace('Debug', 'Release'))$(AssemblyName).dll" />
+        </ItemGroup>
+        <MakeDir Directories="$(PublishDir)" Condition="!Exists('$(PublishDir)')" />
+        <Copy SourceFiles="@(ReleaseOutputFiles)" DestinationFolder="$(PublishDir)" />
+        <PropertyGroup>
+            <AbsolutePublishDir>$([System.IO.Path]::GetFullPath('$(PublishDir)'))</AbsolutePublishDir>
+        </PropertyGroup>
+        <Message Text="Release build copied to: file:///$(AbsolutePublishDir.Replace('\', '/').Replace(' ', '%20'))" Importance="high" />
+    </Target>
+
+    <Target Name="CopyReleaseToPublish" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
+        <ItemGroup>
+            <ReleaseOutputFiles Include="$(OutputPath)$(AssemblyName).dll" />
+        </ItemGroup>
+        <MakeDir Directories="$(PublishDir)" Condition="!Exists('$(PublishDir)')" />
+        <Copy SourceFiles="@(ReleaseOutputFiles)" DestinationFolder="$(PublishDir)" />
+        <PropertyGroup>
+            <AbsolutePublishDir>$([System.IO.Path]::GetFullPath('$(PublishDir)'))</AbsolutePublishDir>
+        </PropertyGroup>
+        <Message Text="Release build copied to: file:///$(AbsolutePublishDir.Replace('\', '/').Replace(' ', '%20'))" Importance="high" />
+    </Target>
 </Project>
