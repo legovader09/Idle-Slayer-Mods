@@ -42,11 +42,7 @@ public class AutoBoost : MonoBehaviour
 
     private static bool CanActivateWindDash(Ability ability, bool state) 
     {
-        return state
-           && ability
-           && ability.Unlocked()
-           && ability.GetCurrentCooldown().Equals(0)
-           && GameState.IsRunner()
+        return CanActivateAbility(ability, state)
            && (Plugin.Settings.WindDashOnTheGround.Value && _playerMovement.IsGrounded());
     }
 
