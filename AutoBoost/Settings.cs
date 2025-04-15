@@ -10,6 +10,7 @@ internal sealed class Settings(string configName) : BaseConfig(configName)
     internal MelonPreferences_Entry<KeyCode> ToggleKeyWindDash;
     internal MelonPreferences_Entry<bool> ShowPopup;
     internal MelonPreferences_Entry<bool> EnableWindDash;
+    internal MelonPreferences_Entry<bool> WindDashOnTheGround;
     internal MelonPreferences_Entry<bool> ShowPopupWindDash;
 
     protected override void SetBindings()
@@ -20,6 +21,8 @@ internal sealed class Settings(string configName) : BaseConfig(configName)
             "The key bind for toggling wind dash boosting");
         ShowPopupWindDash = Bind("Wind Dash", "ShowPopupWindDash", true,
             "Show a message popup to indicate whether wind dash has been toggled.");
+        WindDashOnTheGround = Bind("Wind Dash", "WindDashOnTheGround", true,
+            "Wind Dash only when on the ground");
         ToggleKey = Bind("Auto Dash", "ToggleKey", KeyCode.B,
             "The key bind for toggling auto boosting");
         ShowPopup = Bind("Auto Dash", "ShowPopup", true,
