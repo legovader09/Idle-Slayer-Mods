@@ -8,6 +8,7 @@ public class AutoBoost : MonoBehaviour
 {
     private Boost _boost;
     private WindDash _windDash;
+    private PlayerMovement _playerMovement;
     private bool _autoBoostEnabled;
     private bool _windDashEnabled;
     
@@ -17,6 +18,7 @@ public class AutoBoost : MonoBehaviour
         var windDash = GameObject.Find("Abilities Manager/Wind Dash");
         _boost = boost.GetComponentInChildren<Boost>();
         _windDash = windDash.GetComponentInChildren<WindDash>();
+        _playerMovement = PlayerMovement.instance;
     }
 
     private void LateUpdate()
@@ -35,7 +37,8 @@ public class AutoBoost : MonoBehaviour
            && ability
            && ability.Unlocked()
            && ability.GetCurrentCooldown().Equals(0)
-           && GameState.IsRunner();
+           && GameState.IsRunner()
+           && _playerMovement.IsGrounded();
     }
 
     private static void ActivateAbility(Ability ability) 
