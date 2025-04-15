@@ -1,10 +1,14 @@
+### Version 1.1.5
+
+- Added option to only wind dash when grounded (on by default)
+
 ### Version 1.1.4
 
-Fix cooldown tracking inaccuracies when certain divinities are active
+- Fix cooldown tracking inaccuracies when certain divinities are active
 
 ### Version 1.1.3
 
-Update to work with new core mod changes
+- Update to work with new core mod changes
 
 ### Version 1.1.1 & 1.1.2
 
