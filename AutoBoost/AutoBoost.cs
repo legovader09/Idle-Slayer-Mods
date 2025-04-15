@@ -38,7 +38,7 @@ public class AutoBoost : MonoBehaviour
            && ability.Unlocked()
            && ability.GetCurrentCooldown().Equals(0)
            && GameState.IsRunner()
-           && _playerMovement.IsGrounded();
+           && (Plugin.Settings.WindDashOnTheGround.Value ? _playerMovement.IsGrounded() : true);
     }
 
     private static void ActivateAbility(Ability ability) 
