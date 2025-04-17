@@ -1,4 +1,5 @@
 ﻿using IdleSlayerMods.Common.Constants;
+using IdleSlayerMods.Common.Extensions;
 using IdleSlayerMods.Common.Helpers;
 using Il2Cpp;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
@@ -6,7 +7,6 @@ using Il2CppTMPro;
 using MelonLoader;
 using UnityEngine;
 using UnityEngine.UI;
-using Button = UnityEngine.UIElements.Button;
 using File = Il2CppSystem.IO.File;
 using Path = Il2CppSystem.IO.Path;
 
@@ -17,6 +17,7 @@ public class ModHelper : MonoBehaviour
     /// <summary>
     /// Event that occurs once the ModHelper has been added to the game scene and is ready to use.
     /// </summary>
+    // ReSharper disable once EventNeverSubscribedTo.Global
     public static event Action<ModHelper> ModHelperMounted;
     private AchievementManager _achievementManager;
     private NotificationText _notificationText;
@@ -27,7 +28,7 @@ public class ModHelper : MonoBehaviour
     private void OnModHelperMounted()
     {
         ModHelperMounted?.Invoke(this);
-        Melon<Plugin>.Logger.Msg("ModHelper mounted successfully");
+        Melon<Plugin>.Logger.Debug("ModHelper mounted successfully");
     }
 
     private void Awake()
@@ -49,7 +50,7 @@ public class ModHelper : MonoBehaviour
     /// <param name="icon">Texture2D icon to display on the button. (Aspect Ratio of 2:1 canvas size recommended to avoid stretching)</param>
     public void AddPanelButton(string text, Action clickAction = null, Texture2D icon = null)
     {
-        Melon<Plugin>.Logger.Msg($"Registering panel button: {text}");
+        Melon<Plugin>.Logger.Debug($"Registering panel button: {text}");
         var button = Instantiate(_templateButton, _infoPanelButtonsContainer?.transform);
         if (button is null)
         {
@@ -74,11 +75,11 @@ public class ModHelper : MonoBehaviour
         tmp.m_text = text; 
         
         // Add event listener
-        button.GetComponent<Button>().add_onClick(clickAction);
-        icon ??= Texture2D.redTexture;
+        // button.GetComponent<Button>().add_onClick(clickAction);
+        // icon ??= Texture2D.redTexture;
         rawImage.texture = icon;
         
-        Melon<Plugin>.Logger.Msg($"Button {text} added successfully");
+        Melon<Plugin>.Logger.Debug($"Button {text} added successfully");
     }
 
     /// <summary>
@@ -98,10 +99,10 @@ public class ModHelper : MonoBehaviour
     public void ShowDialog(string title = "Dialog", string subtitle = "", string descriptionText = "", Color descriptionColor = default, bool centerDescription = false, string confirmText = "", Action confirmAction = null, string cancelText = "Close", Action cancelAction = null, GameObject content = null, bool overridePopup = false)
     {
         if (_popup == null) return;
-        Melon<Plugin>.Logger.Msg("Popup found");
+        Melon<Plugin>.Logger.Debug("Popup found");
         var panel = _popup.transform.GetChild(0).GetChild(0);
         if (!panel) return;
-        Melon<Plugin>.Logger.Msg("Panel found");
+        Melon<Plugin>.Logger.Debug("Panel found");
         panel.transform.GetChild(1).gameObject.SetActive(false);
         
         var container = panel.transform.GetChild(3).GetChild(0).GetChild(0);
@@ -138,7 +139,7 @@ public class ModHelper : MonoBehaviour
     /// <param name="shine">Whether to play a sparkle/shine animation with this text.</param>
     public void ShowNotification(string message, bool shine)
     {
-        Melon<Plugin>.Logger.Msg($"Attempting to show notification with message: {message}");
+        Melon<Plugin>.Logger.Debug($"Attempting to show notification with message: {message}");
         _notificationText?.Show(message, shine);
     }
     
