@@ -13,7 +13,6 @@
 
 # Custom
 *.psd
-*.ps1
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
