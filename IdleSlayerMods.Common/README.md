@@ -10,7 +10,7 @@ In order to get started, simply download the mod from [Nexus](https://www.nexusm
 | static class ModUtils                                  | Mod utility class, used for registering custom components                        |
 |--------------------------------------------------------|----------------------------------------------------------------------------------|
 | GameObject RegisterComponent<T> : where T is Component | Registers a unity component into the mod loader so that it is usable in the code |
-| static bool DebugMode                                  | Returns the config entry value for DebugMode.                                    |
+| static bool DebugMode                                  | Returns the config entry value for DebugMode. (READONLY)                         |
 
 **Your unity components must be registered via this method before they are usable in your code.**
 `RegisterComponent()` can be called at any point, but must be called at any point before accessing your component.

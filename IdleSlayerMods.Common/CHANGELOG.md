@@ -1,3 +1,8 @@
+### Version 1.1.9
+
+- Made most core mod logging use the debug logger (turn on Debug Mode in config file to view)
+- Added SaveEntry() method to config entry object
+
 ### Version 1.1.8
 
 - Fixed baseconfig signature bug

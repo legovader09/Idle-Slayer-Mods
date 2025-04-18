@@ -18,7 +18,7 @@ public sealed class Settings(string configName) : BaseConfig(configName, [option
 
     protected override void SetBindings()
     {
-        ExampleInputKey = Bind("Example Category (Optional)", "ExampleInputKey", KeyCode.B,
+        ExampleInputKey = Bind("ExampleCategory (Optional, but recommended for organization)", "ExampleInputKey", KeyCode.B,
             "The key bind for my mod");
     }
 }
@@ -60,3 +60,15 @@ public class ExampleBehaviour : MonoBehaviour
     }
 }
 ```
+
+## Saving a config entry value
+
+To easily save the config entry value, the extension method `SaveEntry()` exists. 
+
+- **It is important to note that config files get auto-saved on game close. This will be changed to be optional in a future update.**
+
+### Base Config Extension
+
+| static class BaseConfigExtensions | MelonLoader logging extension class                        |
+|-----------------------------------|------------------------------------------------------------|
+| static void SaveEntry()           | Immediately saves the selected config entry value to file. |
