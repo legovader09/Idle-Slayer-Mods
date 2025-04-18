@@ -31,9 +31,6 @@
       <Reference Include="Il2Cppmscorlib">
         <HintPath>..\Libraries\Il2Cppmscorlib.dll</HintPath>
       </Reference>
-      <Reference Include="Tomlet">
-        <HintPath>..\Libraries\Tomlet.dll</HintPath>
-      </Reference>
       <Reference Include="Unity.TextMeshPro">
         <HintPath>..\Libraries\Unity.TextMeshPro.dll</HintPath>
       </Reference>

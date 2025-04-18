@@ -2,7 +2,6 @@
 using MelonLoader;
 using UnityEngine;
 using Input = UnityEngine.Input;
-using KeyCode = UnityEngine.KeyCode;
 
 namespace BonusStageCompleter;
 
