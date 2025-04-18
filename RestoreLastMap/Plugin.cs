@@ -1,12 +1,12 @@
 using IdleSlayerMods.Common;
 using MelonLoader;
-using MyPluginInfo = BetterLoadLocation.MyPluginInfo;
-using Plugin = BetterLoadLocation.Plugin;
+using MyPluginInfo = RestoreLastMap.MyPluginInfo;
+using Plugin = RestoreLastMap.Plugin;
 
 [assembly: MelonInfo(typeof(Plugin), MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION, MyPluginInfo.PLUGIN_AUTHOR)]
 [assembly: MelonAdditionalDependencies("IdleSlayerMods.Common")]
 
-namespace BetterLoadLocation;
+namespace RestoreLastMap;
 
 public class Plugin : MelonMod
 {

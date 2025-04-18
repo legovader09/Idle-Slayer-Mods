@@ -2,7 +2,7 @@ using IdleSlayerMods.Common.Extensions;
 using Il2Cpp;
 using UnityEngine;
 
-namespace BetterLoadLocation;
+namespace RestoreLastMap;
 
 public class MapRestorer : MonoBehaviour
 {

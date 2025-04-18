@@ -2,7 +2,7 @@
 using IdleSlayerMods.Common.Extensions;
 using Il2Cpp;
 
-namespace BetterLoadLocation;
+namespace RestoreLastMap;
 
 [HarmonyPatch(typeof(MapController), nameof(MapController.ChangeMap))]
 public class ChangeMapPatch

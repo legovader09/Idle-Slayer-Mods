@@ -1,7 +1,7 @@
 using IdleSlayerMods.Common.Config;
 using MelonLoader;
 
-namespace BetterLoadLocation;
+namespace RestoreLastMap;
 
 internal sealed class ConfigFile(string configName) : BaseConfig(configName)
 {

@@ -5,6 +5,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>disable</Nullable>
         <LangVersion>latest</LangVersion>
+        <RootNamespace>RestoreLastMap</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -33,7 +34,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="BetterLoadLocation.csproj.user" />
+      <None Include="RestoreLastMap.csproj.user" />
     </ItemGroup>
 
 </Project>
