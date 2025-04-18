@@ -64,11 +64,13 @@ foreach ($line in $logo -split "`n") {
 
 Write-HorizontalLine -Count 100 -Character "═"
 Show-AnimatedText "Welcome to the Idle Slayer Mod Creation Wizard!" -Color "Cyan" -Milliseconds 10
+Show-AnimatedText "This creator assumes you already have Idle Slayer Mod Manager, or MelonLoader installed." -Color "Cyan" -Milliseconds 10
 Write-HorizontalLine -Count 100 -Character "─" -Color "Blue"
 
-$DefaultIdleSlayerPath = "C:\Program Files (x86)\Steam\steamapps\common\Idle Slayer"
-$DefaultIdleSlayerExe = Join-Path -Path $DefaultIdleSlayerPath -ChildPath "Idle Slayer.exe"
-$IdleSlayerDetected = Test-Path $DefaultIdleSlayerExe
+$ISMMFolder = Join-Path -Path $env:LOCALAPPDATA -ChildPath "IdleSlayerModManager"
+$ModLoaderPath = Join-Path -Path $ISMMFolder -ChildPath "ModLoader"
+$DefaultISMMPath = $ModLoaderPath
+$ISMMDetected = Test-Path $ModLoaderPath
 
 Write-HorizontalLine -Count 100 -Character "·" -Color "DarkGray"
 Write-Host ">> " -NoNewline -ForegroundColor Yellow
@@ -80,7 +82,11 @@ do {
     }
 } until ($ProjectName.Trim() -ne "")
 
-$ProjectName = (Get-Culture).TextInfo.ToTitleCase($ProjectName.ToLower())
+if ($ProjectName -cmatch '[a-z][A-Z]') {
+    $ProjectName = $ProjectName.Substring(0,1).ToUpper() + $ProjectName.Substring(1)
+} else {
+    $ProjectName = (Get-Culture).TextInfo.ToTitleCase($ProjectName.ToLower())
+}
 
 Write-Host ">> " -NoNewline -ForegroundColor Yellow
 do {
@@ -92,27 +98,27 @@ do {
 } until ($AuthorName.Trim() -ne "")
 
 Write-Host ">> " -NoNewline -ForegroundColor Yellow
-if ($IdleSlayerDetected) {
-    Write-ColoredText "√ Idle Slayer installation detected!" "Green"
-    Write-ColoredText "  Path: $DefaultIdleSlayerPath" "DarkGreen"
-    $IdleSlayerDir = $DefaultIdleSlayerPath
+if ($ISMMDetected) {
+    Write-ColoredText "√ ISMM installation detected!" "Green"
+    Write-ColoredText "  Path: $DefaultISMMPath" "DarkGreen"
+    $IdleSlayerDir = $DefaultISMMPath
 } else {
-    Write-ColoredText "× Idle Slayer folder could not be found in default location." "Yellow"
+    Write-ColoredText "× Idle Slayer Mod Manager folder could not be found in default location." "Yellow"
     
     do {
-        Write-Host "Enter Idle Slayer game directory: " -NoNewline -ForegroundColor Cyan
+        Write-Host "Enter Idle Slayer game directory, or a folder that contains MelonLoader:" -NoNewline -ForegroundColor Cyan
         $IdleSlayerDir = Read-Host
         $IdleSlayerDir = $IdleSlayerDir -replace '^"|"$', ''
         
         if ($IdleSlayerDir.Trim() -eq "") {
-            Write-ColoredText "!! Idle Slayer directory cannot be empty. Please enter a value." "Yellow"
+            Write-ColoredText "!! ISMM directory cannot be empty. Please enter a value." "Yellow"
         }
     } until ($IdleSlayerDir.Trim() -ne "")
 }
 
 Write-Host ">> " -NoNewline -ForegroundColor Yellow
 do {
-    Write-Host "Enter project location: " -NoNewline -ForegroundColor Cyan
+    Write-Host "Enter project location (this creates a subfolder with the project name): " -NoNewline -ForegroundColor Cyan
     $ProjectLocation = Read-Host
     $ProjectLocation = $ProjectLocation -replace '^"|"$', ''
     
