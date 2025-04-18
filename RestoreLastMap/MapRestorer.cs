@@ -16,17 +16,7 @@ public class MapRestorer : MonoBehaviour
         "map_bonus_stage_2",
         "map_bonus_stage_3",
         "map_special_bonus_stage",
-        "bosses_victor_alpha",
-        // "map_factory",
-        // "map_frozen_fields",
-        // "map_funky_space",
-        // "map_haunted_castle",
-        // "map_hills",
-        // "map_hot_desert",
-        // "map_jungle",
-        // "map_modern_city",
-        // "map_mystic_valley",
-        // "map_forest"
+        "bosses_victor_alpha"
     ];
 
     public void Start()
