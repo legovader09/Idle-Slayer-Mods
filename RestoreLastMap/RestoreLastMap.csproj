@@ -6,6 +6,7 @@
         <Nullable>disable</Nullable>
         <LangVersion>latest</LangVersion>
         <RootNamespace>RestoreLastMap</RootNamespace>
+        <Version>1.0.0</Version>
     </PropertyGroup>
 
     <ItemGroup>
