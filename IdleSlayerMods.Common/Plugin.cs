@@ -3,6 +3,8 @@ using MelonLoader;
 
 [assembly: MelonInfo(typeof(Plugin), MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION, MyPluginInfo.PLUGIN_AUTHOR)]
 [assembly: MelonPriority(100)]
+[assembly: MelonColor(1, 1, 255, 100)]
+[assembly: MelonAuthorColor(1, 1, 155, 70)]
 
 namespace IdleSlayerMods.Common;
 
