@@ -37,7 +37,7 @@ public class MapRestorer : MonoBehaviour
     public void RestoreMap()
     {
         var lastMap = Plugin.Config.LastMap.Value;
-        if (_blackList.Contains(lastMap) || _mapController.selectedMap.name == lastMap) return;
+        if (string.IsNullOrWhiteSpace(lastMap) || _blackList.Contains(lastMap) || _mapController.selectedMap.name == lastMap) return;
         
         var newMap = _mapController.maps.First(x => x.name == lastMap);
         Plugin.Logger.Debug($"Restoring map: {lastMap}");
@@ -54,7 +54,7 @@ public class MapRestorer : MonoBehaviour
         {
             var tempName = newMap.localizedName;
             newMap.localizedName = "Restore Last Map";
-            _mapController.SpawnPortal(newMap, new(new Vector2(_mapController.player.position.x + 20f, _mapController.groundYPos)));
+            _mapController.SpawnPortal(newMap, new(new Vector2(_mapController.player.position.x + 25f, _mapController.groundYPos)));
             newMap.localizedName = tempName;
         }
     }
