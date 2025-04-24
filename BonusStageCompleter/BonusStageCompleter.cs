@@ -3,7 +3,7 @@ using MelonLoader;
 using UnityEngine;
 using Input = UnityEngine.Input;
 
-namespace BonusStageCompleterLocal;
+namespace BonusStageCompleter;
 
 public class BonusStageCompleter : MonoBehaviour
 {
