@@ -14,7 +14,6 @@ public class BonusStageCompleter : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
         _mapController = GameObject.Find("Map").GetComponent<MapController>();
         _bonusController = GameObject.Find("Bonus Map Controller").GetComponent<BonusMapController>();
 
