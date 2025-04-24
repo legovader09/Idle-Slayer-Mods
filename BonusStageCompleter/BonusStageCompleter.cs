@@ -7,18 +7,18 @@ namespace BonusStageCompleter;
 
 public class BonusStageCompleter : MonoBehaviour
 {
-    public static BonusStageCompleter Instance { get; private set; }
-
     private MapController _mapController;
     private BonusMapController _bonusController;
     private bool _isInBonusGame;
-    private static bool _skipAtSpiritBoostEnabled;
+    private bool _skipAtSpiritBoostEnabled;
 
     private void Awake()
     {
         Instance = this;
         _mapController = GameObject.Find("Map").GetComponent<MapController>();
         _bonusController = GameObject.Find("Bonus Map Controller").GetComponent<BonusMapController>();
+
+        _skipAtSpiritBoostEnabled = Plugin.Settings.EnableSkipAtSpiritBoost.Value;        
     }
 
     private void LateUpdate()
@@ -31,7 +31,7 @@ public class BonusStageCompleter : MonoBehaviour
         }
 #endif
 
-        if (Plugin.Settings.EnableSkipAtSpiritBoost.Value && Input.GetKeyDown(Plugin.Settings.ToggleKey.Value))
+        if (Input.GetKeyDown(Plugin.Settings.ToggleKey.Value))
             ToggleSkip("Skip At Spirit Boost", ref _skipAtSpiritBoostEnabled, Plugin.Settings.ShowPopUpSkipAtSpiritBoost.Value);
 
         _isInBonusGame = _mapController.selectedMap.name.Contains("bonus");
@@ -59,10 +59,6 @@ public class BonusStageCompleter : MonoBehaviour
         if (showPopup)
             Plugin.ModHelperInstance.ShowNotification(state ? $"{type} activated!" : $"{type} deactivated!", state);
 
-        Plugin.Settings.ShowPopUpSkipAtSpiritBoost.Value = state;
-    }
-    public static bool GetSkipAtSpiritBoostEnabled()
-    {
-        return _skipAtSpiritBoostEnabled;
+        Plugin.Settings.EnableSkipAtSpiritBoost.Value = state;
     }
 }
