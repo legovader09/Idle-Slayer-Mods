@@ -3,7 +3,7 @@
     <Target Name="CustomFolderDeploy" AfterTargets="AfterBuild" BeforeTargets="MSDeployPublish">
         <PropertyGroup>
             <CustomFolder>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\bin\$(Configuration)\net6.0'))</CustomFolder>
-            <PublishFolder>$(MSBuildProjectDirectory)\publish\$(Configuration)</PublishFolder>
+            <PublishFolder>$(MSBuildProjectDirectory)\Publish\$(Configuration)</PublishFolder>
             <TempFolder>$(PublishFolder)\temp</TempFolder>
         </PropertyGroup>
 
