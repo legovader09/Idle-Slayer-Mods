@@ -1,4 +1,4 @@
-﻿using Il2Cpp;
+using Il2Cpp;
 using MelonLoader;
 using UnityEngine;
 using Input = UnityEngine.Input;
@@ -16,19 +16,21 @@ public class BonusStageCompleter : MonoBehaviour
     {
         _mapController = GameObject.Find("Map").GetComponent<MapController>();
         _bonusController = GameObject.Find("Bonus Map Controller").GetComponent<BonusMapController>();
+
+        _skipAtSpiritBoostEnabled = Plugin.Settings.EnableSkipAtSpiritBoost.Value;        
     }
 
     private void LateUpdate()
     {
-        #if DEBUG
+#if DEBUG
         if (Input.GetKeyDown(KeyCode.P))
         {
             _mapController.ChangeMap(_mapController.CurrentBonusMap());
             _bonusController.spiritBoostEnabled = true;
         }
-        #endif
+#endif
 
-        if (Plugin.Settings.EnableSkipAtSpiritBoost.Value && Input.GetKeyDown(Plugin.Settings.ToggleKey.Value))
+        if (Input.GetKeyDown(Plugin.Settings.ToggleKey.Value))
             ToggleSkip("Skip At Spirit Boost", ref _skipAtSpiritBoostEnabled, Plugin.Settings.ShowPopUpSkipAtSpiritBoost.Value);
 
         _isInBonusGame = _mapController.selectedMap.name.Contains("bonus");
@@ -55,5 +57,7 @@ public class BonusStageCompleter : MonoBehaviour
 
         if (showPopup)
             Plugin.ModHelperInstance.ShowNotification(state ? $"{type} activated!" : $"{type} deactivated!", state);
+
+        Plugin.Settings.EnableSkipAtSpiritBoost.Value = state;
     }
 }
