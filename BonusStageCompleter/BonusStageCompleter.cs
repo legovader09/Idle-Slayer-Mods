@@ -47,7 +47,7 @@ public class BonusStageCompleter : MonoBehaviour
 
         if (pickedUp == total - 1 || pickedUp == total) return;
         _bonusController.bonusSpheresPickedUp = total - 1;
-        Melon<Plugin>.Logger.Msg($"Set spheres picked up tooo: {_bonusController.bonusSpheresPickedUp}");
+        Melon<Plugin>.Logger.Msg($"Set spheres picked up to: {_bonusController.bonusSpheresPickedUp}");
     }
 
     private static void ToggleSkip(string type, ref bool state, bool showPopup)
