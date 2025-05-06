@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdleConfig", "IdleConfig\Id
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterLoadLocation", "BetterLoadLocation\BetterLoadLocation.csproj", "{6531114B-7533-445A-9D63-DF9DFBCFAC69}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unreleased", "Unreleased", "{370C8832-FA39-4EB0-B68D-4E2AD7B2F7B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -1,0 +1,12 @@
+﻿{
+  "name": "Restore Last Map",
+  "author": "Doomnik",
+  "description": "Opens a free portal to the last place you visited, such as the village, when you launch into the game.",
+  "version": "1.0.0",
+  "nexus_id": "15",
+  "donate_url": "https://paypal.me/doomnikh",
+  "github_url": "https://www.github.com/legovader09/Idle-Slayer-Mods",
+  "dependencies": [
+    "IdleSlayerMods.Common@1.1.9"
+  ]
+}

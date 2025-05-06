@@ -1,0 +1,12 @@
+﻿{
+  "name": "Chest Hunt Revealer",
+  "author": "Doomnik",
+  "description": "Reveals and highlights various chests in the Chest Hunt minigame",
+  "version": "1.2.1",
+  "nexus_id": "2",
+  "donate_url": "https://paypal.me/doomnikh",
+  "github_url": "https://www.github.com/legovader09/Idle-Slayer-Mods",
+  "dependencies": [
+    "IdleSlayerMods.Common@1.1.9"
+  ]
+}

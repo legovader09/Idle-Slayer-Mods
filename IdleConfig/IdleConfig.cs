@@ -10,7 +10,8 @@ public class IdleConfig : MonoBehaviour
     private void Start()
     {
         Plugin.Logger.Msg(Path.Combine(MelonEnvironment.ModsDirectory, "IdleConfigIcon.png"));
-        var texture = ModHelper.LoadTextureFromFile(Path.Combine(MelonEnvironment.ModsDirectory, "IdleConfigIcon.png"));
+        var bundle = ModHelper.LoadBundle(Path.Combine(MelonEnvironment.ModsDirectory, "IdleConfig.asset"));
+        var texture = ModHelper.LoadTextureFromBundle(bundle, "IdleConfigIcon.png");
 
         Plugin.ModHelper.AddPanelButton("Idle Config", ClickAction, texture);
     }

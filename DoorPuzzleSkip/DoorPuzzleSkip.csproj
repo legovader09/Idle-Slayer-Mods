@@ -42,6 +42,10 @@
     <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Assets\" />
+  </ItemGroup>
+
   <Target Name="BuildReleaseAlongWithDebug" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug'">
     <MSBuild Projects="$(MSBuildProjectFile)" Targets="Build" Properties="Configuration=Release" />
     <ItemGroup>

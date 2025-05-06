@@ -1,0 +1,12 @@
+﻿{
+  "name": "Bonus Stage Completer",
+  "author": "Doomnik",
+  "description": "Sets the spheres picked up to the total required spheres in a stage minus 1. This means one singular sphere has to be collected to complete each section of the bonus stage.",
+  "version": "1.0.2",
+  "nexus_id": "5",
+  "donate_url": "https://paypal.me/doomnikh",
+  "github_url": "https://www.github.com/legovader09/Idle-Slayer-Mods",
+  "dependencies": [
+    "IdleSlayerMods.Common@1.1.9"
+  ]
+}
