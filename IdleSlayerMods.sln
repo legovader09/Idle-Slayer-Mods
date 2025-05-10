@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdleConfig", "IdleConfig\Id
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unreleased", "Unreleased", "{370C8832-FA39-4EB0-B68D-4E2AD7B2F7B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestoreLastMap", "RestoreLastMap\RestoreLastMap.csproj", "{A2324184-DBD4-4C3A-B1D0-52415F3F6534}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

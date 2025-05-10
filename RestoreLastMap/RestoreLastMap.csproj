@@ -38,5 +38,16 @@
       <None Include="RestoreLastMap.csproj.user" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Assets\banner.png" />
+      <AdditionalFiles Include="Assets\banner.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <None Remove="Assets\manifest.json" />
+      <AdditionalFiles Include="Assets\manifest.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
+    </ItemGroup>
+
 </Project>
 
