@@ -1,4 +1,8 @@
-﻿### Version 1.0.3
+﻿### Version 1.0.4
+
+- Fix issue with skip at spirit boost not working as intended with certain configurations.
+
+### Version 1.0.3
 
 - Added toggle key (J by default) to not auto complete bonus stage during spirit boost event.
 

@@ -4,6 +4,6 @@ public static class MyPluginInfo
 {
     public const string PLUGIN_GUID = "BonusStageCompleter";
     public const string PLUGIN_NAME = "Bonus Stage Completer";
-    public const string PLUGIN_VERSION = "1.0.3";
+    public const string PLUGIN_VERSION = "1.0.4";
     public const string PLUGIN_AUTHOR = "Doomnik";
 }

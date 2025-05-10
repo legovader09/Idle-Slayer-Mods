@@ -13,6 +13,3 @@ Showing or hiding the popup message can also be toggled in the config file.
 **Enable by toggling the "EnableWindDash" setting.**
 
 **Enable by pressing N on the keyboard**
-
-## Installation
-Plugin goes into **Path/To/Idle Slayer/BepInEx/plugins**
