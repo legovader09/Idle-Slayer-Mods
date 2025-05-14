@@ -110,12 +110,13 @@ To access within a MonoBehaviour script will then be as simple as:
 using UnityEngine;
 public class CustomBehaviour : MonoBehaviour
 {
-    void Awake()
+    void Start()
     {
         Plugin.ModHelperInstance.ShowNotification("Custom message!");
     }
 }
 ```
+The ModHelperMounted event happens in the Awake lifecycle, thus it is recommended to access the instance from Start() or any point after that to avoid potential race conditions.
 
 ### Using BaseConfig
 

@@ -6,6 +6,7 @@ using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using Il2CppTMPro;
 using MelonLoader;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using File = Il2CppSystem.IO.File;
 using Path = Il2CppSystem.IO.Path;
@@ -24,7 +25,8 @@ public class ModHelper : MonoBehaviour
     private Popup _popup;
     private Transform _infoPanelButtonsContainer;
     private GameObject _templateButton;
-    
+    private bool anyModSettings = false;
+
     private void OnModHelperMounted()
     {
         ModHelperMounted?.Invoke(this);
@@ -82,6 +84,43 @@ public class ModHelper : MonoBehaviour
         Melon<Plugin>.Logger.Debug($"Button {text} added successfully");
     }
 
+    /// <summary>
+    /// Creates a settings toggle in the user interface with the specified display name
+    /// and binds it to a configuration entry.
+    /// </summary>
+    /// <param name="displayName">The display name of the toggle in the UI</param>
+    /// <param name="configEntry">The configuration entry representing the state of the toggle.</param>
+    /// <param name="onChanged">Callback action invoked when the toggle value changes.</param>
+    public void CreateSettingsToggle(string displayName, MelonPreferences_Entry<bool> configEntry, Action<bool> onChanged)
+    {
+        Melon<Plugin>.Logger.Debug($"Registering settings toggle: {displayName}");
+        var template = GameObject.Find($"{PathConstants.SettingsTogglePath}/Confirm Portal");
+        var toggle = Instantiate(template, template.transform.parent);
+        toggle.transform.SetSiblingIndex(anyModSettings ? 1 : 0);
+        toggle.name = displayName;
+        
+        UIHelper.SetLabelText(toggle.transform.Find("Label"), displayName);
+
+        var toggler = toggle.GetComponent<Toggle>();
+        toggler.onValueChanged.RemoveAllListeners();
+        toggler.isOn = configEntry.Value;
+        toggler.onValueChanged.AddListener((UnityAction<bool>)(state => { SettingsHelper.OnToggleChanged(state, configEntry, onChanged);}));
+
+        if (anyModSettings) return;
+        anyModSettings = true;
+        CreateSettingsCategory("Mod Settings");
+    }
+
+    public void CreateSettingsCategory(string displayName, int index = 0)
+    {
+        Melon<Plugin>.Logger.Debug($"Registering settings category: {displayName}");
+        var template = GameObject.Find($"{PathConstants.SettingsTogglePath}/Screen Title");
+        var title = Instantiate(template, template.transform.parent);
+        title.transform.SetSiblingIndex(index);
+        title.name = displayName;
+        UIHelper.SetLabelText(title.transform.Find("Label"), displayName);
+    }
+    
     /// <summary>
     /// Show a dialog popup with information and interactable buttons.
     /// </summary>

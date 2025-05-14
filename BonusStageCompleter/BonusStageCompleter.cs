@@ -1,3 +1,4 @@
+using IdleSlayerMods.Common.Extensions;
 using Il2Cpp;
 using MelonLoader;
 using UnityEngine;
@@ -17,7 +18,13 @@ public class BonusStageCompleter : MonoBehaviour
         _mapController = GameObject.Find("Map").GetComponent<MapController>();
         _bonusController = GameObject.Find("Bonus Map Controller").GetComponent<BonusMapController>();
 
-        _skipAtSpiritBoostEnabled = Plugin.Settings.EnableSkipAtSpiritBoost.Value;        
+        _skipAtSpiritBoostEnabled = Plugin.Settings.EnableSkipAtSpiritBoost.Value;
+    }
+
+    private void Start()
+    {
+        Plugin.ModHelperInstance.CreateSettingsToggle("Enable Skip At Spirit Boost", Plugin.Settings.EnableSkipAtSpiritBoost, 
+            _ => Plugin.Settings.EnableSkipAtSpiritBoost.SaveEntry());
     }
 
     private void LateUpdate()

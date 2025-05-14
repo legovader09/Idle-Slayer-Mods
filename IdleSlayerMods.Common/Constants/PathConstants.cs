@@ -6,4 +6,5 @@ internal static class PathConstants
     internal const string NotificationTextPath = "UIManager/Safe Zone/Notification Text";
     internal const string PopupPath = "UIManager/Popup";
     internal const string AchievementManagerPath = "UIManager/Achievement Manager";
+    internal const string SettingsTogglePath = "UIManager/Popup Options/Overlay/Panel/Scroll View/Viewport/Content";
 }

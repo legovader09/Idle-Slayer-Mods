@@ -1,7 +1,11 @@
+### Version 1.2.0
+
+- Added helper method to allow creating custom toggle settings for mods.
+
 ### Version 1.1.9
 
 - Made most core mod logging use the debug logger (turn on Debug Mode in config file to view)
-- Added SaveEntry() method to config entry object
+- Added SaveEntry() method to the config entry object
 
 ### Version 1.1.8
 
