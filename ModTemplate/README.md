@@ -1,7 +1,13 @@
 To get started with this mod template, open PowerShell and run the following command in **PowerShell**:
 
+**IF MOD MANAGER V1**
 ```powershell
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://github.com/legovader09/Idle-Slayer-Mods/releases/download/mod-template/QuickStart.ps1'))
+```
+
+**IF MOD MANAGER V2**
+```powershell
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://github.com/legovader09/Idle-Slayer-Mods/releases/download/mod-template/QuickStartV2.ps1'))
 ```
 
 This will execute a script that will download the Mod Template project, and fill in all the important details to have a working mod right away.
