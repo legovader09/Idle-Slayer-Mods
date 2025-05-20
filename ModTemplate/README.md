@@ -1,4 +1,4 @@
-To get started with this mod template, open PowerShell and run the following command in **PowerShell**:
+To get started with this mod template, open **PowerShell**, then copy and run the following command:
 
 **IF MOD MANAGER V1**
 ```powershell
