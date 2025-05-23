@@ -15,8 +15,9 @@ public static class ButtonHelper
     internal static GameObject CreateTemplateButton(string templatePath)
     {
         var button = Object.Instantiate(GameObject.Find(templatePath));
-        button.transform.GetChild(0).GetComponent<Image>().sprite = null;
-        button.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Button";
+        var visualContent = button.transform.Find("Background/Content");
+        visualContent.GetChild(0).GetComponent<Image>().sprite = null;
+        visualContent.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Button";
         button.GetComponent<Button>().onClick = null;
         return button;
     }

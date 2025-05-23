@@ -50,6 +50,7 @@ public class ModHelper : MonoBehaviour
     /// <param name="text">Text to display on the button, internally also sets the object name.</param>
     /// <param name="clickAction">Action delegate that occurs on button click.</param>
     /// <param name="icon">Texture2D icon to display on the button. (Aspect Ratio of 2:1 canvas size recommended to avoid stretching)</param>
+    [Obsolete("Images do NOT load anymore.")]
     public void AddPanelButton(string text, Action clickAction = null, Texture2D icon = null)
     {
         Melon<Plugin>.Logger.Debug($"Registering panel button: {text}");
@@ -63,21 +64,23 @@ public class ModHelper : MonoBehaviour
         button.name = text;
 
         // Prevents StartingText from overwriting TMP text
-        var startingText = button.transform.GetChild(1).GetComponent<StartingText>();
+        var visualContent = button.transform.Find("Background/Content");
+        var startingText = visualContent.GetChild(1).GetComponent<StartingText>();
         if (startingText) DestroyImmediate(startingText);
 
         // Get rid of duplicated component's image and add rawimage to allow custom texture loading
-        var buttonImage = button.transform.GetChild(0).gameObject;
+        var buttonImage = visualContent.GetChild(0).gameObject;
         DestroyImmediate(buttonImage.GetComponent<Image>());
         var rawImage = buttonImage.AddComponent<RawImage>();
         
         // Update TMP text
-        var tmp = button.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>();
+        var tmp = visualContent.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>();
         tmp.text = text;
         tmp.m_text = text; 
         
         // Add event listener
-        // button.GetComponent<Button>().add_onClick(clickAction);
+        button.GetComponent<Button>().onClick.RemoveAllListeners();
+        button.GetComponent<Button>().onClick.AddListener((UnityAction)(() => { clickAction?.Invoke(); }));
         // icon ??= Texture2D.redTexture;
         rawImage.texture = icon;
         
@@ -101,7 +104,7 @@ public class ModHelper : MonoBehaviour
         
         UIHelper.SetLabelText(toggle.transform.Find("Label"), displayName);
 
-        var toggler = toggle.GetComponent<Toggle>();
+        var toggler = toggle.transform.Find("Animated Switch").GetComponent<Toggle>();
         toggler.onValueChanged.RemoveAllListeners();
         toggler.isOn = configEntry.Value;
         toggler.onValueChanged.AddListener((UnityAction<bool>)(state => { SettingsHelper.OnToggleChanged(state, configEntry, onChanged);}));
@@ -189,7 +192,7 @@ public class ModHelper : MonoBehaviour
         {
             var fullPath = Path.Combine(bundlePath);
             var bundle = AssetBundle.LoadFromFile(fullPath);
-            if (bundle != null) return bundle;
+            if (bundle) return bundle;
             Melon<Plugin>.Logger.Error($"Failed to load asset bundle from {fullPath}");
             return null;
         }
