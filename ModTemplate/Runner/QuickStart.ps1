@@ -69,7 +69,7 @@ Write-HorizontalLine -Count 100 -Character "─" -Color "Blue"
 
 $ISMMFolder = Join-Path -Path $env:LOCALAPPDATA -ChildPath "IdleSlayerModManager"
 $ModLoaderPath = Join-Path -Path $ISMMFolder -ChildPath "ModLoader"
-$DefaultISMMPath = $ModLoaderPath
+$DefaultISMMPath = $ISMMFolder
 $ISMMDetected = Test-Path $ModLoaderPath
 
 Write-HorizontalLine -Count 100 -Character "·" -Color "DarkGray"
@@ -106,7 +106,7 @@ if ($ISMMDetected) {
     Write-ColoredText "× Idle Slayer Mod Manager folder could not be found in default location." "Yellow"
     
     do {
-        Write-Host "Enter Idle Slayer game directory, or a folder that contains MelonLoader:" -NoNewline -ForegroundColor Cyan
+        Write-Host "Enter Idle Slayer Mod Manager directory:" -NoNewline -ForegroundColor Cyan
         $IdleSlayerDir = Read-Host
         $IdleSlayerDir = $IdleSlayerDir -replace '^"|"$', ''
         
@@ -135,8 +135,8 @@ Write-HorizontalLine -Count 100 -Character "─" -Color "Blue"
 Write-Host "▼ " -NoNewline -ForegroundColor Cyan
 Show-AnimatedText "Downloading mod template..." -Color "White"
 
-$ZipURL = "https://github.com/legovader09/Idle-Slayer-Mods/releases/download/mod-template/ModTemplate.zip"
-$ZipFile = "$ProjectLocation\ModTemplate.zip"
+$ZipURL = "https://github.com/legovader09/Idle-Slayer-Mods/releases/download/mod-template/ModTemplateV2.zip"
+$ZipFile = "$ProjectLocation\ModTemplateV2.zip"
 
 if (!(Test-Path $ProjectLocation)) {
     Write-Host "  Creating directory: " -NoNewline -ForegroundColor DarkGray
