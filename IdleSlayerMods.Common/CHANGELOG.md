@@ -1,6 +1,7 @@
 ### Version 1.2.0
 
-- Added helper method to allow creating custom toggle settings for mods.
+- Added a helper method to allow creating custom toggle settings for mods.
+- Update path references to work with Idle Slayer 6.3.0
 
 ### Version 1.1.9
 

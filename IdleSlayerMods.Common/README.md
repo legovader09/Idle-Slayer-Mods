@@ -56,6 +56,7 @@ obj.AddComponent<MyCustomBehaviour>();
 | void ShowDialog()               | Show a customisable dialog popup message                                           |
 | void ShowAchievement()          | Show a customisable achievement style popup                                        |
 | void AddPanelButton()           | Adds a button to the info panel. The same place as Achievements, Options, etc.     |
+| void CreateSettingsToggle()     | Creates a toggle in the in-game settings menu panel.                               |
 
 ### Achievement Helper
 
