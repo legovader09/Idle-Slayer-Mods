@@ -70,7 +70,9 @@ Write-HorizontalLine -Count 100 -Character "─" -Color "Blue"
 $ISMMFolder = Join-Path -Path $env:LOCALAPPDATA -ChildPath "IdleSlayerModManager"
 $ModLoaderPath = Join-Path -Path $ISMMFolder -ChildPath "ModLoader"
 $DefaultISMMPath = $ISMMFolder
+$DefaultIdleSlayerGamePath = Join-Path -Path ${env:ProgramFiles(x86)} -ChildPath "Steam\steamapps\common\Idle Slayer"
 $ISMMDetected = Test-Path $ModLoaderPath
+$IdleSlayerDetected = Test-Path $DefaultIdleSlayerGamePath
 
 Write-HorizontalLine -Count 100 -Character "·" -Color "DarkGray"
 Write-Host ">> " -NoNewline -ForegroundColor Yellow
@@ -102,16 +104,20 @@ if ($ISMMDetected) {
     Write-ColoredText "√ ISMM installation detected!" "Green"
     Write-ColoredText "  Path: $DefaultISMMPath" "DarkGreen"
     $IdleSlayerDir = $DefaultISMMPath
+} elseif ($IdleSlayerDetected) {
+    Write-ColoredText "√ Idle Slayer game installation detected!" "Green"
+    Write-ColoredText "  Path: $DefaultIdleSlayerGamePath" "DarkGreen"
+    $IdleSlayerDir = $DefaultIdleSlayerGamePath
 } else {
-    Write-ColoredText "× Idle Slayer Mod Manager folder could not be found in default location." "Yellow"
+    Write-ColoredText "× Idle Slayer Mod Manager folder or Idle Slayer game folder could not be found in default location." "Yellow"
     
     do {
-        Write-Host "Enter Idle Slayer Mod Manager directory:" -NoNewline -ForegroundColor Cyan
+        Write-Host "Enter Idle Slayer Mod Manager OR Idle Slayer GAME directory:" -NoNewline -ForegroundColor Cyan
         $IdleSlayerDir = Read-Host
         $IdleSlayerDir = $IdleSlayerDir -replace '^"|"$', ''
         
         if ($IdleSlayerDir.Trim() -eq "") {
-            Write-ColoredText "!! ISMM directory cannot be empty. Please enter a value." "Yellow"
+            Write-ColoredText "!! Directory cannot be empty. Please enter a value." "Yellow"
         }
     } until ($IdleSlayerDir.Trim() -ne "")
 }
@@ -135,8 +141,8 @@ Write-HorizontalLine -Count 100 -Character "─" -Color "Blue"
 Write-Host "▼ " -NoNewline -ForegroundColor Cyan
 Show-AnimatedText "Downloading mod template..." -Color "White"
 
-$ZipURL = "https://github.com/legovader09/Idle-Slayer-Mods/releases/download/mod-template/ModTemplateV2.zip"
-$ZipFile = "$ProjectLocation\ModTemplateV2.zip"
+$ZipURL = "https://github.com/legovader09/Idle-Slayer-Mods/releases/download/mod-template/ModTemplate.zip"
+$ZipFile = "$ProjectLocation\ModTemplate.zip"
 
 if (!(Test-Path $ProjectLocation)) {
     Write-Host "  Creating directory: " -NoNewline -ForegroundColor DarkGray

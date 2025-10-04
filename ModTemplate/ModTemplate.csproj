@@ -10,8 +10,22 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Assets\banner.png" />
+      <None Remove="Assets\manifest.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Assets\banner.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <AdditionalFiles Include="Assets\manifest.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="IdleSlayerMods.Common" Version="1.1.5-ML" />
-      <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
+      <PackageReference Include="LavaGang.MelonLoader" Version="0.7.1" />
     </ItemGroup>
 
     <ItemGroup>
