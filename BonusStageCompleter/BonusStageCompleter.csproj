@@ -4,7 +4,7 @@
         <TargetFramework>net6.0</TargetFramework>
         <AssemblyName>BonusStageCompleter</AssemblyName>
         <Product>Bonus Stage Completer</Product>
-        <Version>1.0.4</Version>
+        <Version>1.0.5</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>
         <RootNamespace>BonusStageCompleter</RootNamespace>
@@ -21,7 +21,6 @@
       </Reference>
       <Reference Include="IdleSlayerMods.Common">
         <HintPath>..\IdleSlayerMods.Common\bin\Debug\net6.0\IdleSlayerMods.Common.dll</HintPath>
-        <Private>False</Private>
       </Reference>
       <Reference Include="Il2CppInterop.Runtime">
         <HintPath>..\Libraries\Il2CppInterop.Runtime.dll</HintPath>
@@ -38,7 +37,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
+      <PackageReference Include="LavaGang.MelonLoader" Version="0.7.1" />
     </ItemGroup>
 
     <ItemGroup>

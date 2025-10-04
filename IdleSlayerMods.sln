@@ -19,9 +19,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoorPuzzleSkip", "DoorPuzzl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdleConfig", "IdleConfig\IdleConfig.csproj", "{619460F4-75EA-4DE2-8959-1B2B84F5EC13}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdleSlayerTrainer", "IdleSlayerTrainer\IdleSlayerTrainer.csproj", "{28C56CEB-D87A-4429-BBB5-428349872C1C}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unreleased", "Unreleased", "{370C8832-FA39-4EB0-B68D-4E2AD7B2F7B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestoreLastMap", "RestoreLastMap\RestoreLastMap.csproj", "{A2324184-DBD4-4C3A-B1D0-52415F3F6534}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathBuilder", "PathBuilder\PathBuilder.csproj", "{40C559F3-EFF7-45F1-9656-06AD28B807A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +69,14 @@ Global
 		{28C56CEB-D87A-4429-BBB5-428349872C1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28C56CEB-D87A-4429-BBB5-428349872C1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28C56CEB-D87A-4429-BBB5-428349872C1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2324184-DBD4-4C3A-B1D0-52415F3F6534}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2324184-DBD4-4C3A-B1D0-52415F3F6534}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2324184-DBD4-4C3A-B1D0-52415F3F6534}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2324184-DBD4-4C3A-B1D0-52415F3F6534}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40C559F3-EFF7-45F1-9656-06AD28B807A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40C559F3-EFF7-45F1-9656-06AD28B807A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40C559F3-EFF7-45F1-9656-06AD28B807A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40C559F3-EFF7-45F1-9656-06AD28B807A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Product>Auto Boost and Wind Dash</Product>
-    <Version>1.1.5</Version>
+    <Version>1.1.6</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <PackageId>AutoBoost</PackageId>
@@ -45,7 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
+    <PackageReference Include="LavaGang.MelonLoader" Version="0.7.1" />
   </ItemGroup>
 
   <ItemGroup>

@@ -39,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
+    <PackageReference Include="LavaGang.MelonLoader" Version="0.7.1" />
   </ItemGroup>
 
   <ItemGroup>

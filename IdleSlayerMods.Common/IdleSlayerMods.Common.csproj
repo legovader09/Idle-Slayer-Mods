@@ -6,11 +6,11 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <AssemblyName>IdleSlayerMods.Common</AssemblyName>
         <Product>Idle Slayer Mods Core</Product>
-        <Version>1.2.0-ML</Version>
+        <Version>1.2.1-ML</Version>
         <Company>Doomnik</Company>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Title>Idle Slayer Mods Core</Title>
-        <Description>Core library for some useful </Description>
+        <Description>Core modding library for common functions and helpers.</Description>
         <Copyright>Doomnik</Copyright>
         <PackageProjectUrl>https://github.com/legovader09/Idle-Slayer-Mods/tree/master/IdleSlayerMods.Common</PackageProjectUrl>
         <RepositoryUrl>https://github.com/legovader09/Idle-Slayer-Mods/tree/master/IdleSlayerMods.Common</RepositoryUrl>
@@ -58,7 +58,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
+      <PackageReference Include="LavaGang.MelonLoader" Version="0.7.1" />
     </ItemGroup>
 
     <ItemGroup>

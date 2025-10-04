@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>RevealMimics</AssemblyName>
     <Product>Chest Hunt Revealer</Product>
-    <Version>1.2.1</Version>
+    <Version>1.2.2</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <RootNamespace>RevealMimics</RootNamespace>
@@ -23,7 +23,6 @@
     </Reference>
     <Reference Include="IdleSlayerMods.Common">
       <HintPath>..\IdleSlayerMods.Common\bin\Debug\net6.0\IdleSlayerMods.Common.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Il2CppInterop.Runtime">
       <HintPath>..\Libraries\Il2CppInterop.Runtime.dll</HintPath>
@@ -47,7 +46,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
+    <PackageReference Include="LavaGang.MelonLoader" Version="0.7.1" />
   </ItemGroup>
 
   <ItemGroup>
