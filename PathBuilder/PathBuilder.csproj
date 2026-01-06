@@ -6,7 +6,8 @@
         <Nullable>disable</Nullable>
         <LangVersion>latest</LangVersion>
         <Version>1.0.0</Version>
-        <AssemblyName>PathBuilder</AssemblyName>
+        <PackageId>PathBuilder</PackageId>
+        <RootNamespace>PathBuilder</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
