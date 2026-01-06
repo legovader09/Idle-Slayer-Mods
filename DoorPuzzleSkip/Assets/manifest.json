@@ -1,0 +1,12 @@
+﻿{
+  "name": "Door Puzzle Skip",
+  "author": "Doomnik",
+  "description": "Removes the door obstacle to reach Alpha Victor for first boss fight",
+  "version": "1.0.0",
+  "nexus_id": "29",
+  "donate_url": "https://paypal.me/doomnikh",
+  "github_url": "https://www.github.com/legovader09/Idle-Slayer-Mods",
+  "dependencies": [
+    "IdleSlayerMods.Common@1.2.2"
+  ]
+}

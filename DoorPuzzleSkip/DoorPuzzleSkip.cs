@@ -24,9 +24,9 @@ public class DoorPuzzleSkip : MonoBehaviour
             if (doorPuzzle != null)
             {
                 _doorPuzzleFound = true;
-                Plugin.Logger.Msg("Door puzzle found");
+                Plugin.Logger.Msg("Door puzzle found, removing door object.");
             }
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(3f);
         }
     }
 
