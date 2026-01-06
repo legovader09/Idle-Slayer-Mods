@@ -1,3 +1,11 @@
+### Version 1.2.2
+
+- Added "New Version Required" screen skip
+
+### Version 1.2.1
+
+- Bump to use MelonLoader 0.7.1
+
 ### Version 1.2.0
 
 - Added a helper method to allow creating custom toggle settings for mods.

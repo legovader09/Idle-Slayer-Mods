@@ -18,9 +18,9 @@ public class DoorPuzzleSkip : MonoBehaviour
 
     private IEnumerator FindDoorPuzzle()
     {
-        while (_doorPuzzleFound == false)
+        while (!_doorPuzzleFound)
         {
-            var doorPuzzle = _doorPuzzle.transform.Find(DoorPuzzlePath);
+            var doorPuzzle = _doorPuzzle?.transform.Find(DoorPuzzlePath);
             if (doorPuzzle != null)
             {
                 _doorPuzzleFound = true;

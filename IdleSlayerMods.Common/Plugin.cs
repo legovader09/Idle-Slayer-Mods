@@ -1,5 +1,6 @@
 ﻿using IdleSlayerMods.Common;
 using MelonLoader;
+using UnityEngine.SceneManagement;
 
 [assembly: MelonInfo(typeof(Plugin), MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION, MyPluginInfo.PLUGIN_AUTHOR)]
 [assembly: MelonPriority(100)]
@@ -19,6 +20,11 @@ public class Plugin : MelonMod
 
     public override void OnSceneWasLoaded(int buildIndex, string sceneName)
     {
+        if (sceneName == "New Version Required" && Settings.EnableNewVersionRequiredSkip.Value)
+        {
+            SceneManager.LoadScene("Title Screen");
+        }
+        
         if (sceneName != "Game") return;
         ModUtils.RegisterComponent<ModHelper>();
     }
