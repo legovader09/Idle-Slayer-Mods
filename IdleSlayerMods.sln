@@ -27,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestoreLastMap", "RestoreLa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathBuilder", "PathBuilder\PathBuilder.csproj", "{40C559F3-EFF7-45F1-9656-06AD28B807A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomSettingsMod", "CustomSettingsMod\CustomSettingsMod.csproj", "{3B310194-9FA5-48BD-B928-EDFE91F9C768}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomSettingsMod-Import", "CustomSettingsMod-Import\CustomSettingsMod-Import.csproj", "{3B310194-9FA5-48BD-B928-EDFE91F9C768}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
