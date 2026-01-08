@@ -30,10 +30,9 @@ After completing these steps, the script will open the project folder automatica
 
 - PowerShell 5.0 or higher
 - An installed copy of Idle Slayer
-- MelonLoader installed for Idle Slayer
-- [Idle Slayer Mod Manager](https://discord.gg/SF9fcdk4uK)
+- MelonLoader installed for Idle Slayer **OR** [Idle Slayer Mod Manager](https://discord.gg/SF9fcdk4uK)
 - [.NET 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) (for the mod project)
-- Basic knowledge of C#, and programming foundations. It is highly recommended to learn the fundamentals if you are a beginner looking to get into the modding world.
+- Basic knowledge of C#, and programming foundations. It is highly recommended to learn the fundamentals if you are a beginner looking to get into the modding world. See also [my existing mods](http://github.com/legovader09/Idle-Slayer-Mods) for examples on how they work.
 - For more modding resources, we have a useful page in our [Discord](https://discord.gg/SF9fcdk4uK) server, too.
 
 ## Next Steps
