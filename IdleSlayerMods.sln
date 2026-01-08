@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestoreLastMap", "RestoreLa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathBuilder", "PathBuilder\PathBuilder.csproj", "{40C559F3-EFF7-45F1-9656-06AD28B807A8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomSettingsMod", "CustomSettingsMod\CustomSettingsMod.csproj", "{3B310194-9FA5-48BD-B928-EDFE91F9C768}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{40C559F3-EFF7-45F1-9656-06AD28B807A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40C559F3-EFF7-45F1-9656-06AD28B807A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40C559F3-EFF7-45F1-9656-06AD28B807A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B310194-9FA5-48BD-B928-EDFE91F9C768}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B310194-9FA5-48BD-B928-EDFE91F9C768}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B310194-9FA5-48BD-B928-EDFE91F9C768}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B310194-9FA5-48BD-B928-EDFE91F9C768}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,5 +94,6 @@ Global
 		{619460F4-75EA-4DE2-8959-1B2B84F5EC13} = {370C8832-FA39-4EB0-B68D-4E2AD7B2F7B4}
 		{28C56CEB-D87A-4429-BBB5-428349872C1C} = {370C8832-FA39-4EB0-B68D-4E2AD7B2F7B4}
 		{40C559F3-EFF7-45F1-9656-06AD28B807A8} = {370C8832-FA39-4EB0-B68D-4E2AD7B2F7B4}
+		{3B310194-9FA5-48BD-B928-EDFE91F9C768} = {370C8832-FA39-4EB0-B68D-4E2AD7B2F7B4}
 	EndGlobalSection
 EndGlobal

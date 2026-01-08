@@ -19,9 +19,6 @@
       <HintPath>..\Libraries\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="IdleSlayerMods.Common">
-      <HintPath>..\IdleSlayerMods.Common\bin\Debug\net6.0\IdleSlayerMods.Common.dll</HintPath>
-    </Reference>
     <Reference Include="Il2CppInterop.Runtime">
       <HintPath>..\Libraries\Il2CppInterop.Runtime.dll</HintPath>
     </Reference>
@@ -39,6 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="IdleSlayerMods.Common" Version="1.2.2-ML" />
     <PackageReference Include="LavaGang.MelonLoader" Version="0.7.1" />
   </ItemGroup>
 
