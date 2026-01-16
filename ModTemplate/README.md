@@ -38,3 +38,25 @@ After completing these steps, the script will open the project folder automatica
 ### Next Steps
 
 Once your project is created, open the project file (.csproj) in your preferred C# IDE (Visual Studio, Rider, etc) to begin modifying the code. The template includes all the necessary references and a basic mod structure to allow you to use the mod right away.
+
+Once you have built your project, a ZIP folder with your **mod.dll**, **manifest.json**, and **banner.png** gets created in a **Publish** folder located in your project directory. 
+
+### Making your mod compatible with the Idle Slayer Mod Manager
+
+Here's an example of a mod **manifest.json**, this data will be used by the **Mod Manager** to display rich information, versioning, nexus mods links, and more. If you do not provide one with your mod, the **Mod Manager** will try to automatically populate key information, such as **name**, **author**, and **version**.
+```json
+{
+  "name": "Auto Boost and Wind Dash",
+  "author": "Doomnik",
+  "description": "Automatically triggers boost and optionally wind dash on cooldown (enabled in config) with hotkeys B, and N.",
+  "version": "1.1.5",
+  "nexus_id": "4",
+  "donate_url": "https://paypal.me/doomnikh",
+  "github_url": "https://www.github.com/legovader09/Idle-Slayer-Mods",
+  "dependencies": [
+    "IdleSlayerMods.Common@1.1.9"
+  ]
+}
+```
+
+The **banner.png** is used to display a custom banner for your mod in the **Mod Manager**. The image should be sized **160x80** as this is how it is rendered on the manager. If your banner image is bigger, it will auto center and crop the rest. If you do not provide a banner with your mod, the **Mod Manager** will automatically create a randomly generated one with a purple background, and the mod title displayed in the center.
