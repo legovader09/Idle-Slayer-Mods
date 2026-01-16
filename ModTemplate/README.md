@@ -57,7 +57,7 @@ Next, head to `Debug` -> `Attach to Process` and find `Idle Slayer.exe` in the l
 
 #### Making your mod compatible with the Mod Manager
 
-The Mod Manager supports feature rich content enhancements outlined below. **These are entirely optional** and your mod will be compatible with the mod manager if you just provide the mod.dll file.
+The Mod Manager supports feature rich content enhancements outlined below. **These are entirely optional** and your mod will be compatible with the mod manager if you just provide the `mod.dll` file.
 
 Here's an example of a mod `manifest.json`, this data will be used by the **Mod Manager** to display rich information, versioning, nexus mods links, and more. If you do not provide one with your mod, the **Mod Manager** will try to automatically populate key information, such as `name`, `author`, and `version`.
 ```json
