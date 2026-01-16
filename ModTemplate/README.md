@@ -6,7 +6,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 
 This will execute a script that will download the Mod Template project, and fill in all the important details to have a working mod right away.
 
-### What the script does
+#### What the script does
 
 The QuickStart script automates the process of setting up an Idle Slayer mod project by:
 
@@ -15,7 +15,7 @@ The QuickStart script automates the process of setting up an Idle Slayer mod pro
 3. Customizing all files with your project details
 4. Setting up references to your Idle Slayer installation
 
-### Setup Process
+#### Setup Process
 
 The script will ask you the following information:
 
@@ -26,7 +26,7 @@ The script will ask you the following information:
 
 After completing these steps, the script will open the project folder automatically so you can begin working on your mod.
 
-### Requirements
+#### Requirements
 
 - PowerShell 5.0 or higher
 - An installed copy of Idle Slayer
@@ -35,13 +35,13 @@ After completing these steps, the script will open the project folder automatica
 - Basic knowledge of C#, and programming foundations. It is highly recommended to learn the fundamentals if you are a beginner looking to get into the modding world. See also [my existing mods](http://github.com/legovader09/Idle-Slayer-Mods) for examples on how they work.
 - For more modding resources, we have a useful page in our [Discord](https://discord.gg/SF9fcdk4uK) server, too.
 
-### Next Steps
+#### Next Steps
 
 Once your project is created, open the project file (.csproj) in your preferred C# IDE (Visual Studio, Rider, etc) to begin modifying the code. The template includes all the necessary references and a basic mod structure to allow you to use the mod right away.
 
 Once you have built your project, a ZIP folder with your **mod.dll**, **manifest.json**, and **banner.png** gets created in a **Publish** folder located in your project directory. 
 
-### Making your mod compatible with the Mod Manager
+#### Making your mod compatible with the Mod Manager
 
 The Mod Manager supports feature rich content enhancements outlined below. **These are entirely optional** and your mod will be compatible with the mod manager if you just provide the mod.dll file.
 
