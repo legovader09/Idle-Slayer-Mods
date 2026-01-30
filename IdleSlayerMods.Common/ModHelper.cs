@@ -30,7 +30,7 @@ public class ModHelper : MonoBehaviour
     private void OnModHelperMounted()
     {
         ModHelperMounted?.Invoke(this);
-        Melon<Plugin>.Logger.Debug("ModHelper mounted successfully");
+        Plugin.Logger.Debug("ModHelper mounted successfully");
     }
 
     private void Awake()
@@ -53,11 +53,11 @@ public class ModHelper : MonoBehaviour
     [Obsolete("Images do NOT load anymore.")]
     public void AddPanelButton(string text, Action clickAction = null, Texture2D icon = null)
     {
-        Melon<Plugin>.Logger.Debug($"Registering panel button: {text}");
+        Plugin.Logger.Debug($"Registering panel button: {text}");
         var button = Instantiate(_templateButton, _infoPanelButtonsContainer?.transform);
         if (button is null)
         {
-            Melon<Plugin>.Logger.Warning("Unable to instantiate template panel button");
+            Plugin.Logger.Warning("Unable to instantiate template panel button");
             return;
         }
         
@@ -84,7 +84,7 @@ public class ModHelper : MonoBehaviour
         // icon ??= Texture2D.redTexture;
         rawImage.texture = icon;
         
-        Melon<Plugin>.Logger.Debug($"Button {text} added successfully");
+        Plugin.Logger.Debug($"Button {text} added successfully");
     }
 
     /// <summary>
@@ -96,7 +96,7 @@ public class ModHelper : MonoBehaviour
     /// <param name="onChanged">Callback action invoked when the toggle value changes.</param>
     public void CreateSettingsToggle(string displayName, MelonPreferences_Entry<bool> configEntry, Action<bool> onChanged)
     {
-        Melon<Plugin>.Logger.Debug($"Registering settings toggle: {displayName}");
+        Plugin.Logger.Debug($"Registering settings toggle: {displayName}");
         var template = GameObject.Find($"{PathConstants.SettingsTogglePath}/Confirm Portal");
         var toggle = Instantiate(template, template.transform.parent);
         toggle.transform.SetSiblingIndex(anyModSettings ? 1 : 0);
@@ -116,7 +116,7 @@ public class ModHelper : MonoBehaviour
 
     public void CreateSettingsCategory(string displayName, int index = 0)
     {
-        Melon<Plugin>.Logger.Debug($"Registering settings category: {displayName}");
+        Plugin.Logger.Debug($"Registering settings category: {displayName}");
         var template = GameObject.Find($"{PathConstants.SettingsTogglePath}/Screen Title");
         var title = Instantiate(template, template.transform.parent);
         title.transform.SetSiblingIndex(index);
@@ -141,10 +141,10 @@ public class ModHelper : MonoBehaviour
     public void ShowDialog(string title = "Dialog", string subtitle = "", string descriptionText = "", Color descriptionColor = default, bool centerDescription = false, string confirmText = "", Action confirmAction = null, string cancelText = "Close", Action cancelAction = null, GameObject content = null, bool overridePopup = false)
     {
         if (_popup == null) return;
-        Melon<Plugin>.Logger.Debug("Popup found");
+        Plugin.Logger.Debug("Popup found");
         var panel = _popup.transform.GetChild(0).GetChild(0);
         if (!panel) return;
-        Melon<Plugin>.Logger.Debug("Panel found");
+        Plugin.Logger.Debug("Panel found");
         panel.transform.GetChild(1).gameObject.SetActive(false);
         
         var container = panel.transform.GetChild(3).GetChild(0).GetChild(0);
@@ -181,7 +181,7 @@ public class ModHelper : MonoBehaviour
     /// <param name="shine">Whether to play a sparkle/shine animation with this text.</param>
     public void ShowNotification(string message, bool shine)
     {
-        Melon<Plugin>.Logger.Debug($"Attempting to show notification with message: {message}");
+        Plugin.Logger.Debug($"Attempting to show notification with message: {message}");
         _notificationText?.Show(message, shine);
     }
     
@@ -193,12 +193,12 @@ public class ModHelper : MonoBehaviour
             var fullPath = Path.Combine(bundlePath);
             var bundle = AssetBundle.LoadFromFile(fullPath);
             if (bundle) return bundle;
-            Melon<Plugin>.Logger.Error($"Failed to load asset bundle from {fullPath}");
+            Plugin.Logger.Error($"Failed to load asset bundle from {fullPath}");
             return null;
         }
         catch (Exception e)
         {
-            Melon<Plugin>.Logger.Error($"Error loading asset bundle: {e.Message}");
+            Plugin.Logger.Error($"Error loading asset bundle: {e.Message}");
             return null;
         }
     }
@@ -224,13 +224,13 @@ public class ModHelper : MonoBehaviour
                 return texture;
             }
             
-            Melon<Plugin>.Logger.Error($"Failed to load texture from file: {filePath}");
+            Plugin.Logger.Error($"Failed to load texture from file: {filePath}");
             Destroy(texture);
             return null;
         }
         catch (Exception e)
         {
-            Melon<Plugin>.Logger.Error($"Error loading texture from file: {e.Message}");
+            Plugin.Logger.Error($"Error loading texture from file: {e.Message}");
             return null;
         }
     }
@@ -240,7 +240,7 @@ public class ModHelper : MonoBehaviour
     {
         if (bundle == null)
         {
-            Melon<Plugin>.Logger.Error("Bundle is null");
+            Plugin.Logger.Error("Bundle is null");
             return null;
         }
 
@@ -248,12 +248,12 @@ public class ModHelper : MonoBehaviour
         {
             var texture = bundle.LoadAsset(textureName).Cast<Texture2D>();
             if (texture) return texture;
-            Melon<Plugin>.Logger.Error($"Failed to load texture '{textureName}' from bundle");
+            Plugin.Logger.Error($"Failed to load texture '{textureName}' from bundle");
             return null;
         }
         catch (Exception e)
         {
-            Melon<Plugin>.Logger.Error($"Error loading texture from bundle: {e.Message}");
+            Plugin.Logger.Error($"Error loading texture from bundle: {e.Message}");
             return null;
         }
     }

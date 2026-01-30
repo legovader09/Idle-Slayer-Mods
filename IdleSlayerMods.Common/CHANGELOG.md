@@ -1,3 +1,7 @@
+### Version 1.2.3
+
+- Improvement on New Version Skip logic
+
 ### Version 1.2.2
 
 - Added "New Version Required" screen skip
