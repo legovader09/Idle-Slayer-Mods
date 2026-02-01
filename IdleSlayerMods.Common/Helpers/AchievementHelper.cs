@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace IdleSlayerMods.Common.Helpers;
 
+// ReSharper disable once UnusedType.Global
 public class AchievementHelper
 {
     /// <summary>

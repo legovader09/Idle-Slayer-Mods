@@ -18,7 +18,7 @@ public static class ModUtils
         
         if (component == null)
         {
-            Melon<Plugin>.Logger.Error($"Failed to add component {typeof(T).Name}");
+            Plugin.Logger.Error($"Failed to add component {typeof(T).Name}");
             Object.Destroy(obj);
             return null;
         }
