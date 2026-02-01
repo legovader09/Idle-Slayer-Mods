@@ -11,7 +11,7 @@
     <CreateItem Include="$(CustomFolder)\Assets\IdleConfigIcon.png">
       <Output TaskParameter="Include" ItemName="CustomFiles" />
     </CreateItem>
-      <Copy SourceFiles="@(MainFiles)" DestinationFolder="C:\Users\Administrator\AppData\Local\IdleSlayerModManager\ModLoader\Mods" SkipUnchangedFiles="True" ContinueOnError="False" />
-      <Copy SourceFiles="@(CustomFiles)" DestinationFolder="C:\Users\Administrator\AppData\Local\IdleSlayerModManager\Mods\IdleConfig" SkipUnchangedFiles="True" ContinueOnError="False" />
+      <Copy SourceFiles="@(MainFiles)" DestinationFolder="$(LocalAppData)\IdleSlayerModManager\ModLoader\Mods" SkipUnchangedFiles="True" ContinueOnError="False" />
+      <Copy SourceFiles="@(CustomFiles)" DestinationFolder="$(LocalAppData)\IdleSlayerModManager\Mods\IdleConfig" SkipUnchangedFiles="True" ContinueOnError="False" />
   </Target>
 </Project>

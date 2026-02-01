@@ -182,7 +182,19 @@ Get-ChildItem -Path $ProjectLocation -Recurse -File | ForEach-Object {
     $content = $content -replace '\$safeprojectname\$', $SafeProjectName
     $content = $content -replace '\$projectname\$', $ProjectName
     $content = $content -replace '\$author\$', $AuthorName
-    $content = $content -replace '\$idleslayerdir\$', $IdleSlayerDir
+    
+    if ($IdleSlayerDir.StartsWith($env:LOCALAPPDATA, [System.StringComparison]::OrdinalIgnoreCase)) {
+        $relativeDir = $IdleSlayerDir.Substring($env:LOCALAPPDATA.Length).TrimStart('\')
+        if ([string]::IsNullOrEmpty($relativeDir)) {
+            $replacement = '$(LocalAppData)'
+        } else {
+            $replacement = "`$(LocalAppData)\$relativeDir"
+        }
+        $content = $content -replace '\$idleslayerdir\$', $replacement
+    } else {
+        $content = $content -replace '\$idleslayerdir\$', $IdleSlayerDir
+    }
+    
     Set-Content -Path $filePath -Value $content
 }
 Write-Host "  Modified content in $fileCount files" -ForegroundColor DarkGray
@@ -194,7 +206,18 @@ Get-ChildItem -Path $ProjectLocation -Recurse -File | ForEach-Object {
     $newFileName = $newFileName -replace '\$safeprojectname\$', $SafeProjectName
     $newFileName = $newFileName -replace '\$projectname\$', $ProjectName
     $newFileName = $newFileName -replace '\$author\$', $AuthorName
-    $newFileName = $newFileName -replace '\$idleslayerdir\$', $IdleSlayerDir
+
+    if ($IdleSlayerDir.StartsWith($env:LOCALAPPDATA, [System.StringComparison]::OrdinalIgnoreCase)) {
+        $relativeDir = $IdleSlayerDir.Substring($env:LOCALAPPDATA.Length).TrimStart('\')
+        if ([string]::IsNullOrEmpty($relativeDir)) {
+            $replacement = '$(LocalAppData)'
+        } else {
+            $replacement = "`$(LocalAppData)\$relativeDir"
+        }
+        $newFileName = $newFileName -replace '\$idleslayerdir\$', $replacement
+    } else {
+        $newFileName = $newFileName -replace '\$idleslayerdir\$', $IdleSlayerDir
+    }
 
     if ($_.Name -ne $newFileName) {
         $renamedCount++

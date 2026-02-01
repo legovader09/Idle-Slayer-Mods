@@ -36,7 +36,7 @@
         <RemoveDir Directories="$(TempFolder)" />
 
         <!-- Copy to mod manager folder in deployed and non deployed context, ready for testing -->
-        <Copy SourceFiles="@(MainFiles)" DestinationFolder="C:\Users\Administrator\AppData\Local\IdleSlayerModManager\ModLoader\Mods" SkipUnchangedFiles="True" ContinueOnError="False" />
-        <Copy SourceFiles="@(CustomFiles)" DestinationFolder="C:\Users\Administrator\AppData\Local\IdleSlayerModManager\Mods\$(AssemblyName)" SkipUnchangedFiles="True" ContinueOnError="False" />
+        <Copy SourceFiles="@(MainFiles)" DestinationFolder="$(LocalAppData)\IdleSlayerModManager\ModLoader\Mods" SkipUnchangedFiles="True" ContinueOnError="False" />
+        <Copy SourceFiles="@(CustomFiles)" DestinationFolder="$(LocalAppData)\IdleSlayerModManager\Mods\$(AssemblyName)" SkipUnchangedFiles="True" ContinueOnError="False" />
     </Target>
 </Project>
