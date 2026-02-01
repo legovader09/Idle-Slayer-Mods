@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Product>Auto Boost and Wind Dash</Product>
-    <Version>1.1.6</Version>
+    <Version>1.1.7</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <PackageId>AutoBoost</PackageId>

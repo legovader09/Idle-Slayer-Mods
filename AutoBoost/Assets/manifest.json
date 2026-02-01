@@ -2,7 +2,7 @@
   "name": "Auto Boost and Wind Dash",
   "author": "Doomnik",
   "description": "Automatically triggers boost and optionally wind dash on cooldown (enabled in config) with hotkeys B, and N.",
-  "version": "1.1.5",
+  "version": "1.1.7",
   "nexus_id": "4",
   "donate_url": "https://paypal.me/doomnikh",
   "github_url": "https://www.github.com/legovader09/Idle-Slayer-Mods",

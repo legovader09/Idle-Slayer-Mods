@@ -15,7 +15,7 @@ internal sealed class Settings(string configName) : BaseConfig(configName)
 
     protected override void SetBindings()
     {
-        EnableWindDash = Bind("Wind Dash", "EnableWindDash", false,
+        EnableWindDash = Bind("Wind Dash", "EnableWindDash", true,
             "Enable wind dash boosting");
         ToggleKeyWindDash = Bind("Wind Dash", "ToggleKeyWindDash", KeyCode.N,
             "The key bind for toggling wind dash boosting");
