@@ -190,8 +190,10 @@ Get-ChildItem -Path $ProjectLocation -Recurse -File | ForEach-Object {
         } else {
             $replacement = "`$(LocalAppData)\$relativeDir"
         }
-        $content = $content -replace '\$idleslayerdir\$', $replacement
+        $content = $content -replace '\$idleslayerdirbuild\$', $replacement
+        $content = $content -replace '\$idleslayerdir\$', $ModLoaderPath
     } else {
+        $content = $content -replace '\$idleslayerdirbuild\$', $IdleSlayerDir
         $content = $content -replace '\$idleslayerdir\$', $IdleSlayerDir
     }
     
@@ -214,8 +216,10 @@ Get-ChildItem -Path $ProjectLocation -Recurse -File | ForEach-Object {
         } else {
             $replacement = "`$(LocalAppData)\$relativeDir"
         }
-        $newFileName = $newFileName -replace '\$idleslayerdir\$', $replacement
+        $newFileName = $newFileName -replace '\$idleslayerdirbuild\$', $replacement
+        $newFileName = $newFileName -replace '\$idleslayerdir\$', $ModLoaderPath
     } else {
+        $newFileName = $newFileName -replace '\$idleslayerdirbuild\$', $IdleSlayerDir
         $newFileName = $newFileName -replace '\$idleslayerdir\$', $IdleSlayerDir
     }
 
