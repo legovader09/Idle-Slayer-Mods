@@ -2,8 +2,11 @@
   "name": "GameSpeedChanger",
   "author": "Doomnik",
   "version": "1.0.0",
-  "description": "",
-  "nexus_id": "",
-  "donate_url": "",
-  "github_url": ""
+  "description": "Changes the game speed for quicker progression.",
+  "nexus_id": "31",
+  "donate_url": "https://paypal.me/doomnikh",
+  "github_url": "https://www.github.com/legovader09/Idle-Slayer-Mods",
+  "dependencies": [
+    "IdleSlayerMods.Common@1.2.3"
+  ]
 }
