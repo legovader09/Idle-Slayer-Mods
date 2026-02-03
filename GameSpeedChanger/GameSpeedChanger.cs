@@ -22,7 +22,7 @@ public class GameSpeedChanger : MonoBehaviour
 
         if (Input.GetKeyDown(Plugin.Config.SpeedDownKey.Value))
         {
-            Time.timeScale = Mathf.Max(1f, Time.timeScale - 1f);
+            Time.timeScale = Mathf.Max(1f, Time.timeScale / 2f);
             Plugin.Logger.Msg($"Speed decreased to {Time.timeScale}");
             Plugin.ModHelperInstance.ShowNotification($"Speed decreased to: {(int)Time.timeScale}x", false);
             SaveGameSpeed();
