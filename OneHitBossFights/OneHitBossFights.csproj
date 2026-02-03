@@ -38,12 +38,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Assets\Image.png" />
-    <AdditionalFiles Include="Assets\manifest.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </AdditionalFiles>
     <AdditionalFiles Include="Assets\banner.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AdditionalFiles>
+    <AdditionalFiles Include="Assets\manifest.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AdditionalFiles>
+    <None Include="Assets\image.png" />
   </ItemGroup>
 </Project>
