@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathBuilder", "PathBuilder\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomSettingsMod", "CustomSettingsMod\CustomSettingsMod.csproj", "{3B310194-9FA5-48BD-B928-EDFE91F9C768}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameSpeedChanger", "GameSpeedChanger\GameSpeedChanger.csproj", "{F52BAE31-2E4D-4DF9-9129-5007C175422F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{3B310194-9FA5-48BD-B928-EDFE91F9C768}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B310194-9FA5-48BD-B928-EDFE91F9C768}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B310194-9FA5-48BD-B928-EDFE91F9C768}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F52BAE31-2E4D-4DF9-9129-5007C175422F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F52BAE31-2E4D-4DF9-9129-5007C175422F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F52BAE31-2E4D-4DF9-9129-5007C175422F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F52BAE31-2E4D-4DF9-9129-5007C175422F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
