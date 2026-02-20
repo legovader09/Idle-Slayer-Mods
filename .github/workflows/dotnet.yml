@@ -21,6 +21,6 @@ jobs:
       with:
         dotnet-version: '6.x'
     - name: Restore dependencies
-      run: dotnet restore .\IdleSlayerMods.Common\
+      run: dotnet restore IdleSlayerMods.Common
     - name: Build
-      run: dotnet build .\IdleSlayerMods.Common\ --no-restore
+      run: dotnet build IdleSlayerMods.Common --no-restore
