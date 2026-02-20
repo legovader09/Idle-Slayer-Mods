@@ -1,3 +1,7 @@
+### Version 1.2.4
+
+- Included xml docs for nuget package.
+
 ### Version 1.2.3
 
 - Improvement on New Version Skip logic
