@@ -55,7 +55,7 @@
         <HintPath>..\Libraries\UnityEngine.IMGUIModule.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine.UI">
-        <HintPath>bin\Release\net6.0\UnityEngine.UI.dll</HintPath>
+        <HintPath>..\Libraries\UnityEngine.UI.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine.UIElementsModule">
         <HintPath>..\Libraries\UnityEngine.UIElementsModule.dll</HintPath>
