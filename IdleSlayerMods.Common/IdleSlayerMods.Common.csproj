@@ -15,6 +15,8 @@
         <PackageProjectUrl>https://github.com/legovader09/Idle-Slayer-Mods/tree/master/IdleSlayerMods.Common</PackageProjectUrl>
         <RepositoryUrl>https://github.com/legovader09/Idle-Slayer-Mods/tree/master/IdleSlayerMods.Common</RepositoryUrl>
         <PublishDir>$(SolutionDir)Publish\</PublishDir>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
@@ -75,10 +77,18 @@
       </AdditionalFiles>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="README.md">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
+    </ItemGroup>
+
     <Target Name="BuildReleaseAlongWithDebug" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug'">
         <MSBuild Projects="$(MSBuildProjectFile)" Targets="Build" Properties="Configuration=Release" />
         <ItemGroup>
-            <ReleaseOutputFiles Include="$(OutputPath.Replace('Debug', 'Release'))$(AssemblyName).dll" />
+			<ReleaseOutputFiles Include="$(OutputPath.Replace('Debug', 'Release'))$(AssemblyName).dll" />
+			<ReleaseOutputFiles Include="$(OutputPath.Replace('Debug', 'Release'))$(AssemblyName).xml" />
         </ItemGroup>
         <MakeDir Directories="$(PublishDir)" Condition="!Exists('$(PublishDir)')" />
         <Copy SourceFiles="@(ReleaseOutputFiles)" DestinationFolder="$(PublishDir)" />
@@ -90,7 +100,8 @@
 
     <Target Name="CopyReleaseToPublish" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
         <ItemGroup>
-            <ReleaseOutputFiles Include="$(OutputPath)$(AssemblyName).dll" />
+			<ReleaseOutputFiles Include="$(OutputPath)$(AssemblyName).dll" />
+			<ReleaseOutputFiles Include="$(OutputPath)$(AssemblyName).xml" />
         </ItemGroup>
         <MakeDir Directories="$(PublishDir)" Condition="!Exists('$(PublishDir)')" />
         <Copy SourceFiles="@(ReleaseOutputFiles)" DestinationFolder="$(PublishDir)" />
