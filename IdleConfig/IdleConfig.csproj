@@ -42,6 +42,8 @@
       <None Include="IdleConfig.csproj.user" />
     </ItemGroup>
 
+    <Import Project="..\ModPackaging.targets" />
+
     <ItemGroup>
       <None Remove="Assets\idleconfig" />
       <None Remove="Assets\IdleConfigIcon.png" />

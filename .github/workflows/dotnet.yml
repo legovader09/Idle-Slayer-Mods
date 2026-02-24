@@ -1,26 +1,52 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: common library
+name: Build and Release Mods
 
 on:
   push:
     branches: [ "master" ]
+    tags:
+      - 'v*'
   pull_request:
     branches: [ "master" ]
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v5
+    
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '6.x'
+        
     - name: Restore dependencies
-      run: dotnet restore IdleSlayerMods.Common
+      run: dotnet restore IdleSlayerMods.sln
+      
     - name: Build
-      run: dotnet build IdleSlayerMods.Common --no-restore
+      run: dotnet build IdleSlayerMods.sln -c Release --no-restore
+      
+    - name: Collect Zips
+      shell: pwsh
+      run: |
+        New-Item -ItemType Directory -Force -Path "AllReleases"
+        Get-ChildItem -Path . -Filter "*.zip" -Recurse | Where-Object { $_.FullName -like "*\Publish\Release\*" } | ForEach-Object {
+            Copy-Item $_.FullName -Destination "AllReleases\"
+        }
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: mod-zips
+        path: AllReleases/*.zip
+
+    - name: Create Release
+      if: startsWith(github.ref, 'refs/tags/v')
+      uses: softprops/action-gh-release@v2
+      with:
+        files: AllReleases/*.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

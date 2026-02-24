@@ -1,0 +1,42 @@
+﻿<Project>
+    <Target Name="CustomFolderDeploy" AfterTargets="AfterBuild">
+        <PropertyGroup>
+            <CustomFolder>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\bin\$(Configuration)\$(TargetFramework)'))</CustomFolder>
+            <PublishFolder>$(MSBuildProjectDirectory)\Publish\$(Configuration)</PublishFolder>
+            <TempFolder>$(PublishFolder)\temp</TempFolder>
+        </PropertyGroup>
+
+        <!-- Define files to be included in the zip -->
+        <ItemGroup>
+            <MainFiles Include="$(CustomFolder)\$(AssemblyName).dll" />
+            <CustomFiles Include="@(MainFiles)" />
+            <CustomFiles Include="$(CustomFolder)\Assets\manifest.json" Condition="Exists('$(CustomFolder)\Assets\manifest.json')" />
+            <CustomFiles Include="$(CustomFolder)\Assets\banner.png" Condition="Exists('$(CustomFolder)\Assets\banner.png')" />
+        </ItemGroup>
+
+        <!-- Create directories -->
+        <MakeDir Directories="$(PublishFolder)" />
+        <MakeDir Directories="$(TempFolder)" />
+
+        <!-- Copy files to temp folder -->
+        <Copy SourceFiles="@(CustomFiles)" DestinationFolder="$(TempFolder)" ContinueOnError="True" />
+
+        <!-- Zip the temp folder -->
+        <ZipDirectory
+                SourceDirectory="$(TempFolder)"
+                DestinationFile="$(PublishFolder)\$(AssemblyName).zip"
+                Overwrite="true" />
+
+        <!-- Clean up temp folder -->
+        <RemoveDir Directories="$(TempFolder)" />
+
+        <!-- Copy to mod manager folder (only if LocalAppData is defined, i.e., local build) -->
+        <PropertyGroup>
+            <ModLoaderModsDir>$(LocalAppData)\IdleSlayerModManager\ModLoader\Mods</ModLoaderModsDir>
+            <ManagerModsDir>$(LocalAppData)\IdleSlayerModManager\Mods\$(AssemblyName)</ManagerModsDir>
+        </PropertyGroup>
+
+        <Copy SourceFiles="@(MainFiles)" DestinationFolder="$(ModLoaderModsDir)" SkipUnchangedFiles="True" ContinueOnError="True" Condition="'$(LocalAppData)' != ''" />
+        <Copy SourceFiles="@(CustomFiles)" DestinationFolder="$(ManagerModsDir)" SkipUnchangedFiles="True" ContinueOnError="True" Condition="'$(LocalAppData)' != ''" />
+    </Target>
+</Project>

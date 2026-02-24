@@ -40,6 +40,8 @@
       <None Include="PathBuilder.csproj.user" />
     </ItemGroup>
 
+    <Import Project="..\ModPackaging.targets" />
+
 
     <ItemGroup>
       <AdditionalFiles Include="Assets\manifest.json">

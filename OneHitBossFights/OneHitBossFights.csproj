@@ -14,6 +14,8 @@
     <None Include="OneHitBossFights.csproj.user" />
   </ItemGroup>
 
+  <Import Project="..\ModPackaging.targets" />
+
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\Libraries\Assembly-CSharp.dll</HintPath>
