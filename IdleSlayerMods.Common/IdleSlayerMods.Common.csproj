@@ -19,10 +19,6 @@
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
     </PropertyGroup>
 
-    <ItemGroup>
-      <None Include="IdleSlayerMods.Common.csproj.user" />
-    </ItemGroup>
-
     <Import Project="..\ModPackaging.targets" />
 
     <ItemGroup>

@@ -32,10 +32,6 @@
       </Reference>
     </ItemGroup>
 
-    <ItemGroup>
-      <None Include="RestoreLastMap.csproj.user" />
-    </ItemGroup>
-
     <Import Project="..\ModPackaging.targets" />
 
     <ItemGroup>

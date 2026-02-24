@@ -38,10 +38,6 @@
       </Reference>
     </ItemGroup>
 
-    <ItemGroup>
-      <None Include="IdleConfig.csproj.user" />
-    </ItemGroup>
-
     <Import Project="..\ModPackaging.targets" />
 
     <ItemGroup>

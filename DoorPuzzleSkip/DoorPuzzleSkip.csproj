@@ -10,10 +10,6 @@
     <PublishDir>$(SolutionDir)Publish\</PublishDir>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Include="DoorPuzzleSkip.csproj.user" />
-  </ItemGroup>
-
   <Import Project="..\ModPackaging.targets" />
 
   <ItemGroup>
