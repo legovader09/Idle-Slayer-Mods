@@ -3,6 +3,11 @@ using MelonLoader.Utils;
 
 namespace IdleSlayerMods.Common.Config;
 
+/// <summary>
+/// Abstract base class for managing configuration settings and preferences.
+/// This class serves as the foundation for creating configuration files and binds setting values
+/// to specific preferences. It provides utility methods for initialization, logging, and binding values.
+/// </summary>
 public abstract class BaseConfig
 {
     private MelonPreferences_Category _cfg;

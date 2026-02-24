@@ -5,6 +5,9 @@ using Object = UnityEngine.Object;
 
 namespace IdleSlayerMods.Common.Helpers;
 
+/// <summary>
+/// Provides helper methods for creating and manipulating UI buttons within the application.
+/// </summary>
 public static class ButtonHelper
 {
     /// <summary>

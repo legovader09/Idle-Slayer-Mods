@@ -7,4 +7,5 @@ internal static class PathConstants
     internal const string PopupPath = "UIManager/Popup";
     internal const string AchievementManagerPath = "UIManager/Achievement Manager";
     internal const string SettingsTogglePath = "UIManager/Popup Options/Overlay/Panel/Scroll View/Viewport/Content";
+    internal const string TitleVersionPath = "Canvas/By Pablo Leban";
 }

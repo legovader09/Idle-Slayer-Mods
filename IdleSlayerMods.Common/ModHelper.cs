@@ -13,6 +13,7 @@ using Path = Il2CppSystem.IO.Path;
 
 namespace IdleSlayerMods.Common;
 
+/// <inheritdoc />
 public class ModHelper : MonoBehaviour
 {
     /// <summary>
@@ -25,7 +26,7 @@ public class ModHelper : MonoBehaviour
     private Popup _popup;
     private Transform _infoPanelButtonsContainer;
     private GameObject _templateButton;
-    private bool anyModSettings = false;
+    private bool anyModSettings;
 
     private void OnModHelperMounted()
     {
@@ -76,7 +77,7 @@ public class ModHelper : MonoBehaviour
         // Update TMP text
         var tmp = visualContent.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>();
         tmp.text = text;
-        tmp.m_text = text; 
+        tmp.m_text = text;
         
         // Add event listener
         button.GetComponent<Button>().onClick.RemoveAllListeners();
@@ -114,6 +115,11 @@ public class ModHelper : MonoBehaviour
         CreateSettingsCategory("Mod Settings");
     }
 
+    /// <summary>
+    /// Creates a settings category in the UI to group related configuration toggles.
+    /// </summary>
+    /// <param name="displayName">The name to display for the settings category in the user interface.</param>
+    /// <param name="index">The position index where the settings category should be placed in the UI hierarchy.</param>
     public void CreateSettingsCategory(string displayName, int index = 0)
     {
         Plugin.Logger.Debug($"Registering settings category: {displayName}");
@@ -184,7 +190,12 @@ public class ModHelper : MonoBehaviour
         Plugin.Logger.Debug($"Attempting to show notification with message: {message}");
         _notificationText?.Show(message, shine);
     }
-    
+
+    /// <summary>
+    /// Loads an asset bundle from the specified file path.
+    /// </summary>
+    /// <param name="bundlePath">The file path of the asset bundle to load.</param>
+    /// <returns>The loaded AssetBundle, or null if the loading fails.</returns>
     [Obsolete("IL2CPP seems to have an issue with loading asset bundles. ")]
     public static AssetBundle LoadBundle(string bundlePath)
     {
@@ -235,6 +246,12 @@ public class ModHelper : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Loads a texture from an asset bundle by its name.
+    /// </summary>
+    /// <param name="bundle">The asset bundle to load the texture from.</param>
+    /// <param name="textureName">The name of the texture to be loaded from the bundle.</param>
+    /// <returns>The loaded texture as a Texture2D object, or null if the texture cannot be loaded or an error occurs.</returns>
     [Obsolete("IL2CPP seems to have an issue with loading asset bundles. Use LoadTextureFromFile instead.")]
     public static Texture2D LoadTextureFromBundle(AssetBundle bundle, string textureName)
     {

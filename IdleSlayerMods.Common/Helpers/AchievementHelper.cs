@@ -4,6 +4,9 @@ using UnityEngine;
 namespace IdleSlayerMods.Common.Helpers;
 
 // ReSharper disable once UnusedType.Global
+/// <summary>
+/// A helper class to facilitate the creation and management of achievements in the game.
+/// </summary>
 public class AchievementHelper
 {
     /// <summary>

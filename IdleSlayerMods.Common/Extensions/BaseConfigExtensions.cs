@@ -2,6 +2,10 @@
 
 namespace IdleSlayerMods.Common.Extensions;
 
+/// <summary>
+/// Provides extension methods for working with configuration entries in the IdleSlayerMods.Common.Extensions namespace.
+/// </summary>
+// ReSharper disable once UnusedType.Global
 public static class BaseConfigExtensions
 {
     /// <summary>

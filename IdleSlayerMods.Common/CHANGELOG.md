@@ -1,3 +1,8 @@
+### Version 1.2.5
+
+- Appended version text on the title screen to indicate modding is enabled.
+- Improved XML documentation
+
 ### Version 1.2.4
 
 - Included xml docs for nuget package.
