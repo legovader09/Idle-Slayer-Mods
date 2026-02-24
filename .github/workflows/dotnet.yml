@@ -8,6 +8,7 @@ on:
     branches: [ "master" ]
     tags:
       - 'Mods'
+      - 'v*'
   pull_request:
     branches: [ "master" ]
 
@@ -48,12 +49,12 @@ jobs:
         path: AllReleases/*.zip
 
     - name: Create or Update Release
-      if: github.ref == 'refs/tags/Mods'
+      if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: Mods
-        name: "Mods Release"
-        body: "Latest version of all mods. These are updated whenever the 'Mods' tag is pushed."
+        tag_name: ${{ github.ref_name }}
+        name: ${{ github.ref_name == 'Mods' && 'Mods Release' || format('Release {0}', github.ref_name) }}
+        body: ${{ github.ref_name == 'Mods' && 'Latest version of all mods. These are updated whenever the ''Mods'' tag is pushed.' || format('Release for {0}', github.ref_name) }}
         files: AllReleases/*.zip
         make_latest: true
       env:
