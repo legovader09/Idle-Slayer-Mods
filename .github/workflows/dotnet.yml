@@ -7,7 +7,7 @@ on:
   push:
     branches: [ "master" ]
     tags:
-      - 'v*'
+      - 'Mods'
   pull_request:
     branches: [ "master" ]
 
@@ -47,10 +47,14 @@ jobs:
         name: mod-zips
         path: AllReleases/*.zip
 
-    - name: Create Release
-      if: startsWith(github.ref, 'refs/tags/v')
+    - name: Create or Update Release
+      if: github.ref == 'refs/tags/Mods'
       uses: softprops/action-gh-release@v2
       with:
+        tag_name: Mods
+        name: "Mods Release"
+        body: "Latest version of all mods. These are updated whenever the 'Mods' tag is pushed."
         files: AllReleases/*.zip
+        make_latest: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
