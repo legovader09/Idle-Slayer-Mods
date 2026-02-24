@@ -56,6 +56,6 @@ jobs:
         name: ${{ github.ref_name == 'Mods' && 'Mods Release' || format('Release {0}', github.ref_name) }}
         body: ${{ github.ref_name == 'Mods' && 'Latest version of all mods. These are updated whenever the ''Mods'' tag is pushed.' || format('Release for {0}', github.ref_name) }}
         files: AllReleases/*.zip
-        make_latest: true
+        make_latest: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
