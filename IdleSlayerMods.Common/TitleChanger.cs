@@ -1,4 +1,5 @@
 ﻿using IdleSlayerMods.Common.Constants;
+using IdleSlayerMods.Common.Data;
 using Il2CppTMPro;
 using UnityEngine;
 
