@@ -10,7 +10,7 @@ using MelonLoader.Pastel;
 [assembly: MelonInfo(typeof(Plugin), MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION, MyPluginInfo.PLUGIN_AUTHOR)]
 [assembly: MelonGame(MyPluginInfo.GAME_DEVELOPER, MyPluginInfo.GAME_NAME)]
 [assembly: MelonPlatformDomain(MelonPlatformDomainAttribute.CompatibleDomains.IL2CPP)]
-[assembly: MelonIncompatibleAssemblies("AntiSplashScreen", "SilverRandomBoxFix")]
+[assembly: MelonIncompatibleAssemblies("AntiSpashScreen", "AntiSplashScreen", "SilverRandomBoxFix", "NoSyncGameLoad")]
 [assembly: MelonPriority(100)]
 [assembly: MelonColor(1, 1, 255, 100)]
 [assembly: MelonAuthorColor(1, 1, 155, 70)]
