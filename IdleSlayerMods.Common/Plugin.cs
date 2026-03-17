@@ -2,6 +2,7 @@
 using IdleSlayerMods.Common;
 using IdleSlayerMods.Common.Data;
 using IdleSlayerMods.Common.Extensions;
+using Il2Cpp;
 using MelonLoader;
 using MelonLoader.Logging;
 using MelonLoader.Pastel;
@@ -26,6 +27,11 @@ public class Plugin : MelonMod
     public override void OnInitializeMelon()
     {
         LoggerInstance.Msg($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
+        foreach (var method in HarmonyInstance.GetPatchedMethods())
+        {
+            Logger.Debug($"Patched {method.FullDescription().Pastel(ColorARGB.GreenYellow)}");
+        }
+        
         InitializeAntiSplashScreen();
     }
 
@@ -39,6 +45,7 @@ public class Plugin : MelonMod
         
         if (sceneName != "Game") return;
         ModUtils.RegisterComponent<ModHelper>();
+        InitializeSilverRandomBoxFix();
     }
     
 #if DEBUG
@@ -52,17 +59,25 @@ public class Plugin : MelonMod
     }
 #endif
     
-    private void InitializeAntiSplashScreen()
+    private static void InitializeAntiSplashScreen()
     {
         Logger.Msg($"---Started ({AntiSplashScreenPluginInfo.PLUGIN_GUID} v{AntiSplashScreenPluginInfo.PLUGIN_VERSION})---");
-        Logger.Msg($"---Patching---");
-        foreach (var method in HarmonyInstance.GetPatchedMethods())
-        {
-            Logger.Debug($"Patched {method.FullDescription().Pastel(ColorARGB.GreenYellow)}");
-        }
-
         if (!Settings.CreateBackups.Value) return;
         Logger.Msg($"---Creating Backup Saves---");
         ModUtils.CreateGameBackup();
+        Logger.Msg($"---Backups Created---");
+    }
+
+    private static void InitializeSilverRandomBoxFix()
+    {
+        var lastTimeUsed = SilverRandomBoxManager.instance.lastTimeUsed;
+        Logger.Msg($"\"Silver Random Box DateTime\" is set to \"{lastTimeUsed}\"({TimeManager.GetDateTime(lastTimeUsed).ToLocalTime()}) ");
+        if (!(lastTimeUsed > TimeManager.lastWorkingTime)) return;
+        
+        var lastTime = TimeManager.lastWorkingTime - 30 * 60;
+        SilverRandomBoxManager.instance.lastTimeUsed = lastTime;
+        // ReSharper disable once SpecifyACultureInStringConversionExplicitly
+        SaveManager.SetString("Silver Random Box DateTime", lastTime.ToString());
+        Logger.Warning($"Silver Boxes were shadowbanned fixed DateTime to \"{lastTime}\"({TimeManager.GetDateTime(lastTime).ToLocalTime()})");
     }
 }

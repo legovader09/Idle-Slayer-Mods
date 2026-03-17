@@ -18,6 +18,9 @@ public class Settings(string cfgName) : BaseConfig(cfgName)
     public MelonPreferences_Entry<bool> PreventClose;
     public MelonPreferences_Entry<bool> DebugSplashScreen;
     public MelonPreferences_Entry<string[]> ModStrings;
+    
+    // SilverRandomBoxFix Settings
+    public MelonPreferences_Entry<bool> ApplySilverRandomBoxPatch;
 
     /// <inheritdoc />
     protected override void SetBindings()
@@ -25,6 +28,7 @@ public class Settings(string cfgName) : BaseConfig(cfgName)
         DebugMode = Bind("IdleSlayerCore","Debug Mode", false, "Enable debug mode. Shows Logger.Debug logs in the console.");
         EnableNewVersionRequiredSkip = Bind("IdleSlayerCore", "Enable New Version Required Skip", true, "Skips the 'New Version Required' screen.");
         ShowModVersionOnTitleScreen = Bind("IdleSlayerCore","Show Mod Version On Title Screen", true, "Display the core mod version on the title screen.");
+        ApplySilverRandomBoxPatch = Bind("SilverRandomBoxFix", "Enable Patching", false, "Enables patching of SilverRandomBoxManager to fix the issue with the silver random box button not showing up correctly.");
         CreateBackups = Bind("AntiSplashScreen", "Create Backups", true, "Creates backup saves when the game loads");
         PreventLogout = Bind("AntiSplashScreen", "Force Prevent Logout", false, "Forces to game not to log you out (causes side effects)");
         PreventClose = Bind("AntiSplashScreen", "Force Prevent Close", false, "Forces to game not to quit (causes side effects)");
