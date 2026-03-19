@@ -2,7 +2,7 @@
 using IdleSlayerMods.Common.Extensions;
 using UnityEngine.SceneManagement;
 
-namespace IdleSlayerMods.Common;
+namespace IdleSlayerMods.Common.HarmonyPatches;
 
 /// <summary>
 /// A Harmony patch for Unity's <see cref="SceneManager"/> class that modifies the behavior of the
