@@ -1,3 +1,8 @@
+### Version 1.3.0
+
+- Integrated Silver Random Box Patch
+- Integrated AntiSplashScreen Patch
+
 ### Version 1.2.5
 
 - Appended version text on the title screen to indicate modding is enabled.
