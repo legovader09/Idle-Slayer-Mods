@@ -250,6 +250,7 @@ public class ModCheckPatch
     [HarmonyPatch(typeof(Il2CppSystem.IO.Directory), nameof(Il2CppSystem.IO.Directory.Exists))]
     public static bool Il2CppSystem_IO_Directory_Exists(ref bool __runOriginal, bool __result, string path)
     {
+        if (!Plugin.Settings.EnableAntiSplashScreen.Value) return true;
         //Plugin.Logger.Debug($"Il2CppSystem.IO.Directory.Exists({path})");
         if (!IsModCheck(ModCheckType.DirectoryExists, path)) return __runOriginal;
         
@@ -265,6 +266,7 @@ public class ModCheckPatch
     public static bool Il2CppSystem_IO_File_Exists(ref bool __runOriginal, bool __result, string path)
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
+        if (!Plugin.Settings.EnableAntiSplashScreen.Value) return true;
         //Plugin.Logger.Debug($"Il2CppSystem.IO.File.Exists({path})");
         if (!IsModCheck(ModCheckType.FileExists, path)) return __runOriginal;
         
@@ -280,6 +282,7 @@ public class ModCheckPatch
     public static void Il2CppSystem_IO_Directory_GetDirectories_Postfix(ref Il2CppStringArray __result, string path, string searchPattern)
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
+        if (!Plugin.Settings.EnableAntiSplashScreen.Value) return;
         if (!IsModCheck(ModCheckType.InternalEnumeratePaths, path, true, true)) return;
         
         string[] filteredResult = [];
@@ -299,6 +302,7 @@ public class ModCheckPatch
     public static bool UnityEngine_Application_Quit(ref bool __runOriginal)
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
+        if (!Plugin.Settings.EnableAntiSplashScreen.Value) return true;
         if (IsModCheck(ModCheckType.Quit, null, true, true))
         {
             Plugin.Logger.Warning("Mod check attempted close the game");
@@ -322,6 +326,7 @@ public class ModCheckPatch
     public static bool Authentication_Logout(ref bool __runOriginal)
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
+        if (!Plugin.Settings.EnableAntiSplashScreen.Value) return true;
         if (IsModCheck(ModCheckType.Logout, null, true, true))
         {
             Plugin.Logger.Warning("Mod check attempted to logout user");

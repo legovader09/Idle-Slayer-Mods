@@ -61,6 +61,7 @@ public class Plugin : MelonMod
     
     private static void InitializeAntiSplashScreen()
     {
+        if (!Settings.EnableAntiSplashScreen.Value) return;
         Logger.Msg($"---Started ({AntiSplashScreenPluginInfo.PLUGIN_GUID} v{AntiSplashScreenPluginInfo.PLUGIN_VERSION})---");
         if (!Settings.CreateBackups.Value) return;
         Logger.Msg($"---Creating Backup Saves---");
