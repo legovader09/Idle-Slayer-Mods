@@ -1,11 +1,22 @@
 # Using BaseConfig
 
-In order to utilise `BaseConfig`, we must first create a class that inherits from `BaseConfig`.
+To utilise `BaseConfig`, we must first create a class that inherits from `BaseConfig`.
 
-Note that `BaseConfig` requires a `string` to be passed down into it, this is used as an identifier - so we will do exactly that directly from the constructor:
+Note that `BaseConfig` requires a `string` to be passed down into it, this is used as an identifier – so we will do exactly that directly from the constructor:
 `public sealed class Settings(string configName) : BaseConfig(configName)`.
 
-The BaseConfig constructor accepts 2 additional arguments, `showSaveLog` and `showLoadLog`, both are `false` by default, but when enabled will show the logs for saving and loading (useful for sanity checks)
+The BaseConfig constructor accepts two additional arguments, `showSaveLog` and `showLoadLog`, both are `false` by default, but when enabled will show the logs for saving and loading (useful for sanity checks)
+
+## BaseConfig Utilities
+
+| abstract class BaseConfig              | Base configuration class which can be inherited from                                                    |
+|----------------------------------------|---------------------------------------------------------------------------------------------------------|
+| abstract void SetBindings              | Takes in a ConfigFile and assigns it to the class instance                                              |
+| virtual void OnPostBindingsCleanup     | Happens after SetBindings() and can be used to run post-setup code, such as deleting old config entries |
+| virtual MelonPreferences_Entry<T> Bind | Creates and assigns a new setting of type T                                                             |
+| virtual bool DeleteBind                | Deletes a MelonPreferences config entry, returns true if successful.                                    |
+
+### Config File Setup
 
 Since `SetBindings()` is **abstract**, it means we must now implement it ourselves **in the derived class**. This is where you will create the settings for your mod. See the example below:
 
@@ -18,8 +29,13 @@ public sealed class Settings(string configName) : BaseConfig(configName, [option
 
     protected override void SetBindings()
     {
-        ExampleInputKey = Bind("ExampleCategory (Optional, but recommended for organization)", "ExampleInputKey", KeyCode.B,
+        ExampleInputKey = Bind("ExampleCategory", "ExampleInputKey", KeyCode.B,
             "The key bind for my mod");
+    }
+    
+    protected override void OnPostBindingsCleanup() 
+    {
+        DeleteBind("Old Key Name", "ExampleCategory");
     }
 }
 ```

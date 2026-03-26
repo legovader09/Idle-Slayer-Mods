@@ -1,5 +1,7 @@
 ﻿using MelonLoader;
 using MelonLoader.Utils;
+using Tomlet;
+using Tomlet.Models;
 
 namespace IdleSlayerMods.Common.Config;
 
@@ -45,6 +47,11 @@ public abstract class BaseConfig
     protected abstract void SetBindings();
 
     /// <summary>
+    /// Method that gets executed after the SetBindings method has been called. Use this to delete old config entries.
+    /// </summary>
+    protected virtual void OnPostBindingsCleanup() { }
+
+    /// <summary>
     /// Initializes the configuration settings, including setting the file path, managing logging preferences,
     /// creating the configuration category, and binding configuration values through the SetBindings method.
     /// </summary>
@@ -58,7 +65,14 @@ public abstract class BaseConfig
         _cfg = MelonPreferences.CreateCategory(cfgName);
         _configPath = Path.Combine(MelonEnvironment.UserDataDirectory, $"{cfgName}.cfg");
         _cfg.SetFilePath(_configPath, true, _showLoadLog);
-        SetBindings();
+        try
+        {
+            SetBindings();
+        }
+        finally
+        {
+            OnPostBindingsCleanup();
+        }
     }
 
     /// <summary>
@@ -88,11 +102,37 @@ public abstract class BaseConfig
     /// <param name="description">Friendly description of config item</param>
     /// <typeparam name="T">Data type of config item</typeparam>
     /// <returns>MelonPreferences_Entry of type T</returns>
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+    [Obsolete("Use Bind(string section, string key, ...) instead.")]
     protected virtual MelonPreferences_Entry<T> Bind<T>(string key, T defaultValue, string description = "")
     {
         if (_cfg.HasEntry(key)) return _cfg.GetEntry<T>(key);
         var entry =  _cfg.CreateEntry(key, defaultValue, description: description);
         _cfg.SaveToFile(_showSaveLog);
         return entry;
+    }
+    
+    /// <summary>
+    /// Deletes a MelonPreferences config entry.
+    /// </summary>
+    /// <param name="key">Name of the config item</param>
+    /// <param name="section">Category of the config item</param>
+    /// <returns>Returns true if successful, false if not.</returns>
+    // ReSharper disable once UnusedMethodReturnValue.Global
+    protected virtual bool DeleteBind(string section, string key)
+    {
+        if (string.IsNullOrWhiteSpace(section)) return false;
+        if (!File.Exists(_configPath)) return false;
+
+        var doc = TomlParser.ParseFile(_configPath);
+
+        if (!doc.TryGetValue(section, out var catValue) || catValue is not TomlTable table) return false;
+        if (!table.ContainsKey(key)) return false;
+            
+        table.Entries.Remove(key);
+
+        File.WriteAllText(_configPath, doc.SerializedValue);
+
+        return false;
     }
 }

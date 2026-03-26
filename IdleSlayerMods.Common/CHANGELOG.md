@@ -1,3 +1,9 @@
+### Version 1.3.1
+
+- Fix ModStrings binding for AntiSplashScreen.
+- Added "DeleteBind" to BaseConfig.
+- Added OnPostBindingsCleanup method which happens after bindings are set up.
+
 ### Version 1.3.0
 
 - Integrated Silver Random Box Patch
