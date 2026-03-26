@@ -1,10 +1,26 @@
 using IdleSlayerMods.Common.Extensions;
+using Il2Cpp;
 using UnityEngine;
 
 namespace GameSpeedChanger;
 
 public class GameSpeedChanger : MonoBehaviour
 {
+    private MapController _mapController;
+    private PlayerInventory _playerInventory;
+    private double _specialRandomBoxChanceBackup;
+
+
+    private void Awake()
+    {
+        _mapController = MapController.instance;
+        _playerInventory = PlayerInventory.instance;
+        _specialRandomBoxChanceBackup = _playerInventory.specialRandomBoxChance;
+        if (_specialRandomBoxChanceBackup < 1f)
+            _specialRandomBoxChanceBackup = 8f;
+        ResetSpecialBoxLastUsedTimer();
+    }
+    
     public void Start()
     {
         Time.timeScale = Plugin.Config.DefaultSpeed.Value;
@@ -42,5 +58,24 @@ public class GameSpeedChanger : MonoBehaviour
         if (!Plugin.Config.SaveSpeed.Value) return;
         Plugin.Config.DefaultSpeed.Value = (int)Time.timeScale;
         Plugin.Config.DefaultSpeed.SaveEntry(true);
+    }
+    
+    private void ResetSpecialBoxLastUsedTimer()
+    {
+        var currentUTCTime = Il2CppSystem.DateTime.UtcNow;
+        var currentUTCUnixTimeStamp = TimeManager.GetUnixTimeStampFromDate(currentUTCTime);
+        if (_mapController.specialRandomBoxLastUsed > currentUTCUnixTimeStamp)
+        {
+            Plugin.Logger.Debug($"Current UTC Time: {currentUTCTime}");
+            Plugin.Logger.Debug($"Purple box last used: {TimeManager.GetDateTime(_mapController.specialRandomBoxLastUsed)}");
+            _mapController.specialRandomBoxLastUsed = currentUTCUnixTimeStamp - 300;
+            _playerInventory.specialRandomBoxChance = _specialRandomBoxChanceBackup;
+            Plugin.Logger.Debug("normal chance time in future");
+        }
+        else
+        {
+            _playerInventory.specialRandomBoxChance = _specialRandomBoxChanceBackup;
+            Plugin.Logger.Debug("normal chance");
+        }
     }
 }
