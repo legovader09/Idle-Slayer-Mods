@@ -1,4 +1,5 @@
-﻿using MelonLoader;
+﻿using IdleSlayerMods.Common.Extensions;
+using MelonLoader;
 using MelonLoader.Utils;
 using Tomlet;
 using Tomlet.Models;
@@ -8,7 +9,7 @@ namespace IdleSlayerMods.Common.Config;
 /// <summary>
 /// Abstract base class for managing configuration settings and preferences.
 /// This class serves as the foundation for creating configuration files and binds setting values
-/// to specific preferences. It provides utility methods for initialization, logging, and binding values.
+/// to specific preferences. It provides utility methods for initialisation, logging, and binding values.
 /// </summary>
 public abstract class BaseConfig
 {
@@ -16,10 +17,11 @@ public abstract class BaseConfig
     private string _configPath;
     private bool _showLoadLog;
     private bool _showSaveLog;
+    private bool _hasFixedArrayStrings;
 
     /// <summary>
     /// Abstract base class for defining configuration settings and managing preferences.
-    /// Provides methods for initialization, logging, and binding configuration values.
+    /// Provides methods for initialisation, logging, and binding configuration values.
     /// Must be inherited and extended to define specific configuration bindings.
     /// </summary>
     /// <param name="cfgName">The name of the configuration category.</param>
@@ -32,7 +34,7 @@ public abstract class BaseConfig
 
     /// <summary>
     /// Abstract base class for defining configuration settings and managing preferences.
-    /// Provides methods for initialization, logging, and binding configuration values.
+    /// Provides methods for initialisation, logging, and binding configuration values.
     /// Must be inherited and extended to define specific configuration bindings.
     /// </summary>
     /// <param name="cfgName">The name of the configuration category.</param>
@@ -42,7 +44,7 @@ public abstract class BaseConfig
     }
     
     /// <summary>
-    /// Method that gets called after the config file has been initialized. Use this to bind your config values.
+    /// Method that gets called after the config file has been initialised. Use this to bind your config values.
     /// </summary>
     protected abstract void SetBindings();
 
@@ -52,7 +54,18 @@ public abstract class BaseConfig
     protected virtual void OnPostBindingsCleanup() { }
 
     /// <summary>
-    /// Initializes the configuration settings, including setting the file path, managing logging preferences,
+    /// Method that gets executed before bindings are loaded.
+    /// </summary>
+    protected virtual void OnPreBindings()
+    {
+        if (_hasFixedArrayStrings) return;
+        
+        BaseConfigExtensions.FixStringArrays(_configPath);
+        _hasFixedArrayStrings = true;
+    }
+
+    /// <summary>
+    /// Initialises the configuration settings, including setting the file path, managing logging preferences,
     /// creating the configuration category, and binding configuration values through the SetBindings method.
     /// </summary>
     /// <param name="cfgName">The name of the configuration category.</param>
@@ -60,18 +73,29 @@ public abstract class BaseConfig
     /// <param name="showSaveLog">Flag indicating whether logs should be shown when saving configuration. Default is false.</param>
     private void Init(string cfgName, bool showLoadLog = false, bool showSaveLog = false)
     {
-        _showLoadLog = showLoadLog;
-        _showSaveLog = showSaveLog;
-        _cfg = MelonPreferences.CreateCategory(cfgName);
-        _configPath = Path.Combine(MelonEnvironment.UserDataDirectory, $"{cfgName}.cfg");
-        _cfg.SetFilePath(_configPath, true, _showLoadLog);
         try
         {
-            SetBindings();
+            _configPath = Path.Combine(MelonEnvironment.UserDataDirectory, $"{cfgName}.cfg");
+            OnPreBindings();
+        }
+        catch (Exception ex)
+        {
+            Plugin.Logger.Error(ex.Message);
         }
         finally
         {
-            OnPostBindingsCleanup();
+            _showLoadLog = showLoadLog;
+            _showSaveLog = showSaveLog;
+            _cfg = MelonPreferences.CreateCategory(cfgName);
+            _cfg.SetFilePath(_configPath, true, _showLoadLog);
+            try
+            {
+                SetBindings();
+            }
+            finally
+            {
+                OnPostBindingsCleanup();
+            }
         }
     }
 
