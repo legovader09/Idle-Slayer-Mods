@@ -13,12 +13,19 @@ public class Plugin : MelonMod
     internal static ConfigFile Config;
     internal static readonly MelonLogger.Instance Logger = Melon<Plugin>.Logger;
     internal static ModHelper ModHelperInstance;
+    internal static bool NoSpecialBoxesModeDetected;
     
     public override void OnInitializeMelon()
     {
         ModHelper.ModHelperMounted += SetModHelperInstance;
         Config = new(MyPluginInfo.PLUGIN_GUID);
         Logger.Msg($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
+    }
+
+    public override void OnLateInitializeMelon()
+    {
+        var hasNoSpecialBoxMode = MelonBase.RegisteredMelons.Any(mod => mod.Info.Name == "No Special Boxes Mode");
+        NoSpecialBoxesModeDetected = hasNoSpecialBoxMode;
     }
     
     private static void SetModHelperInstance(ModHelper instance) => ModHelperInstance = instance;
