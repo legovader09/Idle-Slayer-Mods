@@ -68,7 +68,7 @@
         <HintPath>..\Libraries\UnityEngine.UIElementsModule.dll</HintPath>
       </Reference>
       <Reference Include="Tomlet">
-        <HintPath>C:\Users\Administrator\AppData\Local\IdleSlayerModManager\ModLoader\MelonLoader\net6\Tomlet.dll</HintPath>
+        <HintPath>..\Libraries\Tomlet.dll</HintPath>
       </Reference>
     </ItemGroup>
 

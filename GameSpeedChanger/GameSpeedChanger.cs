@@ -1,3 +1,4 @@
+using HarmonyLib;
 using IdleSlayerMods.Common.Extensions;
 using Il2Cpp;
 using UnityEngine;
@@ -9,7 +10,7 @@ public class GameSpeedChanger : MonoBehaviour
     private MapController _mapController;
     private PlayerInventory _playerInventory;
     private double _specialRandomBoxChanceBackup;
-
+    private static bool _shouldRunReset;
 
     private void Awake()
     {
@@ -51,6 +52,10 @@ public class GameSpeedChanger : MonoBehaviour
             Plugin.ModHelperInstance.ShowNotification($"Speed reset to: {(int)Time.timeScale}x", false);
             SaveGameSpeed();
         }
+
+        if (!_shouldRunReset) return;
+        _shouldRunReset = false;
+        ResetSpecialBoxLastUsedTimer();
     }
 
     private static void SaveGameSpeed()
@@ -60,7 +65,7 @@ public class GameSpeedChanger : MonoBehaviour
         Plugin.Config.DefaultSpeed.SaveEntry(true);
     }
     
-    private void ResetSpecialBoxLastUsedTimer()
+    public void ResetSpecialBoxLastUsedTimer()
     {
         var currentUTCTime = Il2CppSystem.DateTime.UtcNow;
         var currentUTCUnixTimeStamp = TimeManager.GetUnixTimeStampFromDate(currentUTCTime);
@@ -69,13 +74,43 @@ public class GameSpeedChanger : MonoBehaviour
             Plugin.Logger.Debug($"Current UTC Time: {currentUTCTime}");
             Plugin.Logger.Debug($"Purple box last used: {TimeManager.GetDateTime(_mapController.specialRandomBoxLastUsed)}");
             _mapController.specialRandomBoxLastUsed = currentUTCUnixTimeStamp - 300;
-            _playerInventory.specialRandomBoxChance = _specialRandomBoxChanceBackup;
-            Plugin.Logger.Debug("normal chance time in future");
+            Plugin.Logger.Debug("Normal chance time is in the future");
         }
-        else
+
+        if (Plugin.NoSpecialBoxesModeDetected) return;
+        _playerInventory.specialRandomBoxChance = _specialRandomBoxChanceBackup;
+        Plugin.Logger.Debug("Purple box chance changed");
+    }
+
+    private static int specialBoxes;
+    private static int normalBoxes;
+    private static void LogBoxes()
+    {
+        var logContent = $"Special Boxes: {specialBoxes}\nNormal Boxes: {normalBoxes}\nTime elapsed: {Time.time}";
+        Plugin.Logger.Debug(logContent);
+    }
+    
+    [HarmonyPatch(typeof(RandomBox), "OnObjectSpawn")]
+    public class Patch_RandomBox_OnObjectSpawn
+    {
+        [HarmonyPostfix]
+        public static void Postfix()
         {
-            _playerInventory.specialRandomBoxChance = _specialRandomBoxChanceBackup;
-            Plugin.Logger.Debug("normal chance");
+            _shouldRunReset = true;
+            normalBoxes++;
+            LogBoxes();
+        }
+    }
+    
+    [HarmonyPatch(typeof(SpecialRandomBox), "OnObjectSpawn")]
+    public class Patch_SpecialRandomBox_OnObjectSpawn
+    {
+        [HarmonyPostfix]
+        public static void Postfix()
+        {
+            _shouldRunReset = true;
+            specialBoxes++;
+            LogBoxes();
         }
     }
 }

@@ -1,3 +1,7 @@
+### Version 1.0.3
+
+- Periodically check purple box timing
+
 ### Version 1.0.2
 
 - Fix bonus stage boxes not spawning
