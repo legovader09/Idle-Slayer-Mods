@@ -18,7 +18,7 @@ public class Settings(string cfgName) : BaseConfig(cfgName)
     public MelonPreferences_Entry<bool> PreventLogout;
     public MelonPreferences_Entry<bool> PreventClose;
     public MelonPreferences_Entry<bool> DebugSplashScreen;
-    public MelonPreferences_Entry<string[]> ModStrings;
+    public MelonPreferences_Entry<List<string>> ModStrings;
     
     // SilverRandomBoxFix Settings
     public MelonPreferences_Entry<bool> ApplySilverRandomBoxPatch;
@@ -30,14 +30,14 @@ public class Settings(string cfgName) : BaseConfig(cfgName)
         EnableNewVersionRequiredSkip = Bind("IdleSlayerCore", "Enable New Version Required Skip", true, "Skips the 'New Version Required' screen.");
         ShowModVersionOnTitleScreen = Bind("IdleSlayerCore","Show Mod Version On Title Screen", true, "Display the core mod version on the title screen.");
         
-        ApplySilverRandomBoxPatch = Bind("SilverRandomBoxFix", "Enable Patching", false, "Enables patching of SilverRandomBoxManager to fix the issue with the silver random box button not showing up correctly.");
+        ApplySilverRandomBoxPatch = Bind("SilverRandomBoxFix", "Enable Silver Box Patching", false, "Enables patching of SilverRandomBoxManager to fix the issue with the silver random box button not showing up correctly.");
         
         EnableAntiSplashScreen = Bind("AntiSplashScreen", "Enable Patching", true, "Enable/disable AntiSplashScreen patch.");
         CreateBackups = Bind("AntiSplashScreen", "Create Backups", true, "Creates backup saves when the game loads");
         PreventLogout = Bind("AntiSplashScreen", "Force Prevent Logout", false, "Forces to game not to log you out (causes side effects)");
         PreventClose = Bind("AntiSplashScreen", "Force Prevent Close", false, "Forces to game not to quit (causes side effects)");
         DebugSplashScreen = Bind("AntiSplashScreen", "Debug Splash Screen", false, "Shows debug information");
-        ModStrings = Bind("AntiSplashScreen", "Mod Files/Directorys Blacklist", (string[])[
+        ModStrings = Bind("AntiSplashScreen", "Mod Files/Directorys Blacklist", new List<string> {
             // Default paths that are checked
             "BepInEx",
             "Mods",
@@ -53,6 +53,12 @@ public class Settings(string cfgName) : BaseConfig(cfgName)
             // BepInEx specific files
             ".doorstop_version",
             "changelog.txt",
-        ], "Files and directories that the game checks for to prevent loading");
+        }, "Files and directories that the game checks for to prevent loading");
+    }
+
+    /// <inheritdoc />
+    protected override void OnPostBindingsCleanup()
+    {
+        DeleteBind("SilverRandomBoxFix", "Enable Patching");
     }
 }
