@@ -64,15 +64,6 @@ obj.AddComponent<MyCustomBehaviour>();
 |-------------------------------------|---------------------------------------------------------------------------|
 | static Achievement AddAchievement() | Instantiates a new Achievement scriptable object, and returns this object |
 
-### BaseConfig:
-
-| abstract class BaseConfig              | Base configuration class which can be inherited from                                                    |
-|----------------------------------------|---------------------------------------------------------------------------------------------------------|
-| abstract void SetBindings              | Takes in a ConfigFile and assigns it to the class instance                                              |
-| virtual void OnPostBindingsCleanup     | Happens after SetBindings() and can be used to run post-setup code, such as deleting old config entries |
-| virtual MelonPreferences_Entry<T> Bind | Creates and assigns a new setting of type T                                                             |
-| virtual bool DeleteBind                | Deletes a MelonPreferences config entry, returns true if successful.                                    |
-
 ## Planned:
 - Modded Achievement section in options
 - Global list of modded achievements that can be appended to
