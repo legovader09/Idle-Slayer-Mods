@@ -1,4 +1,4 @@
-# Auto Boost & Wind Dash
+# Game Speed Changer
 
 Changes the game speed for quicker progression.
 

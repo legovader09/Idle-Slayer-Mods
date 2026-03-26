@@ -5,13 +5,13 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>disable</Nullable>
         <LangVersion>latest</LangVersion>
-        <Version>1.0.1</Version>
+        <Version>1.0.2</Version>
         <AssemblyName>GameSpeedChanger</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="IdleSlayerMods.Common" Version="1.2.2-ML" />
-      <PackageReference Include="LavaGang.MelonLoader" Version="0.7.1" />
+      <PackageReference Include="IdleSlayerMods.Common" Version="1.3.0-ML" />
+      <PackageReference Include="LavaGang.MelonLoader" Version="0.7.2" />
     </ItemGroup>
 
     <ItemGroup>

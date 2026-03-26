@@ -159,12 +159,12 @@ public static class ModUtils
 
         if (appPathMethodInfo == null)
         {
-            Plugin.Logger.DebugError($"Failed to find UnityEngine.Application::dataPath method");
+            Plugin.Logger.Error("Failed to find UnityEngine.Application::dataPath method");
         }
 
         if (loadGameSceneMethodInfo == null || loadGameSceneMoveNextMethodInfo == null)
         {
-            Plugin.Logger.DebugError($"Failed to find LoadGameScene method or LoadGameScene enumerator");
+            Plugin.Logger.Error("Failed to find LoadGameScene method or LoadGameScene enumerator");
             return;
         }
 
