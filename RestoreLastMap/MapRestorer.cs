@@ -8,15 +8,20 @@ public class MapRestorer : MonoBehaviour
 {
     private readonly MapController _mapController = MapController.instance;
     private bool _hasRestored;
-    
+
     private readonly List<string> _blackList =
     [
         "dialog_mt_otto_ascending_heights",
         "map_bonus_stage_1",
         "map_bonus_stage_2",
         "map_bonus_stage_3",
+        "map_bonus_stage_4",
         "map_special_bonus_stage",
-        "bosses_victor_alpha"
+        "bosses_victor_alpha",
+        "upgrade_ascending_heights",
+        "bosses_soul_stone_guardian",
+        "popup_grapple_run_title",
+        "npc_specter_knight"
     ];
 
     public void Start()
@@ -28,7 +33,7 @@ public class MapRestorer : MonoBehaviour
     {
         var lastMap = Plugin.Config.LastMap.Value;
         if (string.IsNullOrWhiteSpace(lastMap) || _blackList.Contains(lastMap) || _mapController.selectedMap.name == lastMap) return;
-        
+
         var newMap = _mapController.maps.First(x => x.name == lastMap);
         Plugin.Logger.Debug($"Restoring map: {lastMap}");
 
