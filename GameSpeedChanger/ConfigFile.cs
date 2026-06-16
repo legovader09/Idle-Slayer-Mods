@@ -11,6 +11,8 @@ internal sealed class ConfigFile(string configName) : BaseConfig(configName)
     internal MelonPreferences_Entry<KeyCode> SpeedUpKey;
     internal MelonPreferences_Entry<KeyCode> SpeedDownKey;
     internal MelonPreferences_Entry<KeyCode> ResetKey;
+    internal MelonPreferences_Entry<bool> RemoveLimiter;
+    internal MelonPreferences_Entry<float> CustomMultiplier;
 
     protected override void SetBindings()
     {
@@ -19,5 +21,7 @@ internal sealed class ConfigFile(string configName) : BaseConfig(configName)
         SpeedUpKey = Bind("Speed Up Key", KeyCode.F4, "The key to increase game speed");
         SpeedDownKey = Bind("Speed Down Key", KeyCode.F3, "The key to decrease game speed");
         ResetKey = Bind("Speed Reset Key", KeyCode.F2, "The key to reset game speed");
+        RemoveLimiter = Bind("Remove Speed Limiter", false, "USE AT YOUR OWN RISK! Allows going below 1x speed and above 16x speed.");
+        CustomMultiplier = Bind("Custom Speed Multiplier", 2f, "CHANGE AT YOUR OWN RISK! Use a custom speed multiplier (default is speed x 2 and speed / 2.");
     }
 }
