@@ -80,7 +80,7 @@ public abstract class BaseConfig
         }
         catch (Exception ex)
         {
-            Plugin.Logger.Error(ex.Message);
+            Plugin.Logger?.Error(ex.Message);
         }
         finally
         {
@@ -114,7 +114,14 @@ public abstract class BaseConfig
         cat.SetFilePath(_configPath, true, _showLoadLog);
         if (cat.HasEntry(key)) return cat.GetEntry<T>(key);
         var entry =  cat.CreateEntry(key, defaultValue, description: description);
-        cat.SaveToFile(_showSaveLog);
+        try
+        {
+            cat.SaveToFile(_showSaveLog);
+        }
+        catch (Exception ex)
+        {
+            Plugin.Logger?.Error($"Failed to save config entry {key} in section {section}: {ex.Message}");
+        }
         return entry;
     }
     

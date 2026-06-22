@@ -2,6 +2,7 @@
 using IdleSlayerMods.Common;
 using IdleSlayerMods.Common.Data;
 using IdleSlayerMods.Common.Extensions;
+using IdleSlayerMods.Common.HarmonyPatches;
 using Il2Cpp;
 using MelonLoader;
 using MelonLoader.Logging;
@@ -27,12 +28,13 @@ public class Plugin : MelonMod
     public override void OnInitializeMelon()
     {
         LoggerInstance.Msg($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
+
+        InitializeAntiSplashScreen(HarmonyInstance);
+
         foreach (var method in HarmonyInstance.GetPatchedMethods())
         {
             Logger.Debug($"Patched {method.FullDescription().Pastel(ColorARGB.GreenYellow)}");
         }
-        
-        InitializeAntiSplashScreen();
     }
 
     /// <inheritdoc />
@@ -42,12 +44,12 @@ public class Plugin : MelonMod
         {
             ModUtils.RegisterComponent<TitleChanger>(false);
         }
-        
+
         if (sceneName != "Game") return;
         ModUtils.RegisterComponent<ModHelper>();
         InitializeSilverRandomBoxFix();
     }
-    
+
 #if DEBUG
     /// <inheritdoc />
     public override void OnLateInitializeMelon()
@@ -58,15 +60,40 @@ public class Plugin : MelonMod
         ModUtils.PrintCalls();
     }
 #endif
-    
-    private static void InitializeAntiSplashScreen()
+
+    private static void InitializeAntiSplashScreen(HarmonyLib.Harmony harmony)
     {
-        if (!Settings.EnableAntiSplashScreen.Value) return;
+        if (Settings == null || !Settings.EnableAntiSplashScreen.Value) return;
+
         Logger.Msg($"---Started ({AntiSplashScreenPluginInfo.PLUGIN_GUID} v{AntiSplashScreenPluginInfo.PLUGIN_VERSION})---");
-        if (!Settings.CreateBackups.Value) return;
-        Logger.Msg($"---Creating Backup Saves---");
-        ModUtils.CreateGameBackup();
-        Logger.Msg($"---Backups Created---");
+
+        Logger.Msg("Applying AntiSplashScreen Patches...");
+        var antiSplashScreenPrefix = new HarmonyMethod(typeof(AntiSplashScreenPatch).GetMethod(nameof(AntiSplashScreenPatch.SplashScreenPrefix)));
+        foreach (var method in AntiSplashScreenPatch.GetTargetMethods())
+        {
+            harmony.Patch(method, prefix: antiSplashScreenPrefix);
+        }
+
+        Logger.Msg("Applying PlayerInventory Patches...");
+        var playerInventoryPrefix = new HarmonyMethod(typeof(PlayerInventoryPatch).GetMethod(nameof(PlayerInventoryPatch.PlayerInventoryPrefix)));
+        foreach (var method in PlayerInventoryPatch.GetTargetMethods())
+        {
+            harmony.Patch(method, prefix: playerInventoryPrefix);
+        }
+
+        Logger.Msg("Applying Caller Patches...");
+        var callerPrefix = new HarmonyMethod(typeof(CallerPatches).GetMethod(nameof(CallerPatches.HookPrefix)));
+        foreach (var method in CallerPatches.GetTargetMethods())
+        {
+            harmony.Patch(method, prefix: callerPrefix);
+        }
+
+        if (Settings != null && Settings.CreateBackups.Value)
+        {
+            Logger.Msg($"---Creating Backup Saves---");
+            ModUtils.CreateGameBackup();
+            Logger.Msg($"---Backups Created---");
+        }
     }
 
     private static void InitializeSilverRandomBoxFix()
@@ -74,7 +101,7 @@ public class Plugin : MelonMod
         var lastTimeUsed = SilverRandomBoxManager.instance.lastTimeUsed;
         Logger.Msg($"\"Silver Random Box DateTime\" is set to \"{lastTimeUsed}\"({TimeManager.GetDateTime(lastTimeUsed).ToLocalTime()}) ");
         if (!(lastTimeUsed > TimeManager.lastWorkingTime)) return;
-        
+
         var lastTime = TimeManager.lastWorkingTime - 30 * 60;
         SilverRandomBoxManager.instance.lastTimeUsed = lastTime;
         // ReSharper disable once SpecifyACultureInStringConversionExplicitly
