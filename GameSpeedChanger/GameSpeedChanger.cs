@@ -21,7 +21,7 @@ public class GameSpeedChanger : MonoBehaviour
             _specialRandomBoxChanceBackup = 8f;
         ResetSpecialBoxLastUsedTimer();
     }
-    
+
     public void Start()
     {
         Time.timeScale = Plugin.Config.DefaultSpeed.Value;
@@ -29,19 +29,21 @@ public class GameSpeedChanger : MonoBehaviour
 
     public void LateUpdate()
     {
+        var multiplier = Plugin.Config.CustomMultiplier.Value;
+        var noLimits = Plugin.Config.RemoveLimiter.Value;
         if (Input.GetKeyDown(Plugin.Config.SpeedUpKey.Value))
         {
-            Time.timeScale = Math.Min(16f, Time.timeScale * 2f);
+            Time.timeScale = noLimits ? Time.timeScale * multiplier : Math.Min(16f, Time.timeScale * multiplier);
             Plugin.Logger.Msg($"Speed increased to {Time.timeScale}");
-            Plugin.ModHelperInstance.ShowNotification($"Speed increased to: {(int)Time.timeScale}x", false);
+            Plugin.ModHelperInstance.ShowNotification($"Speed increased to: {Time.timeScale:N2}x", false);
             SaveGameSpeed();
         }
 
         if (Input.GetKeyDown(Plugin.Config.SpeedDownKey.Value))
         {
-            Time.timeScale = Mathf.Max(1f, Time.timeScale / 2f);
+            Time.timeScale = noLimits ? Time.timeScale / multiplier : Mathf.Max(1f, Time.timeScale / multiplier);
             Plugin.Logger.Msg($"Speed decreased to {Time.timeScale}");
-            Plugin.ModHelperInstance.ShowNotification($"Speed decreased to: {(int)Time.timeScale}x", false);
+            Plugin.ModHelperInstance.ShowNotification($"Speed decreased to: {Time.timeScale:N2}x", false);
             SaveGameSpeed();
         }
 
@@ -49,7 +51,7 @@ public class GameSpeedChanger : MonoBehaviour
         {
             Time.timeScale = 1f;
             Plugin.Logger.Msg($"Speed reset to {Time.timeScale}");
-            Plugin.ModHelperInstance.ShowNotification($"Speed reset to: {(int)Time.timeScale}x", false);
+            Plugin.ModHelperInstance.ShowNotification($"Speed reset to: {Time.timeScale:N2}x", false);
             SaveGameSpeed();
         }
 
@@ -64,7 +66,7 @@ public class GameSpeedChanger : MonoBehaviour
         Plugin.Config.DefaultSpeed.Value = (int)Time.timeScale;
         Plugin.Config.DefaultSpeed.SaveEntry(true);
     }
-    
+
     public void ResetSpecialBoxLastUsedTimer()
     {
         var currentUTCTime = Il2CppSystem.DateTime.UtcNow;
@@ -89,7 +91,7 @@ public class GameSpeedChanger : MonoBehaviour
         var logContent = $"Special Boxes: {specialBoxes}\nNormal Boxes: {normalBoxes}\nTime elapsed: {Time.time}";
         Plugin.Logger.Debug(logContent);
     }
-    
+
     [HarmonyPatch(typeof(RandomBox), "OnObjectSpawn")]
     public class Patch_RandomBox_OnObjectSpawn
     {
@@ -101,7 +103,7 @@ public class GameSpeedChanger : MonoBehaviour
             LogBoxes();
         }
     }
-    
+
     [HarmonyPatch(typeof(SpecialRandomBox), "OnObjectSpawn")]
     public class Patch_SpecialRandomBox_OnObjectSpawn
     {
