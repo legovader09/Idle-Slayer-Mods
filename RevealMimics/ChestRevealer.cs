@@ -40,7 +40,10 @@ public class ChestRevealer : MonoBehaviour
                 if (!@object) continue;
 
                 // Log the type of chest to let know the user types we might have not implemented yet
-                Melon<Plugin>.Logger.Msg("Type of chest " + ++iterationCount + ": " + chest.type); 
+                if (Plugin.Settings.ShouldLogChestTypes.Value)
+                {
+                    Melon<Plugin>.Logger.Msg("Type of chest " + ++iterationCount + ": " + chest.type);
+                }
 
                 @object.GetComponent<Image>().color = chest.type switch
                 {
