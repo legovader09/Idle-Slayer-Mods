@@ -32,12 +32,16 @@ public class ChestRevealer : MonoBehaviour
         {
             if (!_chestHuntManager.IsVisible() || _chestHuntManager.chests.Count == 0) return;
             Melon<Plugin>.Logger.Msg("Iterating through chests");
-            
+
+            int iterationCount = 0;
             foreach (var chest in _chestHuntManager.chests)
             {
                 var @object = chest.chestObject;
                 if (!@object) continue;
-                
+
+                // Log the type of chest to let know the user types we might have not implemented yet
+                Melon<Plugin>.Logger.Msg("Type of chest " + ++iterationCount + ": " + chest.type); 
+
                 @object.GetComponent<Image>().color = chest.type switch
                 {
                     ChestType.Mimic => new(1f, 0f, 0f),
