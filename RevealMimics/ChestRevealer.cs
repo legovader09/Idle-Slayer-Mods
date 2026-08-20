@@ -40,10 +40,11 @@ public class ChestRevealer : MonoBehaviour
                 
                 @object.GetComponent<Image>().color = chest.type switch
                 {
-                    ChestType.Mimic => new(255, 0, 0),
-                    ChestType.Multiplier when Plugin.Settings.ShouldRevealMultipliers.Value => new(255, 255, 0),
-                    ChestType.DuplicateNextPick when Plugin.Settings.ShouldRevealDuplicator.Value => new(0, 255, 0),
-                    ChestType.ArmoryChest when Plugin.Settings.ShouldRevealArmoryChest.Value => new(0, 136, 255),
+                    ChestType.Mimic => new(1f, 0f, 0f),
+                    ChestType.Multiplier when Plugin.Settings.ShouldRevealMultipliers.Value => new(1f, 1f, 0f),
+                    ChestType.DuplicateNextPick when Plugin.Settings.ShouldRevealDuplicator.Value => new(0f, 1f, 0f),
+                    ChestType.ArmoryChest when Plugin.Settings.ShouldRevealArmoryChest.Value => new(0f, 0.5f, 1f),
+                    ChestType.MultiplierIncreaser when Plugin.Settings.ShouldRevealMultiplierIncreaser.Value => new(1f, 0.65f, 0f),
                     _ => @object.GetComponent<Image>().color
                 };
             }
