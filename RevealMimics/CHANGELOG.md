@@ -1,3 +1,19 @@
+### Version 1.2.3
+
+- Added multiplier increaser revealer
+
+### Version 1.2.2
+
+- Updated to use MelonLoader 0.7.1
+
+### Version 1.2.1
+
+- Updated to match core mod changes
+
+### Version 1.2.0
+
+- Added armory crate revealer
+
 ### Version 1.1.1
 
 - Updated to make MelonLoader compatible
