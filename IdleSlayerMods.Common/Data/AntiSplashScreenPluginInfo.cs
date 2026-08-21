@@ -5,6 +5,6 @@ public static class AntiSplashScreenPluginInfo
 {
     public const string PLUGIN_GUID = "AntiSpashScreen";
     public const string PLUGIN_NAME = "Anti Splash Screen";
-    public const string PLUGIN_VERSION = "0.1.4";
-    public const string PLUGIN_AUTHOR = "Aham";
+    public const string PLUGIN_VERSION = "0.1.5";
+    public const string PLUGIN_AUTHOR = "Aham, Doomnik";
 }

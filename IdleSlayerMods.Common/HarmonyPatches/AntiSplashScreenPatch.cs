@@ -15,12 +15,12 @@ namespace IdleSlayerMods.Common.HarmonyPatches;
 /// A Harmony patch class used to modify the behavior of the splash screen functionality in the game.
 /// This patch prevents the splash screen from doing mod-related checks by intercepting and altering the relevant logic.
 /// </summary>
-[HarmonyPatch]
 public class AntiSplashScreenPatch
 {
-    [HarmonyTargetMethod]
     // ReSharper disable once UnusedMember.Local
-    private static IEnumerable<MethodBase> TargetMethods()
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    public static IEnumerable<MethodBase> GetTargetMethods()
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
         // if possible use nameof() or SymbolExtensions.GetMethodInfo() here
         yield return AntiSplashScreenHelper.ProcessMethod(typeof(SplashScreen), nameof(SplashScreen.Start));
@@ -52,7 +52,7 @@ public class AntiSplashScreenPatch
             Plugin.Logger.Error("Failed to find SplashScreen.LoadGameScene::MoveNext delegate");
         }
     }
-    
+
     [HarmonyPrefix]
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public static void SplashScreenPrefix()
@@ -63,15 +63,15 @@ public class AntiSplashScreenPatch
 }
 
 /// <summary>
-/// A Harmony patch class designed to modify the behavior of player inventory functionality within the game.
+/// A Harmony patch class designed to modify the behaviour of player inventory functionality within the game.
 /// The patch intervenes in the game's inventory management logic to apply custom modifications or enhancements.
 /// </summary>
-[HarmonyPatch]
 public class PlayerInventoryPatch
 {
     // ReSharper disable once UnusedMember.Local
-    [HarmonyTargetMethod]
-    static IEnumerable<MethodBase> TargetMethods()
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    public static IEnumerable<MethodBase> GetTargetMethods()
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
         yield return AntiSplashScreenHelper.ProcessMethod(typeof(PlayerInventory), nameof(PlayerInventory.Start));
         yield return AntiSplashScreenHelper.ProcessMethod(typeof(PlayerInventory), nameof(PlayerInventory.LoadPrefs));
@@ -107,12 +107,12 @@ public class PlayerInventoryPatch
 /// A Harmony patch class intended to modify and intercept the behavior of various methods involving method callers in the game.
 /// This class allows custom logic to hook into or replace existing functionality, enabling deeper customization or enhancements.
 /// </summary>
-[HarmonyPatch]
 public class CallerPatches
 {
     // ReSharper disable once UnusedMember.Local
-    [HarmonyTargetMethod]
-    private static IEnumerable<MethodBase> TargetMethods()
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    public static IEnumerable<MethodBase> GetTargetMethods()
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
         var appQuitMethodBase = AccessTools.Method(typeof(UnityEngine.Application), nameof(UnityEngine.Application.Quit));
         var authLogoutMethod = AccessTools.Method(typeof(Authentication), nameof(Authentication.Logout));
@@ -186,7 +186,7 @@ public class ModCheckPatch
     }
     private static bool IsPathChecked(string path)
     {
-        return Plugin.Settings.ModStrings.Value.Any(modString => path.Contains(modString, StringComparison.OrdinalIgnoreCase));
+        return Plugin.Settings?.ModStrings.Value.Any(modString => path.Contains(modString, StringComparison.OrdinalIgnoreCase)) ?? false;
     }
 
     // ReSharper disable once UnusedMember.Local
@@ -201,9 +201,9 @@ public class ModCheckPatch
             Il2CppInterop.Runtime.IL2CPP.il2cpp_current_thread_get_frame_at(i, frame);
             sb.AppendLine($"Frame {i}: {frame.ToString("X")}");
         }
-        Plugin.Logger.Debug(sb.ToString());
+        Plugin.Logger?.Debug(sb.ToString());
     }
-    
+
     /// <summary>
     /// Checks if the callstack contains "Il2Cpp.SplashScreen" then checks if the path contains any of the mod strings.
     /// </summary>
@@ -224,11 +224,11 @@ public class ModCheckPatch
         var IsCheck = modInPath || (stackCheck && checkInStack);
         if (IsCheck)
         {
-            Plugin.Logger.Debug(ColorARGB.Orange, $"{stackFrames[1].GetMethod()?.Name}({path}) {GetFancyCallstack(stackFrames)}"); // Should be orange
+            Plugin.Logger?.Debug(ColorARGB.Orange, $"{stackFrames[1].GetMethod()?.Name}({path}) {GetFancyCallstack(stackFrames)}"); // Should be orange
         }
-        else if (Plugin.Settings.DebugSplashScreen.Value || printDebug)
+        else if ((Plugin.Settings?.DebugSplashScreen.Value ?? false) || printDebug)
         {
-            Plugin.Logger.Debug($"{stackFrames[0].GetMethod()?.Name}({path}) {GetFancyCallstack(stackFrames)}");
+            Plugin.Logger?.Debug($"{stackFrames[0].GetMethod()?.Name}({path}) {GetFancyCallstack(stackFrames)}");
         }
         return IsCheck;
     }
@@ -237,10 +237,10 @@ public class ModCheckPatch
     /// Prevents the game from checking for mod directories
     /// </summary>
     /// <code>
-    /// if (Directory.Exists(Path.GetFullPath(Path.Combine(Application.dataPath, "..", "BepInEx"))) 
-    ///     || Directory.Exists(Path.GetFullPath(Path.Combine(Application.dataPath, "..", "Mods"))) 
-    ///     || Directory.Exists(Path.GetFullPath(Path.Combine(Application.dataPath, "..", "MelonLoader"))) 
-    ///     || Directory.Exists(Path.GetFullPath(Path.Combine(Application.dataPath, "..", "dotnet"))) 
+    /// if (Directory.Exists(Path.GetFullPath(Path.Combine(Application.dataPath, "..", "BepInEx")))
+    ///     || Directory.Exists(Path.GetFullPath(Path.Combine(Application.dataPath, "..", "Mods")))
+    ///     || Directory.Exists(Path.GetFullPath(Path.Combine(Application.dataPath, "..", "MelonLoader")))
+    ///     || Directory.Exists(Path.GetFullPath(Path.Combine(Application.dataPath, "..", "dotnet")))
     ///     || File.Exists(Path.GetFullPath(Path.Combine(Application.dataPath, "..", "doorstop_config.ini"))))
     ///	{
     ///		Application.Quit();
@@ -250,10 +250,10 @@ public class ModCheckPatch
     [HarmonyPatch(typeof(Il2CppSystem.IO.Directory), nameof(Il2CppSystem.IO.Directory.Exists))]
     public static bool Il2CppSystem_IO_Directory_Exists(ref bool __runOriginal, bool __result, string path)
     {
-        if (!Plugin.Settings.EnableAntiSplashScreen.Value) return true;
+        if (Plugin.Settings == null || !Plugin.Settings.EnableAntiSplashScreen.Value) return true;
         //Plugin.Logger.Debug($"Il2CppSystem.IO.Directory.Exists({path})");
         if (!IsModCheck(ModCheckType.DirectoryExists, path)) return __runOriginal;
-        
+
         __runOriginal = false;
         // ReSharper disable once RedundantAssignment
         __result = false;
@@ -266,10 +266,10 @@ public class ModCheckPatch
     public static bool Il2CppSystem_IO_File_Exists(ref bool __runOriginal, bool __result, string path)
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
-        if (!Plugin.Settings.EnableAntiSplashScreen.Value) return true;
+        if (Plugin.Settings == null || !Plugin.Settings.EnableAntiSplashScreen.Value) return true;
         //Plugin.Logger.Debug($"Il2CppSystem.IO.File.Exists({path})");
         if (!IsModCheck(ModCheckType.FileExists, path)) return __runOriginal;
-        
+
         __runOriginal = false;
         // ReSharper disable once RedundantAssignment
         __result = false;
@@ -282,9 +282,9 @@ public class ModCheckPatch
     public static void Il2CppSystem_IO_Directory_GetDirectories_Postfix(ref Il2CppStringArray __result, string path, string searchPattern)
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
-        if (!Plugin.Settings.EnableAntiSplashScreen.Value) return;
+        if (Plugin.Settings == null || !Plugin.Settings.EnableAntiSplashScreen.Value) return;
         if (!IsModCheck(ModCheckType.InternalEnumeratePaths, path, true, true)) return;
-        
+
         string[] filteredResult = [];
         foreach (var dir in __result)
         {
@@ -302,21 +302,21 @@ public class ModCheckPatch
     public static bool UnityEngine_Application_Quit(ref bool __runOriginal)
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
-        if (!Plugin.Settings.EnableAntiSplashScreen.Value) return true;
+        if (Plugin.Settings == null || !Plugin.Settings.EnableAntiSplashScreen.Value) return true;
         if (IsModCheck(ModCheckType.Quit, null, true, true))
         {
-            Plugin.Logger.Warning("Mod check attempted close the game");
+            Plugin.Logger?.Warning("Mod check attempted close the game");
             __runOriginal = false;
         }
         else
         {
-            Plugin.Logger.Warning("Game will quit");
+            Plugin.Logger?.Warning("Game will quit");
         }
 
         if (!Plugin.Settings.PreventClose.Value) return __runOriginal;
         __runOriginal = false;
-        
-        Plugin.Logger.Warning("Prevented Game Quit");
+
+        Plugin.Logger?.Warning("Prevented Game Quit");
         return __runOriginal;
     }
 
@@ -326,21 +326,21 @@ public class ModCheckPatch
     public static bool Authentication_Logout(ref bool __runOriginal)
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
-        if (!Plugin.Settings.EnableAntiSplashScreen.Value) return true;
+        if (Plugin.Settings == null || !Plugin.Settings.EnableAntiSplashScreen.Value) return true;
         if (IsModCheck(ModCheckType.Logout, null, true, true))
         {
-            Plugin.Logger.Warning("Mod check attempted to logout user");
+            Plugin.Logger?.Warning("Mod check attempted to logout user");
             __runOriginal = false;
         }
         else
         {
-            Plugin.Logger.Warning("Game will logout");
+            Plugin.Logger?.Warning("Game will logout");
         }
 
         if (!Plugin.Settings.PreventLogout.Value) return __runOriginal;
         __runOriginal = false;
-        
-        Plugin.Logger.Warning("Prevented Game logout");
+
+        Plugin.Logger?.Warning("Prevented Game logout");
         return __runOriginal;
     }
 }
