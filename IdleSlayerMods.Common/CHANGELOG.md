@@ -1,3 +1,7 @@
+### Version 1.3.2
+
+- Potential fix for savedata.dat issue, and console error spam
+
 ### Version 1.3.1
 
 - Fix ModStrings binding for AntiSplashScreen.
