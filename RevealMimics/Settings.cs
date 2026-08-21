@@ -8,6 +8,8 @@ internal sealed class Settings(string configName) : BaseConfig(configName)
     internal MelonPreferences_Entry<bool> ShouldRevealMultipliers;
     internal MelonPreferences_Entry<bool> ShouldRevealDuplicator;
     internal MelonPreferences_Entry<bool> ShouldRevealArmoryChest;
+    internal MelonPreferences_Entry<bool> ShouldRevealMultiplierIncreaser;
+    internal MelonPreferences_Entry<bool> ShouldLogChestTypes;
 
     protected override void SetBindings()
     {
@@ -17,5 +19,9 @@ internal sealed class Settings(string configName) : BaseConfig(configName)
             "Should reveal duplicator item in chest hunt");
         ShouldRevealArmoryChest = Bind("ShouldRevealArmoryChest", false,
             "Should reveal armory chest in chest hunt");
+        ShouldRevealMultiplierIncreaser = Bind("ShouldRevealMultiplierIncreaser", false,
+            "Should reveal multiplier increaser in chest hunt");
+        ShouldLogChestTypes = Bind("ShouldLogChestTypes", false,
+            "Should log chest types in chest hunt");
     }
 }
