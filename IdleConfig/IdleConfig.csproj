@@ -12,6 +12,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Reference Include="0Harmony">
+        <HintPath>..\Libraries\0Harmony.dll</HintPath>
+        <Private>False</Private>
+      </Reference>
       <Reference Include="Assembly-CSharp">
         <HintPath>..\Libraries\Assembly-CSharp.dll</HintPath>
       </Reference>
@@ -41,15 +45,18 @@
     <Import Project="..\ModPackaging.targets" />
 
     <ItemGroup>
-      <None Remove="Assets\idleconfig" />
       <None Remove="Assets\IdleConfigIcon.png" />
-      <AdditionalFiles Include="Assets\IdleConfigIcon.png">
+      <EmbeddedResource Include="Assets\IdleConfigIcon.png" LogicalName="IdleConfig.Assets.IdleConfigIcon.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="IdleSlayerMods.Common" Version="1.4.0-ML" />
+        <PackageReference Include="LavaGang.MelonLoader" Version="0.7.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Assets\manifest.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </AdditionalFiles>
-    </ItemGroup>
-    
-    <ItemGroup>
-        <PackageReference Include="IdleSlayerMods.Common" Version="1.2.3-ML" />
-        <PackageReference Include="LavaGang.MelonLoader" Version="0.7.2" />
     </ItemGroup>
 </Project>
