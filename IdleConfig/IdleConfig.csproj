@@ -58,5 +58,8 @@
       <AdditionalFiles Include="Assets\manifest.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </AdditionalFiles>
+      <AdditionalFiles Include="Assets\banner.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
     </ItemGroup>
 </Project>
