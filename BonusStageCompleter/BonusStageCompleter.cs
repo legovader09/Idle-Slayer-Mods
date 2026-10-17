@@ -11,7 +11,11 @@ public class BonusStageCompleter : MonoBehaviour
     private MapController _mapController;
     private BonusMapController _bonusController;
     private bool _isInBonusGame;
+
+    // Cached copy of Settings.EnableSkipAtSpiritBoost, read every frame in LateUpdate.
+    // Kept in sync by OnSkipAtSpiritBoostChanged so changes made at runtime (e.g. in IdleConfig) apply immediately.
     private bool _skipAtSpiritBoostEnabled;
+    private LemonAction<bool, bool> _onSkipAtSpiritBoostChanged;
 
     private void Awake()
     {
@@ -19,11 +23,21 @@ public class BonusStageCompleter : MonoBehaviour
         _bonusController = GameObject.Find("Bonus Map Controller").GetComponent<BonusMapController>();
 
         _skipAtSpiritBoostEnabled = Plugin.Settings.EnableSkipAtSpiritBoost.Value;
+        _onSkipAtSpiritBoostChanged = OnSkipAtSpiritBoostChanged;
+        Plugin.Settings.EnableSkipAtSpiritBoost.OnEntryValueChanged.Subscribe(_onSkipAtSpiritBoostChanged);
     }
+
+    private void OnDestroy()
+    {
+        if (_onSkipAtSpiritBoostChanged != null)
+            Plugin.Settings.EnableSkipAtSpiritBoost.OnEntryValueChanged.Unsubscribe(_onSkipAtSpiritBoostChanged);
+    }
+
+    private void OnSkipAtSpiritBoostChanged(bool oldValue, bool newValue) => _skipAtSpiritBoostEnabled = newValue;
 
     private void Start()
     {
-        Plugin.ModHelperInstance.CreateSettingsToggle("Enable Skip At Spirit Boost", Plugin.Settings.EnableSkipAtSpiritBoost, 
+        Plugin.ModHelperInstance.CreateSettingsToggle("Enable Skip At Spirit Boost", Plugin.Settings.EnableSkipAtSpiritBoost,
             _ => Plugin.Settings.EnableSkipAtSpiritBoost.SaveEntry());
     }
 
@@ -45,7 +59,7 @@ public class BonusStageCompleter : MonoBehaviour
         // only do logic in bonus stages
         if (!_isInBonusGame || !_bonusController.showCurrentTime) return;
 
-        // only do logic if stop at spirit boost disabled 
+        // only do logic if stop at spirit boost disabled
         if (!_skipAtSpiritBoostEnabled && _bonusController.spiritBoostEnabled) return;
 
         // determine whether the collected spheres variable has already been set, so we don't overwrite it.
