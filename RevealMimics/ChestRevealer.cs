@@ -23,7 +23,7 @@ public class ChestRevealer : MonoBehaviour
             _chestHuntManager.StartEvent();
         }
 #endif
-        
+
         if (!GameState.IsChestHunt())
         {
             _chestUpdateCompleted = false;
@@ -33,7 +33,7 @@ public class ChestRevealer : MonoBehaviour
             if (!_chestHuntManager.IsVisible() || _chestHuntManager.chests.Count == 0) return;
             Melon<Plugin>.Logger.Msg("Iterating through chests");
 
-            int iterationCount = 0;
+            var iterationCount = 0;
             foreach (var chest in _chestHuntManager.chests)
             {
                 var @object = chest.chestObject;

@@ -1,4 +1,5 @@
 ﻿using IdleSlayerMods.Common;
+using IdleSlayerMods.Common.Config;
 using MelonLoader;
 using MyPluginInfo = IdleConfig.MyPluginInfo;
 using Plugin = IdleConfig.Plugin;
@@ -15,13 +16,15 @@ public class Plugin : MelonMod
 
     public override void OnInitializeMelon()
     {
-        ModHelper.ModHelperMounted += helper => ModHelper = helper; 
+        ConfigRegistry.RegisterUIProvider(MyPluginInfo.PLUGIN_NAME);
+
+        ModHelper.ModHelperMounted += helper => ModHelper = helper;
         Logger.Msg($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
     }
 
     public override void OnSceneWasLoaded(int buildIndex, string sceneName)
     {
         if (sceneName != "Game") return;
-        ModUtils.RegisterComponent<IdleConfig>();
+        ModUtils.RegisterComponent<IdleConfig>(false);
     }
 }

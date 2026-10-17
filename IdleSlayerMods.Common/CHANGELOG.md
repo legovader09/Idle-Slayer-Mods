@@ -1,3 +1,15 @@
+### Version 1.4.0
+
+- Added `ConfigRegistry`: every entry bound through `BaseConfig` is now recorded with its owning mod, section, key, description and type, so configuration UIs (IdleConfig) can generate settings automatically.
+- Added `ModConfigInfo` / `ConfigEntryInfo` / `ConfigEntryKind` read-only metadata types.
+- Added `BaseConfig.HideFromConfigUI(...)` and `ConfigRegistry.SetHidden(...)` to keep entries out of generated UIs.
+- Added a warning when two configs bind the same section name (MelonPreferences shares categories by name).
+- Added `ModHelper.CreatePanelButton(...)` which returns the button and supports a `Sprite` icon.
+- Added `SpriteHelper` for loading textures and sprites from embedded resources or bytes. PNGs are decoded in managed code and uploaded with `SetPixels32`, because `ImageConversion.LoadImage` throws `MissingMethodException` (`Il2CppSystem.ReadOnlySpan`1.GetPinnableReference`) in this game's Unity 6 interop. Each loading stage logs a `[SpriteHelper]` line.
+- Fixed `ModHelper.LoadTextureFromFile`, which failed for the same reason; it now uses the managed PNG decoder.
+- Fixed `BaseConfig.DeleteBind` always returning `false`; it now returns `true` when an entry was removed.
+- `ModHelper.CreateSettingsToggle` is now `[Obsolete]`. It still works; when a config UI such as IdleConfig is installed it no longer adds a toggle to the vanilla Options menu and instead forwards changes to the callback.
+
 ### Version 1.3.2
 
 - Potential fix for savedata.dat issue, and console error spam

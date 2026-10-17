@@ -1,0 +1,12 @@
+﻿{
+  "name": "Idle Config",
+  "author": "Doomnik | koskakos",
+  "description": "In-game configuration menu for mod config files.",
+  "version": "1.0.0",
+  "nexus_id": "51",
+  "donate_url": "https://paypal.me/doomnikh",
+  "github_url": "https://www.github.com/legovader09/Idle-Slayer-Mods",
+  "dependencies": [
+    "IdleSlayerMods.Common@1.4.0"
+  ]
+}

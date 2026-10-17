@@ -11,8 +11,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="IdleSlayerMods.Common" Version="1.2.3-ML" />
-      <PackageReference Include="LavaGang.MelonLoader" Version="0.7.2" />
+      <PackageReference Include="IdleSlayerMods.Common" Version="1.4.0-ML" />
+      <PackageReference Include="LavaGang.MelonLoader" Version="0.7.3" />
     </ItemGroup>
 
     <ItemGroup>
