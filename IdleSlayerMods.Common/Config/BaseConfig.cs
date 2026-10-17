@@ -18,6 +18,12 @@ public abstract class BaseConfig
     private bool _showLoadLog;
     private bool _showSaveLog;
     private bool _hasFixedArrayStrings;
+    private ModConfigInfo _registryInfo;
+
+    /// <summary>
+    /// Registry metadata for this configuration. Configuration UIs use this to discover entries automatically.
+    /// </summary>
+    protected ModConfigInfo ConfigInfo => _registryInfo;
 
     /// <summary>
     /// Abstract base class for defining configuration settings and managing preferences.
@@ -88,6 +94,7 @@ public abstract class BaseConfig
             _showSaveLog = showSaveLog;
             _cfg = MelonPreferences.CreateCategory(cfgName);
             _cfg.SetFilePath(_configPath, true, _showLoadLog);
+            _registryInfo = ConfigRegistry.RegisterConfig(cfgName, _configPath, GetType().Assembly);
             try
             {
                 SetBindings();
@@ -110,9 +117,10 @@ public abstract class BaseConfig
     /// <returns>MelonPreferences_Entry of type T</returns>
     protected virtual MelonPreferences_Entry<T> Bind<T>(string section, string key, T defaultValue, string description = "")
     {
+        ConfigRegistry.ClaimSection(section, _configPath);
         var cat = MelonPreferences.CreateCategory(section);
         cat.SetFilePath(_configPath, true, _showLoadLog);
-        if (cat.HasEntry(key)) return cat.GetEntry<T>(key);
+        if (cat.HasEntry(key)) return Track(cat.GetEntry<T>(key));
         var entry =  cat.CreateEntry(key, defaultValue, description: description);
         try
         {
@@ -122,7 +130,7 @@ public abstract class BaseConfig
         {
             Plugin.Logger?.Error($"Failed to save config entry {key} in section {section}: {ex.Message}");
         }
-        return entry;
+        return Track(entry);
     }
     
     /// <summary>
@@ -137,9 +145,26 @@ public abstract class BaseConfig
     [Obsolete("Use Bind(string section, string key, ...) instead.")]
     protected virtual MelonPreferences_Entry<T> Bind<T>(string key, T defaultValue, string description = "")
     {
-        if (_cfg.HasEntry(key)) return _cfg.GetEntry<T>(key);
+        if (_cfg.HasEntry(key)) return Track(_cfg.GetEntry<T>(key));
         var entry =  _cfg.CreateEntry(key, defaultValue, description: description);
         _cfg.SaveToFile(_showSaveLog);
+        return Track(entry);
+    }
+
+    /// <summary>
+    /// Hides entries from configuration UIs such as IdleConfig. The entries still load and save normally.
+    /// Use this for internal or advanced settings that should only be edited in the .cfg file.
+    /// </summary>
+    /// <param name="entries">The entries to hide.</param>
+    protected void HideFromConfigUI(params MelonPreferences_Entry[] entries)
+    {
+        if (entries == null) return;
+        foreach (var entry in entries) ConfigRegistry.SetHidden(entry, true);
+    }
+
+    private MelonPreferences_Entry<T> Track<T>(MelonPreferences_Entry<T> entry)
+    {
+        if (_registryInfo != null && entry != null) ConfigRegistry.RegisterEntry(_registryInfo, entry);
         return entry;
     }
     
@@ -164,6 +189,6 @@ public abstract class BaseConfig
 
         File.WriteAllText(_configPath, doc.SerializedValue);
 
-        return false;
+        return true;
     }
 }

@@ -1,4 +1,7 @@
-﻿using IdleSlayerMods.Common.Constants;
+﻿using System.Reflection;
+using System.Runtime.CompilerServices;
+using IdleSlayerMods.Common.Config;
+using IdleSlayerMods.Common.Constants;
 using IdleSlayerMods.Common.Extensions;
 using IdleSlayerMods.Common.Helpers;
 using Il2Cpp;
@@ -89,14 +92,98 @@ public class ModHelper : MonoBehaviour
     }
 
     /// <summary>
+    /// Add an interactable button to the info panel (the same place as Achievements, Options, etc.)
+    /// and return it so the caller can customise it further.
+    /// </summary>
+    /// <param name="text">Text to display on the button, internally also sets the object name.</param>
+    /// <param name="clickAction">Action delegate that occurs on button click.</param>
+    /// <param name="icon">Sprite displayed in the button's icon slot. See <see cref="SpriteHelper"/> for loading one.
+    /// If null, the icon slot is left empty.</param>
+    /// <returns>The new button GameObject, or null if the info panel could not be found.</returns>
+    public GameObject CreatePanelButton(string text, Action clickAction = null, Sprite icon = null)
+    {
+        Plugin.Logger.Debug($"Creating panel button: {text}");
+        if (_templateButton == null || _infoPanelButtonsContainer == null)
+        {
+            Plugin.Logger.Warning("Info panel or template button not available; cannot create panel button");
+            return null;
+        }
+
+        var button = Instantiate(_templateButton, _infoPanelButtonsContainer);
+        button.name = text;
+
+        var visualContent = button.transform.Find("Background/Content");
+        if (visualContent != null && visualContent.childCount >= 2)
+        {
+            // Keep the template's own Image so sizing and materials match the native buttons.
+            var image = visualContent.GetChild(0).GetComponent<Image>();
+            if (image != null)
+            {
+                image.sprite = icon;
+                image.preserveAspect = true;
+                image.enabled = icon != null;
+                Plugin.Logger.Msg($"[SpriteHelper] button '{text}': icon slot '{visualContent.GetChild(0).name}' " +
+                                  (icon != null ? $"received sprite '{icon.name}'" : "left empty (no sprite supplied)"));
+            }
+            else
+            {
+                Plugin.Logger.Warning($"[SpriteHelper] button '{text}': icon slot '{visualContent.GetChild(0).name}' has no Image component");
+            }
+
+            // Same treatment as AddPanelButton: drop StartingText so it can't overwrite our label.
+            var label = visualContent.GetChild(1);
+            var startingText = label.GetComponent<StartingText>();
+            if (startingText) DestroyImmediate(startingText);
+            var tmp = label.GetComponent<TextMeshProUGUI>();
+            if (tmp != null)
+            {
+                tmp.text = text;
+                tmp.m_text = text;
+            }
+        }
+        else
+        {
+            Plugin.Logger.Warning($"Panel button '{text}' has an unexpected layout; icon and label were not applied");
+        }
+
+        var uiButton = button.GetComponent<Button>();
+        if (uiButton != null)
+        {
+            uiButton.onClick = new Button.ButtonClickedEvent();
+            uiButton.onClick.AddListener((UnityAction)(() => clickAction?.Invoke()));
+        }
+
+        return button;
+    }
+
+    /// <summary>
     /// Creates a settings toggle in the user interface with the specified display name
     /// and binds it to a configuration entry.
     /// </summary>
+    /// <remarks>
+    /// Settings bound through <see cref="Config.BaseConfig"/> are now discovered automatically by
+    /// configuration UIs (such as IdleConfig) via <see cref="ConfigRegistry"/>, so new mods do not need this.
+    /// When such a UI is installed, this method no longer injects a toggle into the vanilla options menu;
+    /// it only applies <paramref name="displayName"/> and forwards value changes to <paramref name="onChanged"/>.
+    /// Without one, it behaves exactly as before.
+    /// </remarks>
     /// <param name="displayName">The display name of the toggle in the UI</param>
     /// <param name="configEntry">The configuration entry representing the state of the toggle.</param>
     /// <param name="onChanged">Callback action invoked when the toggle value changes.</param>
+    [Obsolete("Settings bound via BaseConfig are discovered automatically by config UIs such as IdleConfig. " +
+              "For change callbacks, subscribe to MelonPreferences_Entry.OnEntryValueChanged instead.")]
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public void CreateSettingsToggle(string displayName, MelonPreferences_Entry<bool> configEntry, Action<bool> onChanged)
     {
+        LegacySettingsBridge.Register(Assembly.GetCallingAssembly(), displayName, configEntry);
+
+        if (ConfigRegistry.HasUIProvider)
+        {
+            Plugin.Logger.Debug($"Config UI provider present; '{displayName}' will be shown there instead of the options menu");
+            LegacySettingsBridge.WireCallback(configEntry, onChanged);
+            return;
+        }
+
         Plugin.Logger.Debug($"Registering settings toggle: {displayName}");
         var template = GameObject.Find($"{PathConstants.SettingsTogglePath}/Confirm Portal");
         var toggle = Instantiate(template, template.transform.parent);
@@ -221,23 +308,18 @@ public class ModHelper : MonoBehaviour
     /// <returns>Texture2D object or null on failure.</returns>
     public static Texture2D LoadTextureFromFile(string filePath)
     {
-        if (!File.Exists(filePath)) return null;
+        if (!File.Exists(filePath))
+        {
+            Plugin.Logger.Error($"[SpriteHelper] file '{filePath}': NOT FOUND");
+            return null;
+        }
 
         try
         {
             byte[] fileData = File.ReadAllBytes(filePath);
-            var texture = new Texture2D(2, 2, TextureFormat.RGBA32, false);
-            var il2CPPData = new Il2CppStructArray<byte>(fileData);
-            
-            if (ImageConversion.LoadImage(texture, il2CPPData))
-            {
-                texture.Apply(true, false);
-                return texture;
-            }
-            
-            Plugin.Logger.Error($"Failed to load texture from file: {filePath}");
-            Destroy(texture);
-            return null;
+            Plugin.Logger.Msg($"[SpriteHelper] file '{filePath}': OK, {fileData.Length} bytes");
+            // ImageConversion.LoadImage throws MissingMethodException on this game's interop; see SpriteHelper.
+            return SpriteHelper.LoadTextureFromBytes(fileData, Path.GetFileName(filePath));
         }
         catch (Exception e)
         {
