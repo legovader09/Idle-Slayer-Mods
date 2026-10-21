@@ -1,3 +1,9 @@
+### Version 1.4.1
+
+- Better naming for save backup files
+- Saves up to five backups, overwriting the oldest one when exceeding that count.
+- Added max backups per version config entry.
+
 ### Version 1.4.0
 
 - Added `ConfigRegistry`: every entry bound through `BaseConfig` is now recorded with its owning mod, section, key, description and type, so configuration UIs (IdleConfig) can generate settings automatically.

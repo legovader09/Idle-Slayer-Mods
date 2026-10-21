@@ -1,4 +1,6 @@
 ﻿// ReSharper disable RedundantUsingDirective
+
+using System.Globalization;
 using System.Reflection;
 using System.Text;
 using HarmonyLib;
@@ -21,10 +23,10 @@ namespace IdleSlayerMods.Common;
 public static class ModUtils
 {
     /// <summary>
-    /// Enable or disable debug mode, which determines whether Logger.Debug() show in the console. 
+    /// Enable or disable debug mode, which determines whether Logger.Debug() show in the console.
     /// </summary>
     public static bool DebugMode => Plugin.Settings.DebugMode.Value;
-    
+
     // ReSharper disable once UnusedMethodReturnValue.Global
     /// <summary>
     /// Registers the unity component to the scene
@@ -36,18 +38,18 @@ public static class ModUtils
         ClassInjector.RegisterTypeInIl2Cpp<T>();
         var obj = new GameObject(typeof(T).Name);
         var component = obj.AddComponent<T>();
-        
+
         if (component == null)
         {
             Plugin.Logger.Error($"Failed to add component {typeof(T).Name}");
             Object.Destroy(obj);
             return null;
         }
-        
+
         Object.DontDestroyOnLoad(obj);
         return obj;
     }
-    
+
     // ReSharper disable once UnusedMethodReturnValue.Global
     /// <summary>
     /// Registers the unity component to the scene
@@ -60,7 +62,7 @@ public static class ModUtils
         ClassInjector.RegisterTypeInIl2Cpp<T>();
         var obj = new GameObject(typeof(T).Name);
         var component = obj.AddComponent<T>();
-        
+
         if (component == null)
         {
             Plugin.Logger.Error($"Failed to add component {typeof(T).Name}");
@@ -74,14 +76,17 @@ public static class ModUtils
         }
         return obj;
     }
-    
+
     /// <summary>
     /// Creates a backup of the save files in the "Backup Saves" directory within the MelonLoader UserData directory.
     /// </summary>
     /// <remarks>
     /// Add time so we get unique copies
     /// </remarks>
-    internal static void CreateGameBackup()
+    /// <param name="maxBackupsPerVersion">
+    /// Maximum number of timestamped backups to keep per game version (per file type). Values &lt;= 0 keep all backups.
+    /// </param>
+    internal static void CreateGameBackup(int maxBackupsPerVersion = 5)
     {
         const string saveFileName = "savefile.sav";
         const string backupSaveFileName = "backup.sav";
@@ -107,18 +112,50 @@ public static class ModUtils
             saveWriter.WriteLine(JsonUtility.ToJson(FileBasedPrefs.GetSaveFile()));
             saveWriter.Close();
 
-            File.Copy(FileBasedPrefs.GetSaveFilePath(), Path.Combine(savePath, Application.version + "_" + saveFileName), true);
+            // e.g. 7.3.4_2026-10-21_10-32-15_savefile.sav
+            var timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss", CultureInfo.InvariantCulture);
+            var backupPrefix = Application.version + "_" + timestamp + "_";
+
+            File.Copy(FileBasedPrefs.GetSaveFilePath(), Path.Combine(savePath, backupPrefix + saveFileName), true);
             Plugin.Logger.Debug($"Backed up {saveFileName.Pastel(ColorARGB.GreenYellow)} to {savePath.Pastel(ColorARGB.GreenYellow)}");
 
-            File.Copy(FileBasedPrefs.GetBackupSaveFilePath(), Path.Combine(savePath, Application.version + "_" + backupSaveFileName), true);
+            File.Copy(FileBasedPrefs.GetBackupSaveFilePath(), Path.Combine(savePath, backupPrefix + backupSaveFileName), true);
             Plugin.Logger.Debug($"Backed up {backupSaveFileName.Pastel(ColorARGB.GreenYellow)} to {savePath.Pastel(ColorARGB.GreenYellow)}");
+
+            PruneBackups(savePath, Application.version, saveFileName, maxBackupsPerVersion);
+            PruneBackups(savePath, Application.version, backupSaveFileName, maxBackupsPerVersion);
         }
         catch (Exception ex)
         {
             Plugin.Logger.Error($"Failed to create backup: {ex.Message}");
         }
     }
-    
+
+    /// <summary>
+    /// Deletes the oldest timestamped backups of <paramref name="fileName"/> for <paramref name="version"/>,
+    /// keeping only the newest <paramref name="maxBackups"/>.
+    /// </summary>
+    /// <remarks>
+    /// The timestamp format (yyyy-MM-dd_HH-mm-ss) sorts chronologically as a string, so ordering by name is enough.
+    /// </remarks>
+    private static void PruneBackups(string directory, string version, string fileName, int maxBackups)
+    {
+        if (maxBackups <= 0)
+        {
+            return;
+        }
+
+        var oldBackups = Directory.GetFiles(directory, version + "_*_" + fileName)
+            .OrderByDescending(Path.GetFileName, StringComparer.Ordinal)
+            .Skip(maxBackups);
+
+        foreach (var oldBackup in oldBackups)
+        {
+            File.Delete(oldBackup);
+            Plugin.Logger.Debug($"Deleted old backup {Path.GetFileName(oldBackup).Pastel(ColorARGB.GreenYellow)}");
+        }
+    }
+
 #if DEBUG
     private static void PrintMethodCalls(MethodInfo method)
     {
@@ -130,7 +167,7 @@ public static class ModUtils
                     .ForEach(methodBase => sb.AppendLine($"\tCaller: \"{methodBase.GetShortDescription().Pastel(ColorARGB.GreenYellow)}\""));
         Plugin.Logger.Debug(sb.ToString());
     }
-    
+
     // ReSharper disable once UnusedMember.Local
     internal static void PrintCalls()
     {

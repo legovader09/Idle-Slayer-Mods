@@ -91,7 +91,7 @@ public class Plugin : MelonMod
         if (Settings != null && Settings.CreateBackups.Value)
         {
             Logger.Msg($"---Creating Backup Saves---");
-            ModUtils.CreateGameBackup();
+            ModUtils.CreateGameBackup(Settings.MaxBackupsPerVersion.Value);
             Logger.Msg($"---Backups Created---");
         }
     }
